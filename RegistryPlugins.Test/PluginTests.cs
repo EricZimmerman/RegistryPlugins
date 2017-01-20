@@ -16,6 +16,7 @@ using RegistryPlugin.OpenSavePidlMRU;
 using RegistryPlugin.RecentDocs;
 using RegistryPlugin.RunMRU;
 using RegistryPlugin.SAM;
+using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 
@@ -67,6 +68,29 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.ValueName).IsEqualTo("83");
             Check.That(ff.Extension).Contains("RecentDocs");
+        }
+
+        [Test]
+        public void BlakeTypedURLs()
+        {
+            var r = new TypedURLs();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Internet Explorer\TypedURLs");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(18);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (TypedURL)r.Values[0];
+
+            Check.That(ff.Url).IsEqualTo("http://dropbox.com/");
+            Check.That(ff.Timestamp.Value.Year).IsEqualTo(2013);
         }
 
         [Test]
@@ -249,7 +273,8 @@ namespace RegistryPlugins.Test
             Check.That(r.Values.Count).IsEqualTo(7);
         }
 
-        [Test:Ignore]
+        [Test]
+        [Ignore("Not done")]
         public void MountedDevicesTest()
         {
             var r = new MountedDevices();

@@ -128,6 +128,10 @@
       <Project>{eacb7738-27e1-4c15-b6cf-671fc18640b1}</Project>
       <Name>RegistryPlugin.TimeZoneInformation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj">
+      <Project>{8bd60648-779c-417f-8e6f-f63f67946792}</Project>
+      <Name>RegistryPlugin.TypedURLs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj">
       <Project>{f15a987f-c172-45c6-8135-6d8a6f673a5d}</Project>
       <Name>RegistryPlugin.UserAssist</Name>
