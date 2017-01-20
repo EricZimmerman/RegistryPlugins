@@ -91,6 +91,11 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.Url).IsEqualTo("http://dropbox.com/");
             Check.That(ff.Timestamp.Value.Year).IsEqualTo(2013);
+
+            ff = (TypedURL)r.Values[5];
+
+            Check.That(ff.Url).IsEqualTo("https://asgardventurecapital-my.sharepoint.com/");
+            Check.That(ff.Timestamp.Value.Day).IsEqualTo(23);
         }
 
         [Test]
