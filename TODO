@@ -1,0 +1,59 @@
+Plugins to write:
+
+NTuser
+- TypedURLs (include slack?)
+- MountPoints2
+= Software\Microsoft\Windows\CurrentVersion\Explorer\Map Network Drive MRU
+
+SOFTWARE
+- Microsoft\Windows NT\CurrentVersion (install date, etc)
+
+- Microsoft\Windows NT\CurrentVersion\NetworkList
+
+- ??NetworkProfile 
+
+SYSTEM
+- bluetooth services\\BTHPORT\\Parameters\\Devices
+- Services
+	for each key:
+	- pull values
+		- description, displayname, imagepath, ???
+	- look in parameters key
+		- servicedll
+
+- USBSTOR
+
+- MountedDevices
+
+- HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\Tcpip\Parameters\Interfaces\[Some subkey]
+64F627D656E6F63753
+DhcpNetworkHint, reverse and hex it out for name
+35 73 6f 6E 65 6D 72 6F 46
+5 s o n e m r o F
+Formenos5
+
+UsrClass
+
+Other?
+- TypedPaths (this is already straightforward)
+
+
+--- TO SORT ---
+
+Windows Info
+known networks?
+
+Microsoft Office MRU (Software\Microsoft\Office\15.0\PowerPoint\User MRU,Software\Microsoft\Office\15.0\Excel\User MRU and Software\Microsoft\Office\15.0\Word\File MRU for example)
+Office365?
+software\\Microsoft\\Office\\????"\\Common\\Open Find where ???? are different ver #s
+
+InstalledApps
+
+RDP?
+FirewallPolicy
+
+AppCompatFlags\* ? bookmarks
+
+
+
+
