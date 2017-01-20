@@ -132,6 +132,10 @@
       <Project>{f15a987f-c172-45c6-8135-6d8a6f673a5d}</Project>
       <Name>RegistryPlugin.UserAssist</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj">
+      <Project>{341698c8-4fcc-41cb-8936-0971c43b0ba0}</Project>
+      <Name>RegistryPlugin.WordWheelQuery</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj">
       <Project>{ca2f88e7-31e4-46f5-a9ae-881b2cebbab2}</Project>
       <Name>RegistryPluginBase</Name>

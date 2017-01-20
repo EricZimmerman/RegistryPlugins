@@ -16,6 +16,7 @@ using RegistryPlugin.OpenSavePidlMRU;
 using RegistryPlugin.RecentDocs;
 using RegistryPlugin.RunMRU;
 using RegistryPlugin.SAM;
+using RegistryPlugin.WordWheelQuery;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 
 namespace RegistryPlugins.Test
@@ -66,6 +67,39 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.ValueName).IsEqualTo("83");
             Check.That(ff.Extension).Contains("RecentDocs");
+        }
+
+        [Test]
+        public void BlakeWordWheel()
+        {
+            var r = new WordWheelQuery();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(3);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[0];
+
+            Check.That(ff.MruPosition).IsEqualTo(0);
+            Check.That(ff.SearchTerm).Contains("defrag");
+
+            ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[1];
+
+            Check.That(ff.MruPosition).IsEqualTo(1);
+            Check.That(ff.SearchTerm).Contains("jboone");
+
+            ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[2];
+
+            Check.That(ff.MruPosition).IsEqualTo(2);
+            Check.That(ff.SearchTerm).Contains("valhalla");
         }
 
         [Test]
