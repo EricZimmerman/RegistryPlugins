@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPluginBase", "RegistryPluginBase\RegistryPluginBase.csproj", "{CA2F88E7-31E4-46F5-A9AE-881B2CEBBAB2}"
 EndProject
@@ -44,6 +44,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WordWheelQuery", "RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj", "{341698C8-4FCC-41CB-8936-0971C43B0BA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TypedURLs", "RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj", "{8BD60648-779C-417F-8E6F-F63F67946792}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04F6A245-1E48-49FC-965C-6CE7F4523072}"
+	ProjectSection(SolutionItems) = preProject
+		TODO = TODO
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Services", "RegistryPlugin.Services\RegistryPlugin.Services.csproj", "{8944873C-6DC4-453E-A2D0-9DF2260D4A53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.OfficeMRU", "RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj", "{5D95BF82-C1BA-4A41-862F-AC693FE3B334}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +144,14 @@ Global
 		{8BD60648-779C-417F-8E6F-F63F67946792}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BD60648-779C-417F-8E6F-F63F67946792}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BD60648-779C-417F-8E6F-F63F67946792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8944873C-6DC4-453E-A2D0-9DF2260D4A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8944873C-6DC4-453E-A2D0-9DF2260D4A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8944873C-6DC4-453E-A2D0-9DF2260D4A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8944873C-6DC4-453E-A2D0-9DF2260D4A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D95BF82-C1BA-4A41-862F-AC693FE3B334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D95BF82-C1BA-4A41-862F-AC693FE3B334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D95BF82-C1BA-4A41-862F-AC693FE3B334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D95BF82-C1BA-4A41-862F-AC693FE3B334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

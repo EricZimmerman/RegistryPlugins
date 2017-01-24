@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.ServiceProcess;
 using NFluent;
 using NUnit.Framework;
 using Registry;
@@ -16,6 +17,7 @@ using RegistryPlugin.OpenSavePidlMRU;
 using RegistryPlugin.RecentDocs;
 using RegistryPlugin.RunMRU;
 using RegistryPlugin.SAM;
+using RegistryPlugin.Services;
 using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
@@ -96,6 +98,45 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.Url).IsEqualTo("https://asgardventurecapital-my.sharepoint.com/");
             Check.That(ff.Timestamp.Value.Day).IsEqualTo(23);
+        }
+
+        [Test]
+        public void BlakeServices()
+        {
+            var r = new Services();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Services");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(553);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (Service)r.Values[0];
+
+            Check.That(ff.Name).IsEqualTo(".NET CLR Data");
+            Check.That(ff.Description).IsEqualTo("");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
+
+            ff = (Service)r.Values[8];
+
+            Check.That(ff.Name).IsEqualTo("3ware");
+            Check.That(ff.Description).IsEqualTo("");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
+
+            ff = (Service)r.Values[263];
+
+            Check.That(ff.Name).IsEqualTo("napagent");
+            Check.That(ff.Description).IsEqualTo(@"@%SystemRoot%\system32\qagentrt.dll,-7");
+            Check.That(ff.StartMode).IsEqualTo(ServiceStartMode.Manual);
+            Check.That(ff.ServiceType).IsEqualTo(ServiceType.Win32ShareProcess);
+            Check.That(ff.ServiceDLL).IsEqualTo(@"%SystemRoot%\system32\qagentRT.dll");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
         }
 
         [Test]

@@ -8,13 +8,17 @@ namespace RegistryPlugin.TypedURLs
 {
     public class TypedURL
     {
-		public string Url { get; }
-		public DateTimeOffset? Timestamp { get; }
+        public DateTimeOffset? Timestamp { get; }
 
-        public TypedURL(string url, DateTimeOffset? timestamp)
+        public string Url { get; }
+		public string Slack { get; }
+		
+
+        public TypedURL(string url, DateTimeOffset? timestamp, string slack)
         {
             Url = url;
             Timestamp = timestamp;
+            Slack = slack;
         }
     }
 }

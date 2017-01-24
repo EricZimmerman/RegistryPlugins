@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -123,6 +124,10 @@
     <ProjectReference Include="..\RegistryPlugin.SAM\RegistryPlugin.SAM.csproj">
       <Project>{f50e158f-965c-49b7-ba91-7ed5dce4b77d}</Project>
       <Name>RegistryPlugin.SAM</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj">
+      <Project>{8944873c-6dc4-453e-a2d0-9df2260d4a53}</Project>
+      <Name>RegistryPlugin.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj">
       <Project>{eacb7738-27e1-4c15-b6cf-671fc18640b1}</Project>

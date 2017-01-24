@@ -80,11 +80,16 @@ namespace RegistryPlugin.TypedURLs
                     if (tsRaw != null)
                     {
                         ts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(tsRaw.ValueDataRaw,0)).ToUniversalTime();
+
+                        if (ts.Value.Year == 1601)
+                        {
+                            ts = null;
+                        }
                     }
 
+                    var slack = Encoding.Unicode.GetString(keyValue.ValueSlackRaw).Replace('\0', ' ').Trim();
 
-
-                    var ff = new TypedURL(url, ts);
+                    var ff = new TypedURL(url, ts,slack);
 
                     l.Add(ff);
                 }
