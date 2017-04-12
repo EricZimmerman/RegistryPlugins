@@ -62,7 +62,11 @@ namespace RegistryPlugin.SAM
 
             foreach (var registryKey in namesKey.SubKeys)
             {
-                if (nameMap.ContainsKey((int) registryKey.Values.First().VKRecord.DataTypeRaw))
+                if (registryKey.Values.Count == 0)
+                {
+                    continue;
+                }
+                    if (nameMap.ContainsKey((int) registryKey.Values.First().VKRecord.DataTypeRaw))
                 {
                     continue;
                 }
@@ -130,7 +134,9 @@ namespace RegistryPlugin.SAM
 
                     var vVal = key1.Values.SingleOrDefault(t => t.ValueName == "V");
 
-                    var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
+                    if (vVal != null)
+                    {
+ var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
                     var nameLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc + 4);
                     var name1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToName, nameLen);
 
@@ -156,6 +162,9 @@ namespace RegistryPlugin.SAM
                         lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir, createdOn);
 
                     _values.Add(u);
+                    }
+
+                   
                 }
                 catch (Exception ex)
                 {

@@ -370,6 +370,22 @@ namespace RegistryPlugins.Test
         }
 
         [Test]
+        public void KnownNetwork()
+        {
+            var r = new KnownNetworks();
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SOFTWARE_HPSpectre_EST");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(23);
+        }
+
+        [Test]
         public void RunMRUTest()
         {
             var r = new RunMRU();
@@ -384,6 +400,29 @@ namespace RegistryPlugins.Test
 
             Check.That(r.Values.Count).IsEqualTo(4);
         }
+
+
+        [Test]
+        public void SamPluginExploding()
+        {
+            var r = new UserAccounts();
+
+            var reg = new RegistryHive(@"C:\Users\eric\Desktop\SAM_brokenPlugin");
+            reg.RecoverDeleted = true;
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"SAM\Domains\Account\Users");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+        }
+
+
 
         [Test]
         public void SamPluginShouldFindEricAccount()

@@ -40,7 +40,7 @@ namespace RegistryPlugin.KnownNetworks
 
         public string LongDescription
             =>
-            "";
+            "Note: The first and last connect timestamps are displayed in LOCAL time and will always reflect the time zone of the machine this plugin is executed on.";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -178,7 +178,10 @@ var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated")
             int seconds = BitConverter.ToInt16(rawBytes, 12);
             int thousands = BitConverter.ToInt16(rawBytes, 14);
 
-           var dt = new DateTimeOffset(year, month, day, hour, minutes, seconds, thousands,TimeSpan.Zero);
+          // var dt = new DateTimeOffset(year, month, day, hour, minutes, seconds, thousands, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
+           var dt1 = new DateTime(year, month, day, hour, minutes, seconds, thousands, DateTimeKind.Local);
+
+            var dt = new DateTimeOffset(dt1);
 
             return dt;
         }
