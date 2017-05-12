@@ -67,7 +67,7 @@ namespace RegistryPlugin.UserAssist
 
                         unrot = unrot.Replace(guid, foldername);
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException)
                     {
                         // Syntax error in the regular expression
                     }

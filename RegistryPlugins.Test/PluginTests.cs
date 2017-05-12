@@ -8,6 +8,7 @@ using Registry;
 using RegistryExplorer.MountedDevices;
 using RegistryPlugin.AppCompatCache;
 using RegistryPlugin.CIDSizeMRU;
+using RegistryPlugin.DHCPNetworkHint;
 using RegistryPlugin.FirstFolder;
 using RegistryPlugin.KnownNetworks;
 using RegistryPlugin.LastVisitedMRU;
@@ -18,15 +19,45 @@ using RegistryPlugin.RecentDocs;
 using RegistryPlugin.RunMRU;
 using RegistryPlugin.SAM;
 using RegistryPlugin.Services;
+using RegistryPlugin.TerminalServerClient;
 using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
-using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
+
 
 namespace RegistryPlugins.Test
 {
     [TestFixture]
     public class PluginTests
     {
+        [Test]
+        public void DhcpNetworkHint()
+        {
+            var r = new DHCPNetworkHint();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Services\Tcpip\Parameters\Interfaces");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(6);
+
+            var ff = (RegistryPlugin.DHCPNetworkHint.ValuesOut)r.Values[1];
+
+            Check.That(ff.DHCPServer).IsEqualTo("10.17.0.7");
+            Check.That(ff.DHCPAddress).Contains("10.17.14.218");
+            Check.That(ff.DefaultGateway).Contains("10.17.0.1");
+            Check.That(ff.Interface).Contains("{5185491C-401D-491E-8C6F-07F6AFFF1A64}");
+            Check.That(ff.InterfaceSubkey).Contains("072776E2165627F6D266275656");
+            Check.That(ff.LeaseExpires.Year).IsEqualTo(2013);
+            Check.That(ff.LeaseObtained.Month).IsEqualTo(10);
+            Check.That(ff.NetworkHint).Contains("prg.aero-fre");
+        }
+
+
         [Test]
         public void AppCompatTest()
         {
@@ -43,10 +74,79 @@ namespace RegistryPlugins.Test
 
             Check.That(r.Values.Count).IsEqualTo(1024);
 
-            var ff = (ValuesOut) r.Values[0];
+            var ff = (RegistryPlugin.AppCompatCache.ValuesOut) r.Values[0];
 
             Check.That(ff.CacheEntryPosition).IsEqualTo(0);
             Check.That(ff.ProgramName).Contains("java");
+        }
+
+        [Test]
+        public void AppCompatTestCreators()
+        {
+            var r = new AppCompat();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_Creators");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Control\Session Manager\AppCompatCache");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(506);
+
+            var ff = (RegistryPlugin.AppCompatCache.ValuesOut)r.Values[0];
+
+            Check.That(ff.CacheEntryPosition).IsEqualTo(0);
+            Check.That(ff.ProgramName).Contains("nvstreg.exe");
+        }
+
+        [Test]
+        public void TerminalServers()
+        {
+            var r = new TerminalServerClient();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(6);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
+
+            Check.That(ff.MRUPosition).IsEqualTo(1);
+            Check.That(ff.HostName).Contains("GOON");
+
+            r = new TerminalServerClient();
+
+            reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER3.DAT");
+            reg.ParseHive();
+
+             key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(7);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
+
+            Check.That(ff.MRUPosition).IsEqualTo(-1);
+            Check.That(ff.HostName).Contains("GOON");
+
+            ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[3];
+
+            Check.That(ff.MRUPosition).IsEqualTo(-1);
+            Check.That(ff.HostName).Contains("SVR01");
         }
 
         [Test]
@@ -407,7 +507,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"C:\Users\eric\Desktop\SAM_brokenPlugin");
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SAM_brokenPlugin");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 

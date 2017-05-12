@@ -41,12 +41,12 @@ namespace RegistryPlugin.AppCompatCache
 
         public string ShortDescription
             =>
-            "Identifies application compatibility issues. The cache data tracks file path, size, and last modified time"
+            "Tracks application compatibility. The cache data tracks file path, size, and last modified time. In some cases, an executed flag is also available."
             ;
 
         public string LongDescription
             =>
-            "Identifies application compatibility issues. The cache data tracks file path, size, and last modified time. Longer stuff here"
+                "Useful to show evidence of execution"
             ;
 
         public double Version => 0.5;

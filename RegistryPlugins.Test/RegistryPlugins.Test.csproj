@@ -36,7 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.4.9\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
@@ -85,6 +85,10 @@
       <Project>{BA3A8987-719E-4AF6-A806-871C052C8BAE}</Project>
       <Name>RegistryPlugin.CIDSizeMRU</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj">
+      <Project>{228b4e4b-0294-4880-84f7-aea116257be7}</Project>
+      <Name>RegistryPlugin.DHCPNetworkHint</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj">
       <Project>{7f63722b-3a23-4cb6-9c3d-2a57eb122b73}</Project>
       <Name>RegistryPlugin.FileExts</Name>
@@ -104,6 +108,10 @@
     <ProjectReference Include="..\RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj">
       <Project>{2868ba3d-6eb5-4c9a-a94d-110f0ea19129}</Project>
       <Name>RegistryPlugin.LastVisitedPidlMRU</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj">
+      <Project>{5d95bf82-c1ba-4a41-862f-ac693fe3b334}</Project>
+      <Name>RegistryPlugin.OfficeMRU</Name>
     </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj">
       <Project>{5116292f-2eac-405f-b0cf-77d11df3cdf8}</Project>
@@ -128,6 +136,10 @@
     <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj">
       <Project>{8944873c-6dc4-453e-a2d0-9df2260d4a53}</Project>
       <Name>RegistryPlugin.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj">
+      <Project>{6563c75f-c571-4e76-a072-77c021055bcf}</Project>
+      <Name>RegistryPlugin.TerminalServerClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj">
       <Project>{eacb7738-27e1-4c15-b6cf-671fc18640b1}</Project>

@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.KnownNetworks
 {
-  public  class KnownNetworks : IRegistryPluginGrid
+    public class KnownNetworks : IRegistryPluginGrid
     {
         private readonly BindingList<KnownNetwork> _values;
 
@@ -22,6 +20,7 @@ namespace RegistryPlugin.KnownNetworks
         }
 
         public string InternalGuid => "663d3ac7-0229-4756-ada3-ed4f39646170";
+
         public List<string> KeyPaths => new List<string>(new[]
         {
             @"Microsoft\Windows NT\CurrentVersion\NetworkList"
@@ -40,10 +39,11 @@ namespace RegistryPlugin.KnownNetworks
 
         public string LongDescription
             =>
-            "Note: The first and last connect timestamps are displayed in LOCAL time and will always reflect the time zone of the machine this plugin is executed on.";
+                "Note: The first and last connect timestamps are displayed in LOCAL time and will always reflect the time zone of the machine this plugin is executed on.";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
+
         public void ProcessValues(RegistryKey key)
         {
             _values.Clear();
@@ -61,46 +61,47 @@ namespace RegistryPlugin.KnownNetworks
             {
                 try
                 {
-var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated").ValueDataRaw;
-               var rawLast = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueDataRaw;
+                    var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated").ValueDataRaw;
+                    var rawLast = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueDataRaw;
 
-                var isManaged = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueData == "0";
+                    var isManaged = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueData ==
+                                    "0";
 
-                var profileName = profilesSubKey.Values.Single(t => t.ValueName == "ProfileName").ValueData;
+                    var profileName = profilesSubKey.Values.Single(t => t.ValueName == "ProfileName").ValueData;
 
-                var networkName = string.Empty;
-                if (!isManaged)
-                {
-                    networkName = profileName;
-                }
-
-                var dnsSuffix = string.Empty;
-                var macAddress = string.Empty;
-
-                var typeNum = int.Parse( profilesSubKey.Values.Single(t => t.ValueName == "NameType").ValueData);
-
-                var networkType = KnownNetwork.NameTypes.Unknown;
-
-                if (typeNum > 0)
-                {
-                    try
+                    var networkName = string.Empty;
+                    if (!isManaged)
                     {
-                        networkType = (KnownNetwork.NameTypes)typeNum;
+                        networkName = profileName;
                     }
-                    catch (Exception)
-                    {
-                        Errors.Add($"Could not determine network type! Type value: {typeNum}");
-                    }
-                }
 
-                var kn = new KnownNetwork(networkName,networkType,GetDateFrom128Bit(rawCreated),GetDateFrom128Bit(rawLast),isManaged,dnsSuffix,macAddress,profilesSubKey.KeyName);
-                _values.Add(kn);
+                    var dnsSuffix = string.Empty;
+                    var macAddress = string.Empty;
+
+                    var typeNum = int.Parse(profilesSubKey.Values.Single(t => t.ValueName == "NameType").ValueData);
+
+                    var networkType = KnownNetwork.NameTypes.Unknown;
+
+                    if (typeNum > 0)
+                    {
+                        try
+                        {
+                            networkType = (KnownNetwork.NameTypes) typeNum;
+                        }
+                        catch (Exception)
+                        {
+                            Errors.Add($"Could not determine network type! Type value: {typeNum}");
+                        }
+                    }
+
+                    var kn = new KnownNetwork(networkName, networkType, GetDateFrom128Bit(rawCreated),
+                        GetDateFrom128Bit(rawLast), isManaged, dnsSuffix, macAddress, profilesSubKey.KeyName);
+                    _values.Add(kn);
                 }
                 catch (Exception e)
                 {
                     Errors.Add($"Error processing Profiles subkey '{profilesSubKey.KeyName}': {e.Message}");
                 }
-               
             }
 
             var sigsKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Signatures");
@@ -164,8 +165,9 @@ var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated")
                     Errors.Add($"Error processing Managed subkey '{managedKey.KeyName}': {e.Message}");
                 }
             }
-
         }
+
+        public IBindingList Values => _values;
 
         public DateTimeOffset GetDateFrom128Bit(byte[] rawBytes)
         {
@@ -178,14 +180,12 @@ var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated")
             int seconds = BitConverter.ToInt16(rawBytes, 12);
             int thousands = BitConverter.ToInt16(rawBytes, 14);
 
-          // var dt = new DateTimeOffset(year, month, day, hour, minutes, seconds, thousands, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
-           var dt1 = new DateTime(year, month, day, hour, minutes, seconds, thousands, DateTimeKind.Local);
+            // var dt = new DateTimeOffset(year, month, day, hour, minutes, seconds, thousands, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
+            var dt1 = new DateTime(year, month, day, hour, minutes, seconds, thousands, DateTimeKind.Local);
 
             var dt = new DateTimeOffset(dt1);
 
             return dt;
         }
-
-        public IBindingList Values => _values;
     }
 }
