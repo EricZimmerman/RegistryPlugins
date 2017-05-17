@@ -85,7 +85,8 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
 
                 //get position of beef0004
 
-                var beefPos = BitConverter.ToString(bytes).IndexOf("04-00-EF-BE", StringComparison.InvariantCulture)/3;
+                var beefPos = BitConverter.ToString(bytes).IndexOf("04-00-EF-BE", StringComparison.InvariantCulture) /
+                              3;
                 beefPos = beefPos - 4; //add header back for beef
 
                 var strLen = beefPos - index;
@@ -186,7 +187,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
         ///// </summary>
         //public int? MFTSequenceNumber { get; set; }
 
-        public int FileSize { get; private set; }
+        public int FileSize { get; }
 
         public string Miscellaneous { get; private set; }
 

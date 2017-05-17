@@ -125,7 +125,8 @@ namespace RegistryPlugin.OpenSaveMRU
                             openedOn = registryKey.LastWriteTime;
                         }
 
-                        var v = new ValuesOut(registryKey.KeyName, keyValue.ValueData, keyValue.ValueName, mru, openedOn);
+                        var v = new ValuesOut(registryKey.KeyName, keyValue.ValueData, keyValue.ValueName, mru,
+                            openedOn);
 
                         valuesList.Add(v);
                     }

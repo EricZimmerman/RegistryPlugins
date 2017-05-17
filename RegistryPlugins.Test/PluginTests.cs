@@ -22,42 +22,13 @@ using RegistryPlugin.Services;
 using RegistryPlugin.TerminalServerClient;
 using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
-
+using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 
 namespace RegistryPlugins.Test
 {
     [TestFixture]
     public class PluginTests
     {
-        [Test]
-        public void DhcpNetworkHint()
-        {
-            var r = new DHCPNetworkHint();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"ControlSet001\Services\Tcpip\Parameters\Interfaces");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(6);
-
-            var ff = (RegistryPlugin.DHCPNetworkHint.ValuesOut)r.Values[1];
-
-            Check.That(ff.DHCPServer).IsEqualTo("10.17.0.7");
-            Check.That(ff.DHCPAddress).Contains("10.17.14.218");
-            Check.That(ff.DefaultGateway).Contains("10.17.0.1");
-            Check.That(ff.Interface).Contains("{5185491C-401D-491E-8C6F-07F6AFFF1A64}");
-            Check.That(ff.InterfaceSubkey).Contains("072776E2165627F6D266275656");
-            Check.That(ff.LeaseExpires.Year).IsEqualTo(2013);
-            Check.That(ff.LeaseObtained.Month).IsEqualTo(10);
-            Check.That(ff.NetworkHint).Contains("prg.aero-fre");
-        }
-
-
         [Test]
         public void AppCompatTest()
         {
@@ -74,7 +45,7 @@ namespace RegistryPlugins.Test
 
             Check.That(r.Values.Count).IsEqualTo(1024);
 
-            var ff = (RegistryPlugin.AppCompatCache.ValuesOut) r.Values[0];
+            var ff = (ValuesOut) r.Values[0];
 
             Check.That(ff.CacheEntryPosition).IsEqualTo(0);
             Check.That(ff.ProgramName).Contains("java");
@@ -96,203 +67,10 @@ namespace RegistryPlugins.Test
 
             Check.That(r.Values.Count).IsEqualTo(506);
 
-            var ff = (RegistryPlugin.AppCompatCache.ValuesOut)r.Values[0];
+            var ff = (ValuesOut) r.Values[0];
 
             Check.That(ff.CacheEntryPosition).IsEqualTo(0);
             Check.That(ff.ProgramName).Contains("nvstreg.exe");
-        }
-
-        [Test]
-        public void TerminalServers()
-        {
-            var r = new TerminalServerClient();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER.DAT");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(6);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
-
-            Check.That(ff.MRUPosition).IsEqualTo(1);
-            Check.That(ff.HostName).Contains("GOON");
-
-            r = new TerminalServerClient();
-
-            reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER3.DAT");
-            reg.ParseHive();
-
-             key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(7);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
-
-            Check.That(ff.MRUPosition).IsEqualTo(-1);
-            Check.That(ff.HostName).Contains("GOON");
-
-            ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[3];
-
-            Check.That(ff.MRUPosition).IsEqualTo(-1);
-            Check.That(ff.HostName).Contains("SVR01");
-        }
-
-        [Test]
-        public void BlakeRecentDocs()
-        {
-            var r = new RecentDocs();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(192);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (RecentDoc)r.Values[0];
-
-            Check.That(ff.ValueName).IsEqualTo("83");
-            Check.That(ff.Extension).Contains("RecentDocs");
-        }
-
-        [Test]
-        public void BlakeTypedURLs()
-        {
-            var r = new TypedURLs();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Software\Microsoft\Internet Explorer\TypedURLs");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(18);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (TypedURL)r.Values[0];
-
-            Check.That(ff.Url).IsEqualTo("http://dropbox.com/");
-            Check.That(ff.Timestamp.Value.Year).IsEqualTo(2013);
-
-            ff = (TypedURL)r.Values[5];
-
-            Check.That(ff.Url).IsEqualTo("https://asgardventurecapital-my.sharepoint.com/");
-            Check.That(ff.Timestamp.Value.Day).IsEqualTo(23);
-        }
-
-        [Test]
-        public void BlakeServices()
-        {
-            var r = new Services();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"ControlSet001\Services");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(553);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (Service)r.Values[0];
-
-            Check.That(ff.Name).IsEqualTo(".NET CLR Data");
-            Check.That(ff.Description).IsEqualTo("");
-            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
-
-            ff = (Service)r.Values[8];
-
-            Check.That(ff.Name).IsEqualTo("3ware");
-            Check.That(ff.Description).IsEqualTo("");
-            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
-
-            ff = (Service)r.Values[263];
-
-            Check.That(ff.Name).IsEqualTo("napagent");
-            Check.That(ff.Description).IsEqualTo(@"@%SystemRoot%\system32\qagentrt.dll,-7");
-            Check.That(ff.StartMode).IsEqualTo(ServiceStartMode.Manual);
-            Check.That(ff.ServiceType).IsEqualTo(ServiceType.Win32ShareProcess);
-            Check.That(ff.ServiceDLL).IsEqualTo(@"%SystemRoot%\system32\qagentRT.dll");
-            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
-        }
-
-        [Test]
-        public void BlakeWordWheel()
-        {
-            var r = new WordWheelQuery();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(3);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[0];
-
-            Check.That(ff.MruPosition).IsEqualTo(0);
-            Check.That(ff.SearchTerm).Contains("defrag");
-
-            ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[1];
-
-            Check.That(ff.MruPosition).IsEqualTo(1);
-            Check.That(ff.SearchTerm).Contains("jboone");
-
-            ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[2];
-
-            Check.That(ff.MruPosition).IsEqualTo(2);
-            Check.That(ff.SearchTerm).Contains("valhalla");
-        }
-
-        [Test]
-        public void BlakeOpenSavePidlMRU()
-        {
-            var r = new OpenSavePidlMRU();
-
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(57);
-            Check.That(r.Errors.Count).IsEqualTo(0);
-
-            var ff = (RegistryPlugin.OpenSavePidlMRU.ValuesOut)r.Values[0];
-
-            Check.That(ff.AbsolutePath).IsEqualTo(@"Web sites\https://asgardventurecapital.sharepoint.com\Shared Documents\Confidential Analysis Data\NETFLIX_10-K_20130201.xlsx");
-            Check.That(ff.ValueName).IsEqualTo("17");
         }
 
 
@@ -313,15 +91,161 @@ namespace RegistryPlugins.Test
             Check.That(r.Values.Count).IsEqualTo(27);
             Check.That(r.Errors.Count).IsEqualTo(0);
 
-            var ff = (KnownNetwork)r.Values[0];
+            var ff = (KnownNetwork) r.Values[0];
 
             Check.That(ff.NetworkName).IsEqualTo(@"gogoinflight");
             Check.That(ff.DNSSuffix).IsEqualTo(@"<none>");
             Check.That(ff.ProfileGUID).IsEqualTo("{167B2E5E-29EA-429E-8D43-E82043F0D3CF}");
             Check.That(ff.FirstConnect.Year).IsEqualTo(2013);
             Check.That(ff.FirstConnect.Day).IsEqualTo(3);
+        }
 
+        [Test]
+        public void BlakeOpenSavePidlMRU()
+        {
+            var r = new OpenSavePidlMRU();
 
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(57);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.OpenSavePidlMRU.ValuesOut) r.Values[0];
+
+            Check.That(ff.AbsolutePath)
+                .IsEqualTo(
+                    @"Web sites\https://asgardventurecapital.sharepoint.com\Shared Documents\Confidential Analysis Data\NETFLIX_10-K_20130201.xlsx");
+            Check.That(ff.ValueName).IsEqualTo("17");
+        }
+
+        [Test]
+        public void BlakeRecentDocs()
+        {
+            var r = new RecentDocs();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(192);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RecentDoc) r.Values[0];
+
+            Check.That(ff.ValueName).IsEqualTo("83");
+            Check.That(ff.Extension).Contains("RecentDocs");
+        }
+
+        [Test]
+        public void BlakeServices()
+        {
+            var r = new Services();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Services");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(553);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (Service) r.Values[0];
+
+            Check.That(ff.Name).IsEqualTo(".NET CLR Data");
+            Check.That(ff.Description).IsEqualTo("");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
+
+            ff = (Service) r.Values[8];
+
+            Check.That(ff.Name).IsEqualTo("3ware");
+            Check.That(ff.Description).IsEqualTo("");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
+
+            ff = (Service) r.Values[263];
+
+            Check.That(ff.Name).IsEqualTo("napagent");
+            Check.That(ff.Description).IsEqualTo(@"@%SystemRoot%\system32\qagentrt.dll,-7");
+            Check.That(ff.StartMode).IsEqualTo(ServiceStartMode.Manual);
+            Check.That(ff.ServiceType).IsEqualTo(ServiceType.Win32ShareProcess);
+            Check.That(ff.ServiceDLL).IsEqualTo(@"%SystemRoot%\system32\qagentRT.dll");
+            Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
+        }
+
+        [Test]
+        public void BlakeTypedURLs()
+        {
+            var r = new TypedURLs();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Internet Explorer\TypedURLs");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(18);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (TypedURL) r.Values[0];
+
+            Check.That(ff.Url).IsEqualTo("http://dropbox.com/");
+            Check.That(ff.Timestamp.Value.Year).IsEqualTo(2013);
+
+            ff = (TypedURL) r.Values[5];
+
+            Check.That(ff.Url).IsEqualTo("https://asgardventurecapital-my.sharepoint.com/");
+            Check.That(ff.Timestamp.Value.Day).IsEqualTo(23);
+        }
+
+        [Test]
+        public void BlakeWordWheel()
+        {
+            var r = new WordWheelQuery();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(3);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[0];
+
+            Check.That(ff.MruPosition).IsEqualTo(0);
+            Check.That(ff.SearchTerm).Contains("defrag");
+
+            ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[1];
+
+            Check.That(ff.MruPosition).IsEqualTo(1);
+            Check.That(ff.SearchTerm).Contains("jboone");
+
+            ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[2];
+
+            Check.That(ff.MruPosition).IsEqualTo(2);
+            Check.That(ff.SearchTerm).Contains("valhalla");
         }
 
         [Test]
@@ -344,6 +268,34 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.MRUPosition).IsEqualTo(0);
             Check.That(ff.Executable).Contains("AcroRd32.exe");
+        }
+
+        [Test]
+        public void DhcpNetworkHint()
+        {
+            var r = new DHCPNetworkHint();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SYSTEM_dblake");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Services\Tcpip\Parameters\Interfaces");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(6);
+
+            var ff = (RegistryPlugin.DHCPNetworkHint.ValuesOut) r.Values[1];
+
+            Check.That(ff.DHCPServer).IsEqualTo("10.17.0.7");
+            Check.That(ff.DHCPAddress).Contains("10.17.14.218");
+            Check.That(ff.DefaultGateway).Contains("10.17.0.1");
+            Check.That(ff.Interface).Contains("{5185491C-401D-491E-8C6F-07F6AFFF1A64}");
+            Check.That(ff.InterfaceSubkey).Contains("072776E2165627F6D266275656");
+            Check.That(ff.LeaseExpires.Year).IsEqualTo(2013);
+            Check.That(ff.LeaseObtained.Month).IsEqualTo(10);
+            Check.That(ff.NetworkHint).Contains("prg.aero-fre");
         }
 
 
@@ -385,6 +337,22 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.MRUPosition).IsEqualTo(0);
             Check.That(ff.Executable).Contains(@"C:\Program Files (x86)\Canon\MP Navigator EX 2.0\mpnex20.exe");
+        }
+
+        [Test]
+        public void KnownNetwork()
+        {
+            var r = new KnownNetworks();
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SOFTWARE_HPSpectre_EST");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(23);
         }
 
         [Test]
@@ -470,22 +438,6 @@ namespace RegistryPlugins.Test
         }
 
         [Test]
-        public void KnownNetwork()
-        {
-            var r = new KnownNetworks();
-            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SOFTWARE_HPSpectre_EST");
-            reg.ParseHive();
-
-            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
-
-            Check.That(r.Values.Count).IsEqualTo(0);
-
-            r.ProcessValues(key);
-
-            Check.That(r.Values.Count).IsEqualTo(23);
-        }
-
-        [Test]
         public void RunMRUTest()
         {
             var r = new RunMRU();
@@ -499,6 +451,32 @@ namespace RegistryPlugins.Test
             r.ProcessValues(key);
 
             Check.That(r.Values.Count).IsEqualTo(4);
+        }
+
+        [Test]
+        public void SamDBlakeGroups()
+        {
+            var r = new UserAccounts();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SAM_dblake");
+            reg.RecoverDeleted = true;
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"SAM\Domains\Account\Users");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+
+            var users = (BindingList<UserOut>) r.Values;
+
+            var user = users.Single(t => t.UserId == 1001);
+
+            Check.That(user.UserName.ToLowerInvariant()).IsEqualTo("donald");
         }
 
 
@@ -519,9 +497,30 @@ namespace RegistryPlugins.Test
 
             Check.That(r.Values.Count).IsGreaterThan(0);
             Check.That(r.Errors.Count).IsEqualTo(0);
-
         }
 
+        [Test]
+        public void SamPluginPWHint()
+        {
+            var r = new UserAccounts();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\SAM_hasBigEndianDWord");
+            reg.RecoverDeleted = true;
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"SAM\Domains\Account\Users");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var u = (UserOut) r.Values[2];
+
+            Check.That(u.PasswordHint).Equals("G");
+        }
 
 
         [Test]
@@ -571,6 +570,53 @@ namespace RegistryPlugins.Test
             user = users.Single(t => t.UserId == 500);
 
             Check.That(user.UserName.ToLowerInvariant()).IsEqualTo("administrator");
+        }
+
+        [Test]
+        public void TerminalServers()
+        {
+            var r = new TerminalServerClient();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(6);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[0];
+
+            Check.That(ff.MRUPosition).IsEqualTo(1);
+            Check.That(ff.HostName).Contains("GOON");
+
+            r = new TerminalServerClient();
+
+            reg = new RegistryHive(@"D:\Sync\RegistryHives\ALL\NTUSER3.DAT");
+            reg.ParseHive();
+
+            key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(7);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[0];
+
+            Check.That(ff.MRUPosition).IsEqualTo(-1);
+            Check.That(ff.HostName).Contains("GOON");
+
+            ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[3];
+
+            Check.That(ff.MRUPosition).IsEqualTo(-1);
+            Check.That(ff.HostName).Contains("SVR01");
         }
     }
 }

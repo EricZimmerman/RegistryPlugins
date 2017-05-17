@@ -39,8 +39,7 @@ namespace RegistryPlugin.CIDSizeMRU
 
         public string LongDescription
             =>
-            ""
-            ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

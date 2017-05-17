@@ -12,14 +12,14 @@ namespace RegistryPlugin.OpenSavePidlMRU
             Details = details;
             ValueName = valueName;
             MruPosition = mruPosition;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string Extension { get; }
         public string ValueName { get; }
         public int MruPosition { get; }
         public string AbsolutePath { get; }
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
         public string Details { get; }
     }
 }

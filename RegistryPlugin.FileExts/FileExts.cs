@@ -38,8 +38,7 @@ namespace RegistryPlugin.FileExts
             "Extracts list of file extensions and associated programs";
 
         public string LongDescription =>
-            @"Processes subkeys of 'Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts' and displays associated executables, program IDs and user choice for each extension found. The list of executables used for a given file extension are in MRUList order"
-            ;
+            @"Processes subkeys of 'Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts' and displays associated executables, program IDs and user choice for each extension found. The list of executables used for a given file extension are in MRUList order";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

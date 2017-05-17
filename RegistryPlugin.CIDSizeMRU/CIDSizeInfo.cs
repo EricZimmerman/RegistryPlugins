@@ -8,12 +8,12 @@ namespace RegistryPlugin.CIDSizeMRU
         {
             Executable = exeName;
             MRUPosition = mruPos;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string Executable { get; }
         public int MRUPosition { get; }
 
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
     }
 }

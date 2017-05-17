@@ -41,8 +41,7 @@ namespace RegistryPlugin.FirstFolder
 
         public string LongDescription
             =>
-            "Note: Not all entries will have a folder value"
-            ;
+                "Note: Not all entries will have a folder value";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

@@ -36,12 +36,10 @@ namespace RegistryPlugin.Ares
         public string PluginName => "Ares P2P information";
 
         public string ShortDescription =>
-            "Decodes various Ares P2P information including last connect, search terms, port #, etc"
-            ;
+            "Decodes various Ares P2P information including last connect, search terms, port #, etc";
 
         public string LongDescription =>
-            "Decodes various Ares P2P information including last connect, search terms, port #, etc"
-            ;
+            "Decodes various Ares P2P information including last connect, search terms, port #, etc";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

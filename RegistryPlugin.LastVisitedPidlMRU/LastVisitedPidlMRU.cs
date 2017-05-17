@@ -42,12 +42,10 @@ namespace RegistryPlugin.LastVisitedPidlMRU
         public string PluginName => "ComDlg32 LastVisitedPidlMRU";
 
         public string ShortDescription =>
-            "Extracts shell items from LastVisitedPidlMRU key"
-            ;
+            "Extracts shell items from LastVisitedPidlMRU key";
 
         public string LongDescription =>
-            "LastVisitedPidlMRU contains a wealth of information including timestamps, MFT information, GUIDs, and more"
-            ;
+            "LastVisitedPidlMRU contains a wealth of information including timestamps, MFT information, GUIDs, and more";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -114,7 +112,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
                         var exeName = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Split('\0').First();
 
                         //update index to end of exename + null terminator
-                        index = exeName.Length*2 + 2;
+                        index = exeName.Length * 2 + 2;
 
                         //pull out shell items
                         while (index < keyValue.ValueDataRaw.Length)

@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistryPlugin.OfficeMRU
 {
-  public  class ValuesOut
+    public class ValuesOut
     {
-
         public ValuesOut(string valueName, DateTimeOffset firstOpened, DateTimeOffset? lastOpened, string fileName)
         {
             ValueName = valueName;
-            LastOpened = lastOpened;
-            FirstOpened = firstOpened;
+            LastOpened = lastOpened?.UtcDateTime;
+            FirstOpened = firstOpened.DateTime;
             FileName = fileName;
         }
+
         public string ValueName { get; }
-        public DateTimeOffset FirstOpened { get; }
-        public DateTimeOffset? LastOpened { get; }
+        public DateTime FirstOpened { get; }
+        public DateTime? LastOpened { get; }
         public string FileName { get; }
     }
 }

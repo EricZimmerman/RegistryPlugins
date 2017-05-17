@@ -19,8 +19,8 @@ namespace RegistryPlugin.RecentDocs
             //      LastAccess = lastAccess;
             //     LastAccess = lastAccess;
             Extension = extension;
-            OpenedOn = openedOn;
-            ExtensionLastOpened = extensionLastOpened;
+            OpenedOn = openedOn?.UtcDateTime;
+            ExtensionLastOpened = extensionLastOpened?.UtcDateTime;
         }
 
         public string Extension { get; }
@@ -29,15 +29,15 @@ namespace RegistryPlugin.RecentDocs
         public string LnkName { get; }
         public int MruPosition { get; }
 
-        public DateTimeOffset? OpenedOn { get; }
-        public DateTimeOffset? ExtensionLastOpened { get; }
-        //       public DateTimeOffset? LastAccess { get; }
-
-        //      public DateTimeOffset? CreatedOn { get; }
-        //      public string MFTInfo { get; }
-
-        //     public int? MFTSequenceNumber { get; }
+        public DateTime? OpenedOn { get; }
+        public DateTime? ExtensionLastOpened { get; }
 
         //       public ulong? MFTEntryNumber { get; }
+
+        //     public int? MFTSequenceNumber { get; }
+        //      public string MFTInfo { get; }
+
+        //      public DateTimeOffset? CreatedOn { get; }
+        //       public DateTimeOffset? LastAccess { get; }
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistryPlugin.KnownNetworks
 {
@@ -21,13 +17,26 @@ namespace RegistryPlugin.KnownNetworks
         {
             NetworkName = networkName;
             NameType = type;
-            FirstConnect = firstConnect;
-            LastConnected = lastConnect;
+            FirstConnect = firstConnect.DateTime;
+            LastConnected = lastConnect.DateTime;
             Managed = managed;
             DNSSuffix = dnsSuffix;
             GatewayMacAddress = gatewayMacAddress;
             ProfileGUID = profileGuid;
         }
+
+
+        public string NetworkName { get; private set; }
+        public NameTypes NameType { get; }
+
+        public DateTime FirstConnect { get; }
+        public DateTime LastConnected { get; }
+
+        public bool Managed { get; }
+
+        public string DNSSuffix { get; private set; }
+        public string GatewayMacAddress { get; private set; }
+        public string ProfileGUID { get; }
 
         public void UpdateInfo(string macAddress, string dnsSuffix, string networkName)
         {
@@ -35,19 +44,5 @@ namespace RegistryPlugin.KnownNetworks
             DNSSuffix = dnsSuffix;
             NetworkName = networkName;
         }
-
-
-        public string NetworkName { get; private set; }
-        public NameTypes NameType { get; }
-
-        public DateTimeOffset FirstConnect { get; }
-        public DateTimeOffset LastConnected { get; }
-
-        public bool Managed { get; }
-        
-        public string DNSSuffix { get; private set; }
-        public string GatewayMacAddress { get; private set; }
-        public string ProfileGUID { get; }
-        
     }
 }

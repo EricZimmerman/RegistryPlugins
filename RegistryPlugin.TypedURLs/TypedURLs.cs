@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -41,8 +39,7 @@ namespace RegistryPlugin.TypedURLs
 
         public string LongDescription
             =>
-            ""
-            ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -79,7 +76,7 @@ namespace RegistryPlugin.TypedURLs
 
                     if (tsRaw != null)
                     {
-                        ts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(tsRaw.ValueDataRaw,0)).ToUniversalTime();
+                        ts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(tsRaw.ValueDataRaw, 0)).ToUniversalTime();
 
                         if (ts.Value.Year == 1601)
                         {
@@ -89,7 +86,7 @@ namespace RegistryPlugin.TypedURLs
 
                     var slack = Encoding.Unicode.GetString(keyValue.ValueSlackRaw).Replace('\0', ' ').Trim();
 
-                    var ff = new TypedURL(url, ts,slack);
+                    var ff = new TypedURL(url, ts, slack);
 
                     l.Add(ff);
                 }

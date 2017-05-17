@@ -42,8 +42,7 @@ namespace RegistryPlugin.RecentDocs
 
         public string LongDescription
             =>
-            "A list of all recent documents will be generated when clicking on the root RecentDocs key. A list for a certain extension will be generated when clicking on a subkey of RecentDocs"
-            ;
+                "A list of all recent documents will be generated when clicking on the root RecentDocs key. A list for a certain extension will be generated when clicking on a subkey of RecentDocs";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -78,7 +77,6 @@ namespace RegistryPlugin.RecentDocs
                 {
                     var i = 0;
 
-                  
 
                     var mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
                     index += 4;
@@ -95,7 +93,6 @@ namespace RegistryPlugin.RecentDocs
                 }
 
 
-
                 foreach (var keyValue in key.Values)
                 {
                     if (keyValue.ValueName == "MRUListEx" || keyValue.ValueName == "ViewStream")
@@ -107,7 +104,7 @@ namespace RegistryPlugin.RecentDocs
 
                     var targetName = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Split('\0')[0];
 
-                    var offsetToRemainingData = targetName.Length*2 + 2;
+                    var offsetToRemainingData = targetName.Length * 2 + 2;
 
                     //TODO do not use Skip. use Buffer.BlockCopy as its faster
 
@@ -144,7 +141,7 @@ namespace RegistryPlugin.RecentDocs
                     if (lnkNameType == 36)
                     {
                         lnkName = Encoding.Unicode.GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
-                        index += lnkName.Length*2;
+                        index += lnkName.Length * 2;
                     }
                     else
                     {

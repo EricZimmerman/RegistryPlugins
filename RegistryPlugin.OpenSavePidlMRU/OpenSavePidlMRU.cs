@@ -40,12 +40,10 @@ namespace RegistryPlugin.OpenSavePidlMRU
         public string PluginName => "ComDlg32 OpenSavePidlMRU";
 
         public string ShortDescription =>
-            "Extracts shell items from OpenSavePidlMRU subkeys"
-            ;
+            "Extracts shell items from OpenSavePidlMRU subkeys";
 
         public string LongDescription =>
-            "OpenSavePidlMRU subkeys contain a wealth of information including timestamps, MFT information, GUIDs, and more"
-            ;
+            "OpenSavePidlMRU subkeys contain a wealth of information including timestamps, MFT information, GUIDs, and more";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

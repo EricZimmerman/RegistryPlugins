@@ -110,7 +110,8 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                     if (rawBytes.Length <= 0x64)
                     {
                         FriendlyName = "Server name";
-                        Value = Encoding.Unicode.GetString(rawBytes, 6, rawBytes.Length - 6).Replace("\0", string.Empty);
+                        Value = Encoding.Unicode.GetString(rawBytes, 6, rawBytes.Length - 6)
+                            .Replace("\0", string.Empty);
                     }
                     else
                     {
@@ -267,17 +268,17 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
 
             index += 4; // skip unknown
 
-            var storageName = Encoding.Unicode.GetString(rawBytes, index, storageStringNameLen*2 - 2);
+            var storageName = Encoding.Unicode.GetString(rawBytes, index, storageStringNameLen * 2 - 2);
 
-            index += storageStringNameLen*2;
+            index += storageStringNameLen * 2;
 
-            _storageIdName = Encoding.Unicode.GetString(rawBytes, index, storageIdStringLen*2 - 2);
+            _storageIdName = Encoding.Unicode.GetString(rawBytes, index, storageIdStringLen * 2 - 2);
 
-            index += storageIdStringLen*2;
+            index += storageIdStringLen * 2;
 
-            _fileSystemName = Encoding.Unicode.GetString(rawBytes, index, fileSystemNameLen*2 - 2);
+            _fileSystemName = Encoding.Unicode.GetString(rawBytes, index, fileSystemNameLen * 2 - 2);
 
-            index += fileSystemNameLen*2;
+            index += fileSystemNameLen * 2;
 
             //index += 6; //get to beginning of GUIDs
 
@@ -350,17 +351,17 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
 
             index += 4;
 
-            var storageName = Encoding.Unicode.GetString(rawBytes, index, storageStringNameLen*2 - 2);
+            var storageName = Encoding.Unicode.GetString(rawBytes, index, storageStringNameLen * 2 - 2);
 
-            index += storageStringNameLen*2;
+            index += storageStringNameLen * 2;
 
-            _storageIdName = Encoding.Unicode.GetString(rawBytes, index, storageIdStringLen*2 - 2);
+            _storageIdName = Encoding.Unicode.GetString(rawBytes, index, storageIdStringLen * 2 - 2);
 
-            index += storageIdStringLen*2;
+            index += storageIdStringLen * 2;
 
-            _fileSystemName = Encoding.Unicode.GetString(rawBytes, index, fileSystemNameLen*2 - 2);
+            _fileSystemName = Encoding.Unicode.GetString(rawBytes, index, fileSystemNameLen * 2 - 2);
 
-            index += fileSystemNameLen*2;
+            index += fileSystemNameLen * 2;
 
             //TODO pull out modified time/created for OLE?
 
@@ -385,8 +386,8 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
         {
             FriendlyName = "Variable: Zip file contents";
 
-            if (rawBytes[0x28] == 0x2f || (rawBytes[0x24] == 0x4e && rawBytes[0x26] == 0x2f && rawBytes[0x28] == 0x41) ||
-                rawBytes[0x1c] == 0x2f || (rawBytes[0x18] == 0x4e && rawBytes[0x1a] == 0x2f && rawBytes[0x1c] == 0x41))
+            if (rawBytes[0x28] == 0x2f || rawBytes[0x24] == 0x4e && rawBytes[0x26] == 0x2f && rawBytes[0x28] == 0x41 ||
+                rawBytes[0x1c] == 0x2f || rawBytes[0x18] == 0x4e && rawBytes[0x1a] == 0x2f && rawBytes[0x1c] == 0x41)
             {
                 //we have a good date
 
@@ -448,7 +449,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
 
                         foreach (var extOffset in extOffsets)
                         {
-                            var binaryOffset = extOffset/3 - 4;
+                            var binaryOffset = extOffset / 3 - 4;
                             var exSize = BitConverter.ToInt16(propBytes, binaryOffset);
 
                             var exBytes = propBytes.Skip(binaryOffset).Take(exSize).ToArray();
@@ -477,7 +478,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                 // SiAuto.Main.LogWarning("Oh no! No property sheets!");
 
                 if (rawBytes[0x28] == 0x2f ||
-                    (rawBytes[0x24] == 0x4e && rawBytes[0x26] == 0x2f && rawBytes[0x28] == 0x41))
+                    rawBytes[0x24] == 0x4e && rawBytes[0x26] == 0x2f && rawBytes[0x28] == 0x41)
                 {
                     //we have a good date
 
@@ -563,9 +564,9 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
             {
                 var namesList =
                     (from propertySheet in PropertyStore.Sheets
-                            from propertyName in propertySheet.PropertyNames
-                            select propertyName.Value)
-                        .ToList();
+                        from propertyName in propertySheet.PropertyNames
+                        select propertyName.Value)
+                    .ToList();
 
                 valuestring = string.Join("::", namesList.ToArray());
             }

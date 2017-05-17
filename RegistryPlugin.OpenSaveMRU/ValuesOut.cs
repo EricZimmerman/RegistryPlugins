@@ -11,7 +11,7 @@ namespace RegistryPlugin.OpenSaveMRU
 
             ValueName = valueName;
             MruPosition = mruPosition;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string Extension { get; }
@@ -20,6 +20,6 @@ namespace RegistryPlugin.OpenSaveMRU
 
         public string Filename { get; }
 
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
     }
 }

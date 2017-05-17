@@ -18,7 +18,12 @@ namespace RegistryPlugin.SAM
             _values = new BindingList<UserOut>();
 
             Errors = new List<string>();
+
+            Groups = new List<GroupInfo>();
         }
+
+
+        private List<GroupInfo> Groups { get; }
 
         public string InternalGuid => "8702e82b-e2fb-4c6c-b392-bd524e41c6c7";
 
@@ -40,8 +45,7 @@ namespace RegistryPlugin.SAM
 
         public string LongDescription
             =>
-            "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout"
-            ;
+                "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -50,6 +54,7 @@ namespace RegistryPlugin.SAM
         {
             _values.Clear();
             Errors.Clear();
+            Groups.Clear();
 
             var namesKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Names");
 
@@ -60,13 +65,15 @@ namespace RegistryPlugin.SAM
                 return;
             }
 
+            GetGroups(key);
+
             foreach (var registryKey in namesKey.SubKeys)
             {
                 if (registryKey.Values.Count == 0)
                 {
                     continue;
                 }
-                    if (nameMap.ContainsKey((int) registryKey.Values.First().VKRecord.DataTypeRaw))
+                if (nameMap.ContainsKey((int) registryKey.Values.First().VKRecord.DataTypeRaw))
                 {
                     continue;
                 }
@@ -136,35 +143,47 @@ namespace RegistryPlugin.SAM
 
                     if (vVal != null)
                     {
- var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
-                    var nameLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc + 4);
-                    var name1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToName, nameLen);
+                        var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
+                        var nameLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc + 4);
+                        var name1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToName, nameLen);
 
-                    var offToFull = BitConverter.ToInt32(vVal.ValueDataRaw, 0x18) + 0xCC;
-                    var fullLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x18 + 4);
-                    var full1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToFull, fullLen);
+                        var offToFull = BitConverter.ToInt32(vVal.ValueDataRaw, 0x18) + 0xCC;
+                        var fullLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x18 + 4);
+                        var full1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToFull, fullLen);
 
-                    var offToComment = BitConverter.ToInt32(vVal.ValueDataRaw, 0x24) + 0xCC;
-                    var commentLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x24 + 4);
-                    var comment = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToComment, commentLen);
+                        var offToComment = BitConverter.ToInt32(vVal.ValueDataRaw, 0x24) + 0xCC;
+                        var commentLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x24 + 4);
+                        var comment = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToComment, commentLen);
 
-                    var offToUserComment = BitConverter.ToInt32(vVal.ValueDataRaw, 0x30) + 0xCC;
-                    var userCommentLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x30 + 4);
-                    var userComment = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToUserComment, userCommentLen);
+                        var offToUserComment = BitConverter.ToInt32(vVal.ValueDataRaw, 0x30) + 0xCC;
+                        var userCommentLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x30 + 4);
+                        var userComment =
+                            Encoding.Unicode.GetString(vVal.ValueDataRaw, offToUserComment, userCommentLen);
 
-                    var offHomeDir = BitConverter.ToInt32(vVal.ValueDataRaw, 0x48) + 0xCC;
-                    var homeDirLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x48 + 4);
-                    var homeDir = Encoding.Unicode.GetString(vVal.ValueDataRaw, offHomeDir, homeDirLen);
+                        var offHomeDir = BitConverter.ToInt32(vVal.ValueDataRaw, 0x48) + 0xCC;
+                        var homeDirLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0x48 + 4);
+                        var homeDir = Encoding.Unicode.GetString(vVal.ValueDataRaw, offHomeDir, homeDirLen);
 
-                    var createdOn = nameMap[userId];
+                        var createdOn = nameMap[userId];
 
-                    var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
-                        lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir, createdOn);
+                        var groups = GetGroupsForUser(userId);
 
-                    _values.Add(u);
+                        var hint = string.Empty;
+
+                        var hintVal = key1.Values.SingleOrDefault(t => t.ValueName == "UserPasswordHint");
+
+                        if (hintVal != null)
+                        {
+                            hint = Encoding.Unicode.GetString(hintVal.ValueDataRaw);
+                        }
+
+
+                        var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
+                            lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
+                            createdOn, groups, hint);
+
+                        _values.Add(u);
                     }
-
-                   
                 }
                 catch (Exception ex)
                 {
@@ -179,5 +198,143 @@ namespace RegistryPlugin.SAM
         }
 
         public IBindingList Values => _values;
+
+        private void GetGroups(RegistryKey baseKey)
+        {
+            var btKey = baseKey.Parent.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "Builtin");
+            var aliasesKey = btKey.SubKeys.SingleOrDefault(t => t.KeyName == "Aliases");
+
+            foreach (var aliasesKeySubKey in aliasesKey.SubKeys)
+            {
+                var cVal = aliasesKeySubKey.Values.SingleOrDefault(t => t.ValueName == "C");
+
+                if (cVal == null)
+                {
+                    continue;
+                }
+
+                var offsetToGroupName = BitConverter.ToInt32(cVal.ValueDataRaw, 0x10) + 0x34; //add header len
+                var nameLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x14);
+
+
+                var offsetToGroupDesc = BitConverter.ToInt32(cVal.ValueDataRaw, 0x1C) + 0x34; //add header len
+                var descLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x20);
+
+                var offsetToUsers = BitConverter.ToInt32(cVal.ValueDataRaw, 0x28) + 0x34; //add header len
+                var userLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x2C);
+                var userCount = BitConverter.ToInt32(cVal.ValueDataRaw, 0x30);
+
+                if (userCount == 0)
+                {
+                    continue;
+                }
+
+                var groupName = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupName, nameLen);
+                var desc = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupDesc, descLen);
+
+                var index = offsetToUsers;
+
+                var newg = new GroupInfo(groupName, desc, userCount);
+
+
+                for (var i = 0; i < userCount; i++)
+                {
+                    var sidType = BitConverter.ToInt16(cVal.ValueDataRaw, index);
+
+                    byte[] buff = null;
+                    var sid = string.Empty;
+
+                    switch (sidType)
+                    {
+                        case 0x501:
+                            buff = new byte[0x1c];
+                            Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0x1c);
+
+                            sid = ConvertHexStringToSidString(buff);
+
+
+                            index += 0x1c;
+                            break;
+
+                        case 0x101:
+                            buff = new byte[0xc];
+                            Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0xc);
+
+                            sid = ConvertHexStringToSidString(buff);
+
+                            index += 0xc;
+                            break;
+                    }
+
+                    newg.Sids.Add(sid);
+                }
+
+
+                Groups.Add(newg);
+            }
+        }
+
+        public string ConvertHexStringToSidString(byte[] hex)
+        {
+            const string header = "S";
+
+            var sidVersion = hex[0].ToString();
+
+            var authId = BitConverter.ToInt32(hex.Skip(4).Take(4).Reverse().ToArray(), 0);
+
+            var index = 8;
+
+            var sid = $"{header}-{sidVersion}-{authId}";
+
+            do
+            {
+                var tempAuthHex = hex.Skip(index).Take(4).ToArray();
+
+                var tempAuth = BitConverter.ToUInt32(tempAuthHex, 0);
+
+                index += 4;
+
+                sid = $"{sid}-{tempAuth}";
+            } while (index < hex.Length);
+
+
+            return sid;
+        }
+
+        private string GetGroupsForUser(int userId)
+        {
+            var groups = new List<string>();
+
+            foreach (var groupInfo in Groups)
+            {
+                foreach (var groupInfoSid in groupInfo.Sids)
+                {
+                    if (groupInfoSid.EndsWith(userId.ToString()))
+                    {
+                        groups.Add(groupInfo.Name);
+                    }
+                }
+            }
+
+            return string.Join(", ", groups);
+        }
+    }
+
+    public class GroupInfo
+    {
+        public GroupInfo(string name, string desc, int memberCount)
+        {
+            Sids = new List<string>();
+
+            Name = name;
+            Description = desc;
+            MemberCount = memberCount;
+        }
+
+        public string Name { get; }
+        public string Description { get; }
+        public int MemberCount { get; }
+
+        public List<string> Sids { get; }
     }
 }

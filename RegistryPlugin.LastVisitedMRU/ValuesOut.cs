@@ -11,13 +11,13 @@ namespace RegistryPlugin.LastVisitedMRU
             Directory = directory;
             ValueName = valueName;
             MruPosition = mruPosition;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string ValueName { get; }
         public int MruPosition { get; }
         public string Executable { get; }
         public string Directory { get; }
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
     }
 }

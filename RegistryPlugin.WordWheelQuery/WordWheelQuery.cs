@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.WordWheelQuery
 {
- public   class WordWheelQuery : IRegistryPluginGrid
+    public class WordWheelQuery : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
 
@@ -41,8 +39,7 @@ namespace RegistryPlugin.WordWheelQuery
 
         public string LongDescription
             =>
-            ""
-            ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -99,7 +96,7 @@ namespace RegistryPlugin.WordWheelQuery
 
                     var st = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Trim('\0');
 
-                    var ff = new ValuesOut(st,mru);
+                    var ff = new ValuesOut(st, mru);
 
                     l.Add(ff);
                 }

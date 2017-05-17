@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -41,8 +38,7 @@ namespace RegistryPlugin.TerminalServerClient
 
         public string LongDescription
             =>
-                ""
-        ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -69,14 +65,14 @@ namespace RegistryPlugin.TerminalServerClient
             {
                 var defaultKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Default");
 
-                var mruOrder = new Dictionary<string,int>();
+                var mruOrder = new Dictionary<string, int>();
 
                 foreach (var defaultKeyValue in defaultKey.Values)
                 {
                     var pos = defaultKeyValue.ValueName.Remove(0, 3);
                     var name = defaultKeyValue.ValueData;
 
-                    mruOrder.Add(name,Int32.Parse(pos) );
+                    mruOrder.Add(name, int.Parse(pos));
                 }
 
 
@@ -100,8 +96,8 @@ namespace RegistryPlugin.TerminalServerClient
                     {
                         hint = hintVal.ValueData;
                     }
-                    
-                    var ff = new ValuesOut(mru,host,hint,serversKey.LastWriteTime.Value);
+
+                    var ff = new ValuesOut(mru, host, hint, serversKey.LastWriteTime.Value);
 
                     l.Add(ff);
                 }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -45,8 +42,7 @@ namespace RegistryPlugin.Services
 
         public string LongDescription
             =>
-            ""
-            ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -71,54 +67,55 @@ namespace RegistryPlugin.Services
 
             try
             {
-                
                 foreach (var keyValue in key.SubKeys)
                 {
-                   
-
-                    DateTimeOffset nameLastWrite = keyValue.LastWriteTime.Value;
+                    var nameLastWrite = keyValue.LastWriteTime.Value;
 
                     var name = keyValue.KeyName;
 
-                  
+
                     var descVal = keyValue.Values.SingleOrDefault(t => t.ValueName == "Description");
                     var desc = descVal?.ValueData ?? string.Empty;
 
                     var dispVal = keyValue.Values.SingleOrDefault(t => t.ValueName == "DisplayName");
                     var disp = dispVal?.ValueData ?? string.Empty;
 
-                    var group = keyValue.Values.SingleOrDefault(t => t.ValueName == "Group")?.ValueData ?? String.Empty;
-                    var imagePath= keyValue.Values.SingleOrDefault(t => t.ValueName == "ImagePath")?.ValueData ?? String.Empty;
-                    var reqPrivs= keyValue.Values.SingleOrDefault(t => t.ValueName == "RequiredPrivileges")?.ValueData ?? String.Empty;
+                    var group = keyValue.Values.SingleOrDefault(t => t.ValueName == "Group")?.ValueData ?? string.Empty;
+                    var imagePath = keyValue.Values.SingleOrDefault(t => t.ValueName == "ImagePath")?.ValueData ??
+                                    string.Empty;
+                    var reqPrivs =
+                        keyValue.Values.SingleOrDefault(t => t.ValueName == "RequiredPrivileges")?.ValueData ??
+                        string.Empty;
 
-                    ServiceType startType = ServiceType.Adapter; 
+                    var startType = ServiceType.Adapter;
 
                     var ssv = keyValue.Values.SingleOrDefault(t => t.ValueName == "Type");
 
                     if (ssv != null)
                     {
-                        startType = (ServiceType)int.Parse(ssv.ValueData);
+                        startType = (ServiceType) int.Parse(ssv.ValueData);
                     }
 
-                    ServiceStartMode startMode = ServiceStartMode.Disabled;
+                    var startMode = ServiceStartMode.Disabled;
 
                     var stv = keyValue.Values.SingleOrDefault(t => t.ValueName == "Start");
 
                     if (stv != null)
                     {
-                        startMode = (ServiceStartMode)int.Parse(stv.ValueData);
+                        startMode = (ServiceStartMode) int.Parse(stv.ValueData);
                     }
 
-                  
 
                     var paramKey = keyValue.SubKeys.SingleOrDefault(t => t.KeyName == "Parameters");
 
                     var paramLastWrite = paramKey?.LastWriteTime;
 
-                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName == "ServiceDLL")?.ValueData ?? String.Empty;
+                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName == "ServiceDLL")?.ValueData ??
+                                     string.Empty;
 
 
-                    var ff = new Service(name,desc,disp,startMode, startType, nameLastWrite,paramLastWrite,group,imagePath,serviceDll,reqPrivs);
+                    var ff = new Service(name, desc, disp, startMode, startType, nameLastWrite, paramLastWrite, group,
+                        imagePath, serviceDll, reqPrivs);
 
                     l.Add(ff);
                 }

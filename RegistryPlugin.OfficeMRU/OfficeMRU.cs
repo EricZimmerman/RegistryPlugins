@@ -33,7 +33,6 @@ namespace RegistryPlugin.OfficeMRU
             @"Software\Microsoft\Office\16.0\PowerPoint\User MRU\*\File MRU",
             @"Software\Microsoft\Office\16.0\Access\User MRU\*\File MRU",
             @"Software\Microsoft\Office\16.0\OneNote\User MRU\*\File MRU"
-           
         });
 
         public string ValueName => null;
@@ -45,8 +44,7 @@ namespace RegistryPlugin.OfficeMRU
         public string PluginName => "Office MRU";
 
         public string ShortDescription =>
-            "Extracts recent Office document names and last opened/closed times"
-            ;
+            "Extracts recent Office document names and last opened/closed times";
 
         public string LongDescription => ShortDescription;
 

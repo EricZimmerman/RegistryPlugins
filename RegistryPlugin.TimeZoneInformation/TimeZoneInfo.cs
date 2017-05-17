@@ -38,12 +38,10 @@ namespace RegistryPlugin.TimeZoneInformation
         public string PluginName => "TimeZoneInformation";
 
         public string ShortDescription =>
-            "Displays values from TimeZoneInformation key in a more usable format for timezone bias, etc."
-            ;
+            "Displays values from TimeZoneInformation key in a more usable format for timezone bias, etc.";
 
         public string LongDescription =>
-            "Displays values from TimeZoneInformation key in a more usable format for timezone bias, etc."
-            ;
+            "Displays values from TimeZoneInformation key in a more usable format for timezone bias, etc.";
 
         public double Version => 0.5;
 

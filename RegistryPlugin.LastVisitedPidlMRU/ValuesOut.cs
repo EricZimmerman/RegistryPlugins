@@ -12,7 +12,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
             Details = details;
             ValueName = valueName;
             MruPosition = mruPosition;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string ValueName { get; }
@@ -21,7 +21,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
         public string Executable { get; }
         public string AbsolutePath { get; }
 
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
         public string Details { get; }
     }
 }

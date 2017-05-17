@@ -9,7 +9,7 @@ namespace RegistryPlugin.RunMRU
             Executable = executable;
             ValueName = valueName;
             MruPosition = mruPosition;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string ValueName { get; }
@@ -17,6 +17,6 @@ namespace RegistryPlugin.RunMRU
 
         public string Executable { get; }
 
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
     }
 }

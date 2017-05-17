@@ -9,12 +9,12 @@ namespace RegistryPlugin.UserAssist
             ValueName = valueName;
             ProgramName = programName;
             RunCounter = runCounter;
-            LastExecuted = lastRun;
+            LastExecuted = lastRun?.UtcDateTime;
         }
 
         public string ValueName { get; }
         public string ProgramName { get; }
         public int RunCounter { get; }
-        public DateTimeOffset? LastExecuted { get; }
+        public DateTime? LastExecuted { get; }
     }
 }

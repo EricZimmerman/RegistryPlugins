@@ -38,8 +38,7 @@ namespace RegistryPlugin.UserAssist
 
         public string LongDescription
             =>
-            "UserAssist is a method used to populate a user’s start menu with frequently used applications. This is achieved by maintaining a count of application use in each users NTUSER.DAT registry file. This key is suppose to contain information about programs and shortcuts accessed by the Windows GUI, including execution count and the date of last execution"
-            ;
+                "UserAssist is a method used to populate a user’s start menu with frequently used applications. This is achieved by maintaining a count of application use in each users NTUSER.DAT registry file. This key is suppose to contain information about programs and shortcuts accessed by the Windows GUI, including execution count and the date of last execution";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

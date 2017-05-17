@@ -8,11 +8,11 @@ namespace RegistryPlugin.AppCompatCache
         {
             CacheEntryPosition = cacheEntryPosition;
             ProgramName = programName;
-            ModifiedTime = modDate;
+            ModifiedTime = modDate.UtcDateTime;
         }
 
         public int CacheEntryPosition { get; }
         public string ProgramName { get; }
-        public DateTimeOffset ModifiedTime { get; }
+        public DateTime ModifiedTime { get; }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -40,12 +38,13 @@ namespace RegistryPlugin.DHCPNetworkHint
         public string Email => "saericzimmerman@gmail.com";
         public string Phone => "501-313-3778";
         public string PluginName => "DHCPNetworkHints";
-        public string ShortDescription => "Extracts information from TCPIP Interfaces key including domain, network hint, lease times, etc.";
+
+        public string ShortDescription =>
+            "Extracts information from TCPIP Interfaces key including domain, network hint, lease times, etc.";
 
         public string LongDescription
             =>
-                ""
-        ;
+                "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -70,8 +69,6 @@ namespace RegistryPlugin.DHCPNetworkHint
 
             try
             {
-              
-
                 foreach (var sKey in key.SubKeys)
                 {
                     if (sKey.SubKeys.Count == 0)
@@ -87,21 +84,15 @@ namespace RegistryPlugin.DHCPNetworkHint
                     }
 
 
-
                     foreach (var ssKey in sKey.SubKeys)
                     {
-
-                        var ff = ProcessVals(ssKey,sKey.KeyName);
+                        var ff = ProcessVals(ssKey, sKey.KeyName);
 
                         if (ff != null)
                         {
                             l.Add(ff);
                         }
-
-
                     }
-                    
-                    
                 }
             }
             catch (Exception ex)
@@ -163,7 +154,6 @@ namespace RegistryPlugin.DHCPNetworkHint
             }
 
 
-
             var dhcpServer = string.Empty;
             var dhcpServerVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpServer");
 
@@ -192,7 +182,6 @@ namespace RegistryPlugin.DHCPNetworkHint
                 var oep = int.Parse(expVal.ValueData);
 
                 exp = DateTimeOffset.FromUnixTimeSeconds(oep);
-
             }
 
             var dhcpDomain = string.Empty;
@@ -205,7 +194,8 @@ namespace RegistryPlugin.DHCPNetworkHint
             }
 
 
-            return new ValuesOut(hint, gateway, obt, exp, dhcpAddress, dhcpServer, originKey, ssKey.KeyName, dhcpDomain);
+            return new ValuesOut(hint, gateway, obt, exp, dhcpAddress, dhcpServer, originKey, ssKey.KeyName,
+                dhcpDomain);
         }
     }
 }

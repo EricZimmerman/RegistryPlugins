@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RegistryPlugin.DHCPNetworkHint
 {
-   public class ValuesOut
+    public class ValuesOut
     {
-        public ValuesOut(string hint, string gateway, DateTimeOffset obtained,DateTimeOffset expires,string dhcpAddress, string dhcpServer, string inter, string interSubkey, string dhcpDomain)
+        public ValuesOut(string hint, string gateway, DateTimeOffset obtained, DateTimeOffset expires,
+            string dhcpAddress, string dhcpServer, string inter, string interSubkey, string dhcpDomain)
         {
             NetworkHint = hint;
             DefaultGateway = gateway;
-            LeaseObtained = obtained;
-            LeaseExpires = expires;
+            LeaseObtained = obtained.UtcDateTime;
+            LeaseExpires = expires.UtcDateTime;
             DHCPAddress = dhcpAddress;
             DHCPServer = dhcpServer;
             Interface = inter;
@@ -27,11 +24,11 @@ namespace RegistryPlugin.DHCPNetworkHint
 
         public string DHCPDomain { get; }
 
-        public DateTimeOffset LeaseObtained { get; }
-        public DateTimeOffset LeaseExpires { get; }
-        
+        public DateTime LeaseObtained { get; }
+        public DateTime LeaseExpires { get; }
+
         public string DefaultGateway { get; }
-        
+
 
         public string Interface { get; }
 

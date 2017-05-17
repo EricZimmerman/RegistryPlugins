@@ -39,8 +39,7 @@ namespace RegistryPlugin.LastVisitedMRU
         public string PluginName => "ComDlg32 LastVisitedMRU";
 
         public string ShortDescription =>
-            "Extracts executables and last visited directory from LastVisitedMRU key"
-            ;
+            "Extracts executables and last visited directory from LastVisitedMRU key";
 
         public string LongDescription => ShortDescription;
 

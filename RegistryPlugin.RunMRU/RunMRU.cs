@@ -37,8 +37,7 @@ namespace RegistryPlugin.RunMRU
         public string PluginName => "RunMRU";
 
         public string ShortDescription =>
-            "Extracts recently executed programs from RunMRU key"
-            ;
+            "Extracts recently executed programs from RunMRU key";
 
         public string LongDescription => ShortDescription;
 

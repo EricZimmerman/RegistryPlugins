@@ -9,13 +9,13 @@ namespace RegistryPlugin.FirstFolder
             Executable = exeName;
             FolderName = folderName;
             MRUPosition = mruPos;
-            OpenedOn = openedOn;
+            OpenedOn = openedOn?.UtcDateTime;
         }
 
         public string Executable { get; }
         public string FolderName { get; }
         public int MRUPosition { get; }
-        public DateTimeOffset? OpenedOn { get; }
+        public DateTime? OpenedOn { get; }
 
         public override string ToString()
         {
