@@ -229,7 +229,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsEqualTo(3);
+            Check.That(r.Values.Count).IsEqualTo(6);
             Check.That(r.Errors.Count).IsEqualTo(0);
 
             var ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[0];
@@ -239,13 +239,13 @@ namespace RegistryPlugins.Test
 
             ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[1];
 
-            Check.That(ff.MruPosition).IsEqualTo(1);
-            Check.That(ff.SearchTerm).Contains("jboone");
+            Check.That(ff.MruPosition).IsEqualTo(0);
+            Check.That(ff.SearchTerm).Contains("cc");
 
             ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[2];
 
-            Check.That(ff.MruPosition).IsEqualTo(2);
-            Check.That(ff.SearchTerm).Contains("valhalla");
+            Check.That(ff.MruPosition).IsEqualTo(1);
+            Check.That(ff.SearchTerm).Contains("jboone");
         }
 
         [Test]
