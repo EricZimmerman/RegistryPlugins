@@ -57,11 +57,9 @@ namespace RegistryPlugin.WordWheelQuery
 
         public IBindingList Values => _values;
 
-
-        private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
+        private List<ValuesOut> ProcessLocalKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
-
             try
             {
                 var mruList = key.Values.Single(t => t.ValueName == "MRUListEx");
@@ -96,7 +94,7 @@ namespace RegistryPlugin.WordWheelQuery
 
                     var st = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Trim('\0');
 
-                    var ff = new ValuesOut(st, mru);
+                    var ff = new ValuesOut(st, mru,key.KeyName);
 
                     l.Add(ff);
                 }
@@ -104,6 +102,24 @@ namespace RegistryPlugin.WordWheelQuery
             catch (Exception ex)
             {
                 Errors.Add($"Error processing WordWheelQuery key: {ex.Message}");
+            }
+
+            return l;
+        }
+
+        private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
+        {
+            var l = new List<ValuesOut>();
+
+            var ll = ProcessLocalKey(key);
+
+            l.AddRange(ll);
+
+            foreach (var registryKey in key.SubKeys)
+            {
+                ll = ProcessLocalKey(registryKey);
+
+                l.AddRange(ll);
             }
 
 

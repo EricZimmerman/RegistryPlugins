@@ -522,6 +522,8 @@ namespace RegistryPlugins.Test
             Check.That(u.PasswordHint).Equals("G");
         }
 
+      
+
 
         [Test]
         public void SamPluginShouldFindEricAccount()
@@ -617,6 +619,22 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.MRUPosition).IsEqualTo(-1);
             Check.That(ff.HostName).Contains("SVR01");
+
+            r = new TerminalServerClient();
+
+            reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+          
         }
     }
 }

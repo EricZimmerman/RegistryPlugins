@@ -65,6 +65,11 @@ namespace RegistryPlugin.TerminalServerClient
             {
                 var defaultKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Default");
 
+                if (defaultKey == null)
+                {
+                    return l;
+                }
+
                 var mruOrder = new Dictionary<string, int>();
 
                 foreach (var defaultKeyValue in defaultKey.Values)
