@@ -30,14 +30,15 @@ namespace RegistryPlugin.RecentDocs
         public int MruPosition { get; }
 
         public DateTime? OpenedOn { get; }
+
         public DateTime? ExtensionLastOpened { get; }
-
-        //       public ulong? MFTEntryNumber { get; }
-
-        //     public int? MFTSequenceNumber { get; }
-        //      public string MFTInfo { get; }
+        //       public DateTimeOffset? LastAccess { get; }
 
         //      public DateTimeOffset? CreatedOn { get; }
-        //       public DateTimeOffset? LastAccess { get; }
+        //      public string MFTInfo { get; }
+
+        //     public int? MFTSequenceNumber { get; }
+
+        //       public ulong? MFTEntryNumber { get; }
     }
 }
