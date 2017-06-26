@@ -22,6 +22,7 @@ using RegistryPlugin.Services;
 using RegistryPlugin.TerminalServerClient;
 using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
+using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 
 namespace RegistryPlugins.Test
@@ -246,6 +247,33 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.MruPosition).IsEqualTo(1);
             Check.That(ff.SearchTerm).Contains("jboone");
+        }
+
+        [Test]
+        public void BlakeUserAssist()
+        {
+            var r = new UserAssist();
+
+            var reg = new RegistryHive(@"D:\Sync\RegistryHives\NTUSER_dblake.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(205);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.UserAssist.ValuesOut)r.Values[1];
+
+            Check.That(ff.RunCounter).IsEqualTo(0);
+            Check.That(ff.ProgramName).IsEqualTo("Microsoft.Windows.Explorer");
+            Check.That(ff.FocusCount).IsEqualTo(619);
+            Check.That(ff.FocusMilliseconds).IsEqualTo(13584008);
+
+
         }
 
         [Test]
