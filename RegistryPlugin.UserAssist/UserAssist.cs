@@ -74,7 +74,7 @@ namespace RegistryPlugin.UserAssist
 
                     DateTimeOffset? lastRun = null;
                     int? focusCount = null;
-                    int? focusMilliseconds = null;
+                    TimeSpan focusTime = new TimeSpan();
 
                     if (keyValue.ValueDataRaw.Length >= 16)
                     {
@@ -86,7 +86,7 @@ namespace RegistryPlugin.UserAssist
                         if (keyValue.ValueDataRaw.Length >= 68)
                         {
                             focusCount = BitConverter.ToInt32(keyValue.ValueDataRaw, 8);
-                            focusMilliseconds = BitConverter.ToInt32(keyValue.ValueDataRaw, 12);
+                            focusTime = TimeSpan.FromMilliseconds(BitConverter.ToInt32(keyValue.ValueDataRaw, 12));
                             lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 60));
                         }
                     }
@@ -96,7 +96,7 @@ namespace RegistryPlugin.UserAssist
                         lastRun = null;
                     }
 
-                    var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusMilliseconds);
+                    var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusTime.ToString(@"d'd, 'h'h, 'mm'm, 'ss's'"));
 
                     _values.Add(vo);
                 }

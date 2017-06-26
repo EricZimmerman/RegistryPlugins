@@ -271,7 +271,7 @@ namespace RegistryPlugins.Test
             Check.That(ff.RunCounter).IsEqualTo(0);
             Check.That(ff.ProgramName).IsEqualTo("Microsoft.Windows.Explorer");
             Check.That(ff.FocusCount).IsEqualTo(619);
-            Check.That(ff.FocusMilliseconds).IsEqualTo(13584008);
+            Check.That(ff.FocusTime).IsEqualTo("0d, 3h, 46m, 24s");
 
 
         }
