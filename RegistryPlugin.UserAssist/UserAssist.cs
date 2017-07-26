@@ -38,7 +38,7 @@ namespace RegistryPlugin.UserAssist
 
         public string LongDescription
             =>
-                "UserAssist is a method used to populate a user’s start menu with frequently used applications. This is achieved by maintaining a count of application use in each users NTUSER.DAT registry file. This key is suppose to contain information about programs and shortcuts accessed by the Windows GUI, including execution count and the date of last execution";
+                "UserAssist is a method used to populate a user’s start menu with frequently used applications. This is achieved by maintaining a count of application use in each users NTUSER.DAT registry file. This key is suppose to contain information about programs and shortcuts accessed by the Windows GUI, including execution count, date of last execution, count of focuses, and total seconds focused";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -73,6 +73,8 @@ namespace RegistryPlugin.UserAssist
 
 
                     DateTimeOffset? lastRun = null;
+                    int? focusCount = null;
+                    TimeSpan focusTime = new TimeSpan();
 
                     if (keyValue.ValueDataRaw.Length >= 16)
                     {
@@ -80,8 +82,11 @@ namespace RegistryPlugin.UserAssist
 
                         lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 8));
 
+                        // Windows 7 and up, new format
                         if (keyValue.ValueDataRaw.Length >= 68)
                         {
+                            focusCount = BitConverter.ToInt32(keyValue.ValueDataRaw, 8);
+                            focusTime = TimeSpan.FromMilliseconds(BitConverter.ToInt32(keyValue.ValueDataRaw, 12));
                             lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 60));
                         }
                     }
@@ -91,7 +96,7 @@ namespace RegistryPlugin.UserAssist
                         lastRun = null;
                     }
 
-                    var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun);
+                    var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusTime.ToString(@"d'd, 'h'h, 'mm'm, 'ss's'"));
 
                     _values.Add(vo);
                 }
