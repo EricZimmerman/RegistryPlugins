@@ -4,17 +4,17 @@ namespace RegistryPlugin.OfficeMRU
 {
     public class ValuesOut
     {
-        public ValuesOut(string valueName, DateTimeOffset firstOpened, DateTimeOffset? lastOpened, string fileName)
+        public ValuesOut(string valueName, DateTimeOffset lastOpened, DateTimeOffset? lastClosed, string fileName)
         {
             ValueName = valueName;
-            LastOpened = lastOpened?.UtcDateTime;
-            FirstOpened = firstOpened.DateTime;
+            LastClosed = lastClosed?.UtcDateTime;
+            LastOpened = lastOpened.DateTime;
             FileName = fileName;
         }
 
         public string ValueName { get; }
-        public DateTime FirstOpened { get; }
-        public DateTime? LastOpened { get; }
+        public DateTime LastOpened { get; }
+        public DateTime? LastClosed { get; }
         public string FileName { get; }
     }
 }
