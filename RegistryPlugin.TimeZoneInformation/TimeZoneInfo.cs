@@ -63,6 +63,10 @@ namespace RegistryPlugin.TimeZoneInformation
 
                     switch (keyValue.ValueName)
                     {
+                        case "TimeZoneKeyName":
+                            _values.Add(new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData));
+
+                            break;
                         case "Bias":
                             var b0 = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
 
