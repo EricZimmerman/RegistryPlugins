@@ -121,6 +121,10 @@
       <Project>{a1be3977-df7b-412c-81e8-15722a4f7325}</Project>
       <Name>RegistryPlugin.OpenSavePidlMRU</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj">
+      <Project>{41B6AE52-CA34-457C-8842-2B0C13D5086D}</Project>
+      <Name>RegistryPlugin.RecentApps</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj">
       <Project>{6f7ba570-291f-4290-94af-3a662e12d5d1}</Project>
       <Name>RegistryPlugin.RecentDocs</Name>

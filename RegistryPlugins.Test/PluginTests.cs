@@ -24,6 +24,7 @@ using RegistryPlugin.TypedURLs;
 using RegistryPlugin.WordWheelQuery;
 using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
+using RegistryPlugin.RecentApps;
 
 namespace RegistryPlugins.Test
 {
@@ -550,7 +551,30 @@ namespace RegistryPlugins.Test
             Check.That(u.PasswordHint).Equals("G");
         }
 
-      
+        [Test]
+        public void RecentApps()
+        {
+            var r = new RecentApps();
+
+            var reg = new RegistryHive(@"D:\OneDrive\RegistryHives\NTUSER_RecentDocsERZ.DAT");
+            reg.RecoverDeleted = true;
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Search\RecentApps");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var u = (RegistryPlugin.RecentApps.ValuesOut)r.Values[2];
+
+            Check.That(u.AppPath).Contains("chrome.exe");
+            Check.That(u.RecentItems.Count).Equals(10);
+            Check.That(u.RecentDocs).Contains("drivepr");
+        }
 
 
         [Test]
