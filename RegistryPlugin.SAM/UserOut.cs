@@ -8,7 +8,7 @@ namespace RegistryPlugin.SAM
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
             string username,
             string fullName, string comment, string userComment, string homeDir, DateTimeOffset createdOn,
-            string groups, string pwHint)
+            string groups, string pwHint, AccountFlags parsedAccountFlags)
         {
             UserId = userId;
             InvalidLoginCount = invalidLoginCount;
@@ -25,6 +25,7 @@ namespace RegistryPlugin.SAM
             CreatedOn = createdOn.UtcDateTime;
             Groups = groups;
             PasswordHint = pwHint;
+            AccountFlagsEnum = parsedAccountFlags;
         }
 
         public int UserId { get; }
@@ -50,5 +51,13 @@ namespace RegistryPlugin.SAM
         public string Comment { get; }
         public string UserComment { get; }
         public string HomeDirectory { get; }
+        public bool AccountDisabled { 
+            get {
+                return AccountFlagsEnum.HasFlag(AccountFlags.AccountDisabled);
+            }
+            private set;  // correct if this is not good C# syntax
+        }
+        // and so on using the Enum.HasFlag method for each AccountFlags flag
+        // before I type this all out I just want to see if this approach even works
     }
 }
