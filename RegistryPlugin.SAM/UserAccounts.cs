@@ -169,17 +169,17 @@ namespace RegistryPlugin.SAM
                         {
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
+                        
+                        var parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(vVal.ValueDataRaw, 0x56);
+                        // I would just return the parsed/cast AccountFlags enum object then you can do comparisons
+                        // to check each for display using the Enum.HasFlag method like so:
+                        // bool accountDisabled = parsedAccountFlags.HasFlag(AccountFlags.AccountDisabled)
                     }
 
                     var vVal = key1.Values.SingleOrDefault(t => t.ValueName == "V");
 
                     if (vVal != null)
                     {
-                        var parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(vVal.ValueDataRaw, 0xAC);
-                        // I would just return the parsed/cast AccountFlags enum object then you can do comparisons
-                        // to check each for display using the Enum.HasFlag method like so:
-                        // bool accountDisabled = parsedAccountFlags.HasFlag(AccountFlags.AccountDisabled)
-                        
                         var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
                         var nameLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc + 4);
                         var name1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToName, nameLen);
