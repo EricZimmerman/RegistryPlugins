@@ -170,7 +170,7 @@ namespace RegistryPlugin.SAM
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
                         
-                        var parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(vVal.ValueDataRaw, 0x56);
+                        var parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
                         // I would just return the parsed/cast AccountFlags enum object then you can do comparisons
                         // to check each for display using the Enum.HasFlag method like so:
                         // bool accountDisabled = parsedAccountFlags.HasFlag(AccountFlags.AccountDisabled)
