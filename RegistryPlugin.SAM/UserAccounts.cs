@@ -143,6 +143,12 @@ namespace RegistryPlugin.SAM
 
                     if (vVal != null)
                     {
+                        // see https://windowsir.blogspot.com/2009/07/user-account-analysis.html
+                        bool passwordPolicyRequired = false;
+                        var passwordRequiredByte = BitConverter.ToInt32(vVal.ValueDataRaw, 0xAC);
+                        if(passwordRequiredByte == 0x14)
+                            passwordPolicyRequired = true;
+                        
                         var offToName = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc) + 0xCC;
                         var nameLen = BitConverter.ToInt32(vVal.ValueDataRaw, 0xc + 4);
                         var name1 = Encoding.Unicode.GetString(vVal.ValueDataRaw, offToName, nameLen);
@@ -180,7 +186,7 @@ namespace RegistryPlugin.SAM
 
                         var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
-                            createdOn, groups, hint);
+                            createdOn, groups, hint, passwordPolicyRequired);
 
                         _values.Add(u);
                     }
