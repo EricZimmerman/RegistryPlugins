@@ -8,7 +8,7 @@ namespace RegistryPlugin.SAM
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
             string username,
             string fullName, string comment, string userComment, string homeDir, DateTimeOffset createdOn,
-            string groups, string pwHint)
+            string groups, string pwHint, bool passwordPolicyRequired)
         {
             UserId = userId;
             InvalidLoginCount = invalidLoginCount;
@@ -25,6 +25,7 @@ namespace RegistryPlugin.SAM
             CreatedOn = createdOn.UtcDateTime;
             Groups = groups;
             PasswordHint = pwHint;
+            PasswordPolicyRequired = passwordPolicyRequired;
         }
 
         public int UserId { get; }
@@ -50,5 +51,6 @@ namespace RegistryPlugin.SAM
         public string Comment { get; }
         public string UserComment { get; }
         public string HomeDirectory { get; }
+        public bool PasswordPolicyRequired { get; }
     }
 }
