@@ -9,7 +9,6 @@ using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.SAM
 {
-    // see also https://windowsir.blogspot.com/2009/07/user-account-analysis.html
     ///<summary>SAM Account flags</summary>
     [Flags]
     public enum AccountFlags
@@ -74,8 +73,12 @@ namespace RegistryPlugin.SAM
         public string ShortDescription => "Displays user accounts and user account details";
 
         public string LongDescription
-            =>
-                "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout";
+            => String.Join(
+            Environment.NewLine,
+            "See the following URLs for more",
+            "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout,",
+            "https://windowsir.blogspot.com/2009/07/user-account-analysis.html further explains the 'Password not required' flag,"
+        );
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -169,7 +172,6 @@ namespace RegistryPlugin.SAM
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
 
-                        // see https://github.com/keydet89/RegRipper2.8/blob/master/plugins/samparse.pl#L52
                         parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
                     }
 
