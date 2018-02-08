@@ -9,6 +9,36 @@ using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.SAM
 {
+    ///<summary>SAM Account flags</summary>
+    [Flags]
+    public enum AccountFlags
+    {
+        ///<summary>Default value (no flags)</summary>
+        None                    = 0x0000,
+        ///<summary>Account is disabled</summary>
+        AccountDisabled         = 0x0001,
+        ///<summary>The home directory is required.</summary>
+        HomeDirectoryRequired   = 0x0002,
+        ///<summary>No password is required.</summary>
+        PasswordNotRequired     = 0x0004,
+        ///<summary>This is an account for users whose primary account is in another domain. This account provides user access to this domain, but not to any domain that trusts this domain. Also known as a local user account.</summary>
+        TempDuplicateAccount    = 0x0008,
+        ///<summary>This is a default account type that represents a typical user.</summary>
+        NormalUserAccount       = 0x0010,
+        ///<summary>This is an Majority Node Set (MNS) logon account. With MNS, you can configure a multi-node Windows cluster without using a common shared disk.</summary>
+        MnsLogonAccount         = 0x0020,
+        ///<summary>This is a permit to trust account for a system domain that trusts other domains.</summary>
+        InterdomainTrustAccount = 0x0040,
+        ///<summary>This is a computer account for a Windows or Windows Server that is a member of this domain.</summary>
+        WorkstationTrustAccount = 0x0080,
+        ///<summary>This is a computer account for a system backup domain controller that is a member of this domain.</summary>
+        ServerTrustAccount      = 0x0100,
+        ///<summary>The password will not expire on this account.</summary>
+        PasswordDoesNotExpire   = 0x0200,
+        ///<summary>Account auto locked (I'm not entirely sure what this means)</summary>
+        AutoLocked              = 0x0400
+    }
+
     public class UserAccounts : IRegistryPluginGrid
     {
         private readonly BindingList<UserOut> _values;
@@ -21,7 +51,6 @@ namespace RegistryPlugin.SAM
 
             Groups = new List<GroupInfo>();
         }
-
 
         private List<GroupInfo> Groups { get; }
 
@@ -44,8 +73,12 @@ namespace RegistryPlugin.SAM
         public string ShortDescription => "Displays user accounts and user account details";
 
         public string LongDescription
-            =>
-                "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout";
+            => String.Join(
+            Environment.NewLine,
+            "See the following URLs for more",
+            "http://www.beginningtoseethelight.org/ntsecurity/index.htm has details on SAM layout,",
+            "https://windowsir.blogspot.com/2009/07/user-account-analysis.html further explains the 'Password not required' flag,"
+        );
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -98,6 +131,7 @@ namespace RegistryPlugin.SAM
                     DateTimeOffset? lastPwChangeTime = null;
                     DateTimeOffset? acctExpiresTime = null;
                     DateTimeOffset? lastIncorrectPwTime = null;
+                    var parsedAccountFlags = AccountFlags.None;
 
                     if (fVal != null)
                     {
@@ -137,6 +171,8 @@ namespace RegistryPlugin.SAM
                         {
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
+
+                        parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
                     }
 
                     var vVal = key1.Values.SingleOrDefault(t => t.ValueName == "V");
@@ -180,7 +216,7 @@ namespace RegistryPlugin.SAM
 
                         var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
-                            createdOn, groups, hint);
+                            createdOn, groups, hint, parsedAccountFlags);
 
                         _values.Add(u);
                     }

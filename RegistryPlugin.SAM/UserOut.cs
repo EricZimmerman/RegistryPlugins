@@ -8,7 +8,7 @@ namespace RegistryPlugin.SAM
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
             string username,
             string fullName, string comment, string userComment, string homeDir, DateTimeOffset createdOn,
-            string groups, string pwHint)
+            string groups, string pwHint, AccountFlags parsedAccountFlags)
         {
             UserId = userId;
             InvalidLoginCount = invalidLoginCount;
@@ -25,6 +25,7 @@ namespace RegistryPlugin.SAM
             CreatedOn = createdOn.UtcDateTime;
             Groups = groups;
             PasswordHint = pwHint;
+            AccountFlagsEnum = parsedAccountFlags;
         }
 
         public int UserId { get; }
@@ -50,5 +51,30 @@ namespace RegistryPlugin.SAM
         public string Comment { get; }
         public string UserComment { get; }
         public string HomeDirectory { get; }
+
+        private AccountFlags AccountFlagsEnum { get; }
+        public bool AccountDisabled         => this.HasFlag(AccountFlags.AccountDisabled);
+        public bool HomeDirectoryRequired   => this.HasFlag(AccountFlags.HomeDirectoryRequired);
+        public bool PasswordNotRequired     => this.HasFlag(AccountFlags.PasswordNotRequired);
+        public bool TempDuplicateAccount    => this.HasFlag(AccountFlags.TempDuplicateAccount);
+        public bool NormalUserAccount       => this.HasFlag(AccountFlags.NormalUserAccount);
+        public bool MnsLogonAccount         => this.HasFlag(AccountFlags.MnsLogonAccount);
+        public bool InterdomainTrustAccount => this.HasFlag(AccountFlags.InterdomainTrustAccount);
+        public bool WorkstationTrustAccount => this.HasFlag(AccountFlags.WorkstationTrustAccount);
+        public bool ServerTrustAccount      => this.HasFlag(AccountFlags.ServerTrustAccount);
+        public bool PasswordDoesNotExpire   => this.HasFlag(AccountFlags.PasswordDoesNotExpire);
+        public bool AutoLocked              => this.HasFlag(AccountFlags.AutoLocked);
+
+        // old way using builtin Enum.HasFlags() --> Too slow!
+        //public bool AccountDisabled { 
+        //    get {
+        //        return AccountFlagsEnum.HasFlag(AccountFlags.AccountDisabled);
+        //    }
+        //}
+
+        private bool HasFlag(AccountFlags flag)
+        {
+            return ((AccountFlagsEnum & flag) == flag);
+        }
     }
 }
