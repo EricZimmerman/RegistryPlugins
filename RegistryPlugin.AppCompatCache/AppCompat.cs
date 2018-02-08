@@ -66,10 +66,21 @@ namespace RegistryPlugin.AppCompatCache
                 num = ctl.ToCharArray().Last();
             }
 
+            var env = key.Parent.SubKeys.Single(t => t.KeyName == "Environment");
+
+            var val = env?.Values.SingleOrDefault(c => c.ValueName == "PROCESSOR_ARCHITECTURE");
+
+
+            var is32bit = false;
+            if (val != null)
+            {
+                is32bit= val.ValueData.Equals("x86");
+            }
+
 
             try
             {
-                var cache = new acc(appcompatValue.ValueDataRaw, num);
+                var cache = new acc(appcompatValue.ValueDataRaw, num,is32bit);
 
                 foreach (var c in cache.Caches)
                 {
