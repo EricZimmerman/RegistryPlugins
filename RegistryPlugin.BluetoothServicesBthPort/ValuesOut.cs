@@ -4,19 +4,15 @@ namespace RegistryPlugin.BluetoothServicesBthPort
 {
     public class ValuesOut
     {
-        public ValuesOut(string btname, string btAddr, string btNameRaw, DateTimeOffset? lastSeenKey)
+        public ValuesOut(string btname, string address, DateTimeOffset? lastSeenKey)
         {
-
-            BtName = btname;
-            BtAddr = btAddr;
-            BtNameRaw = btNameRaw;
+            Name = btname;
+            Address = address;
             LastSeen = lastSeenKey?.UtcDateTime;
         }
 
-
-        public string BtName { get; }
-        public string BtAddr { get; }
-        public string BtNameRaw { get; }
+        public string Name { get; }
+        public string Address { get; }
         public DateTime? LastSeen { get; }
     }
 }

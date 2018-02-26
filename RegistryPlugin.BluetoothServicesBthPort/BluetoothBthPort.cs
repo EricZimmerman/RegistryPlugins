@@ -19,13 +19,12 @@ namespace RegistryPlugin.BluetoothServicesBthPort
             Errors = new List<string>();
         }
 
-
-
         public string InternalGuid => "aa11dce3-ce1e-4a70-abbe-7a18419afe33";
 
         public List<string> KeyPaths => new List<string>(new[]
-            {
-            @"ControlSet001\services\BTHPORT\Parameters\Devices"
+        {
+            @"ControlSet001\services\BTHPORT\Parameters\Devices",
+            @"ControlSet002\services\BTHPORT\Parameters\Devices"
         });
 
         public string ValueName => null;
@@ -42,7 +41,7 @@ namespace RegistryPlugin.BluetoothServicesBthPort
             "Displays Bluetooth connection history in a simple viewing format";
 
         public string LongDescription =>
-            "Displays Bluetooth connection history in a simple viewing format";
+            "";
 
         public double Version => 0.5;
         public List<string> Errors { get; }
@@ -96,9 +95,8 @@ namespace RegistryPlugin.BluetoothServicesBthPort
             }
             catch (Exception ex)
             {
-                Errors.Add($"Error processing Terminal Server Client key: {ex.Message}");
+                Errors.Add($"Error processing Bluetooth Devices key: {ex.Message}");
             }
-
 
             if (Errors.Count > 0)
             {
@@ -115,11 +113,9 @@ namespace RegistryPlugin.BluetoothServicesBthPort
             {
                 return null;
             }
-            var name = System.Text.Encoding.UTF8.GetString(btname.ValueDataRaw);
-            var lastseen = ssKey.LastWriteTime;
-            var lastcon = ssKey?.LastWriteTime.Value;
-            return new ValuesOut(name, originKey, btname.ValueData.ToString(), lastseen);
-        }
 
+            var name = btname.ValueData;
+            return new ValuesOut(name, originKey, ssKey.LastWriteTime);
+        }
     }
 }
