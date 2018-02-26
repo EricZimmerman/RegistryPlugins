@@ -521,7 +521,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
             Check.That(r.Errors.Count).IsEqualTo(0);
 
 
@@ -548,7 +548,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
             Check.That(r.Errors.Count).IsEqualTo(0);
         }
 
@@ -567,7 +567,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
             Check.That(r.Errors.Count).IsEqualTo(0);
 
             var u = (UserOut) r.Values[2];
@@ -590,7 +590,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
             Check.That(r.Errors.Count).IsEqualTo(0);
 
             var u = (RegistryPlugin.RecentApps.ValuesOut)r.Values[2];
@@ -615,7 +615,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsGreaterThan(0);
+            Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
             Check.That(r.Values.Count).IsEqualTo(4);
 
             var users = (BindingList<UserOut>) r.Values;
