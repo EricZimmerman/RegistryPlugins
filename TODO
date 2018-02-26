@@ -4,12 +4,6 @@ NTuser
 
 - MountPoints2
 
-
-
-SYSTEM
-- bluetooth services\\BTHPORT\\Parameters\\Devices
-
-
 - USBSTOR
 
 - MountedDevices
