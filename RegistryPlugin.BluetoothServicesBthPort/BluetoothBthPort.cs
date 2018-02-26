@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -114,8 +115,17 @@ namespace RegistryPlugin.BluetoothServicesBthPort
                 return null;
             }
 
-            var name = btname.ValueData;
-            return new ValuesOut(name, originKey, ssKey.LastWriteTime);
+            var lastSeen = ssKey.Values.SingleOrDefault(t => t.ValueName == "LastSeen");
+
+            DateTimeOffset? lastSeenDate = null;
+
+            if (lastSeen != null)
+            {
+                lastSeenDate = DateTimeOffset.FromFileTime((long) BitConverter.ToUInt64(lastSeen.ValueDataRaw, 0));
+            }
+
+            var name = Encoding.GetEncoding(1252).GetString(btname.ValueDataRaw);
+            return new ValuesOut(name, originKey, lastSeenDate);
         }
     }
 }
