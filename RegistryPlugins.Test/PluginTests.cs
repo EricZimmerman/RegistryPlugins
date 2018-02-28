@@ -25,6 +25,7 @@ using RegistryPlugin.WordWheelQuery;
 using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
+using RegistryPlugin.BamDam;
 
 namespace RegistryPlugins.Test
 {
@@ -53,6 +54,51 @@ namespace RegistryPlugins.Test
             Check.That(ff.CacheEntryPosition).IsEqualTo(0);
             Check.That(ff.ProgramName).Contains("Logon");
         }
+
+        [Test]
+        public void BamDam()
+        {
+            var r = new BamDam();
+
+            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM_Creators");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Services\dam\UserSettings\S-1-5-21-238543598-4054144643-4261915534-1114");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(112);
+
+            var ff = (RegistryPlugin.BamDam.ValuesOut) r.Values[0];
+
+            Check.That(ff.ExecutionTime.Year).IsEqualTo(2017);
+            Check.That(ff.ExecutionTime.Month).IsEqualTo(3);
+            Check.That(ff.ExecutionTime.Day).IsEqualTo(18);
+            Check.That(ff.Program).Contains("Skype");
+
+
+            key = reg.GetKey(@"ControlSet001\Services\dam\UserSettings\S-1-5-18");
+
+            r = new BamDam();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(4);
+
+             ff = (RegistryPlugin.BamDam.ValuesOut) r.Values[0];
+
+            Check.That(ff.ExecutionTime.Year).IsEqualTo(2017);
+            Check.That(ff.ExecutionTime.Month).IsEqualTo(3);
+            Check.That(ff.ExecutionTime.Day).IsEqualTo(18);
+            Check.That(ff.Program).Contains("Start10");
+
+
+        }
+
 
 
         [Test]

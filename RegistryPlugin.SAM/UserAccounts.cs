@@ -106,11 +106,11 @@ namespace RegistryPlugin.SAM
                 {
                     continue;
                 }
-                if (nameMap.ContainsKey((int) registryKey.Values.First().VKRecord.DataTypeRaw))
+                if (nameMap.ContainsKey((int) registryKey.Values.First().VkRecord.DataTypeRaw))
                 {
                     continue;
                 }
-                nameMap.Add((int) registryKey.Values.First().VKRecord.DataTypeRaw, registryKey.LastWriteTime.Value);
+                nameMap.Add((int) registryKey.Values.First().VkRecord.DataTypeRaw, registryKey.LastWriteTime.Value);
             }
 
             foreach (var key1 in key.SubKeys)
@@ -172,7 +172,11 @@ namespace RegistryPlugin.SAM
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
 
-                        parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
+                        if (fVal.ValueDataRaw.Length >= 0x56)
+                        {
+                            parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
+                        }
+                        
                     }
 
                     var vVal = key1.Values.SingleOrDefault(t => t.ValueName == "V");

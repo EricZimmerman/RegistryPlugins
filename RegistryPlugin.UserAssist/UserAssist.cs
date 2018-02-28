@@ -34,7 +34,7 @@ namespace RegistryPlugin.UserAssist
         public string Email => "saericzimmerman@gmail.com";
         public string Phone => "501-313-3778";
         public string PluginName => "UserAssist";
-        public string ShortDescription => "Un ROT-13s UserAssist key values and extracts BLAH BLAH";
+        public string ShortDescription => "Un ROT-13s UserAssist key values and extracts execution count, last run, etc.";
 
         public string LongDescription
             =>

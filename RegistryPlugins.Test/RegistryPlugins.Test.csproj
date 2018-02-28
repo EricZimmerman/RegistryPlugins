@@ -81,6 +81,14 @@
       <Project>{3e08c307-af34-400e-ab0b-99df54e1adbc}</Project>
       <Name>RegistryPlugin.Ares</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj">
+      <Project>{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}</Project>
+      <Name>RegistryPlugin.BamDam</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj">
+      <Project>{aa11dce3-ce1e-4a70-abbe-7a18419afe33}</Project>
+      <Name>RegistryPlugin.BluetoothServicesBthPort</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj">
       <Project>{BA3A8987-719E-4AF6-A806-871C052C8BAE}</Project>
       <Name>RegistryPlugin.CIDSizeMRU</Name>
