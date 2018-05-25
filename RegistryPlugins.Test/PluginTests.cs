@@ -168,8 +168,8 @@ namespace RegistryPlugins.Test
             Check.That(ff.NetworkName).IsEqualTo(@"gogoinflight");
             Check.That(ff.DNSSuffix).IsEqualTo(@"<none>");
             Check.That(ff.ProfileGUID).IsEqualTo("{167B2E5E-29EA-429E-8D43-E82043F0D3CF}");
-            Check.That(ff.FirstConnect.Year).IsEqualTo(2013);
-            Check.That(ff.FirstConnect.Day).IsEqualTo(3);
+            Check.That(ff.FirstConnectLOCAL.Year).IsEqualTo(2013);
+            Check.That(ff.FirstConnectLOCAL.Day).IsEqualTo(3);
         }
 
         [Test]

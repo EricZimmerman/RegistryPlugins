@@ -39,7 +39,7 @@ namespace RegistryPlugin.KnownNetworks
 
         public string LongDescription
             =>
-                "Note: The first and last connect timestamps are displayed in LOCAL time and will always reflect the time zone of the machine this plugin is executed on.";
+                "Note: The first and last connect timestamps are displayed in LOCAL time and will always reflect the time zone of the machine this plugin is executed on. Cross reference the times with WLAN event log info to corroborate";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

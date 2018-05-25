@@ -39,7 +39,7 @@ namespace RegistryPlugin.BamDam
         public string ShortDescription => "Extracts program information and last run times from bam and dam keys";
 
         public string LongDescription
-            =>"https://padawan-4n6.hatenablog.com/entry/2018/02/22/131110";
+            =>"https://padawan-4n6.hatenablog.com/entry/2018/02/22/131110 https://msdn.microsoft.com/en-us/windows/compatibility/desktop-activity-moderator";
 
         public double Version => 0.5;
         public List<string> Errors { get; }

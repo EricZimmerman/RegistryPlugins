@@ -17,8 +17,8 @@ namespace RegistryPlugin.KnownNetworks
         {
             NetworkName = networkName;
             NameType = type;
-            FirstConnect = firstConnect.DateTime;
-            LastConnected = lastConnect.DateTime;
+            FirstConnectLOCAL = firstConnect.DateTime;
+            LastConnectedLOCAL = lastConnect.DateTime;
             Managed = managed;
             DNSSuffix = dnsSuffix;
             GatewayMacAddress = gatewayMacAddress;
@@ -29,8 +29,8 @@ namespace RegistryPlugin.KnownNetworks
         public string NetworkName { get; private set; }
         public NameTypes NameType { get; }
 
-        public DateTime FirstConnect { get; }
-        public DateTime LastConnected { get; }
+        public DateTime FirstConnectLOCAL { get; }
+        public DateTime LastConnectedLOCAL { get; }
 
         public bool Managed { get; }
 
