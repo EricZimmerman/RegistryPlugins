@@ -26,12 +26,36 @@ using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
+using RegistryPlugin.TaskFlowShellActivities;
 
 namespace RegistryPlugins.Test
 {
     [TestFixture]
     public class PluginTests
     {
+
+        [Test]
+        public void TaskShellitem()
+        {
+            var r = new TaskFlowShellActivities();
+
+            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentAppsERZ.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$$windows.data.taskflow.shellactivities\Current");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(325);
+
+            var ff = (ValuesOut) r.Values[0];
+
+            Check.That(ff.CacheEntryPosition).IsEqualTo(0);
+            Check.That(ff.ProgramName).Contains("Logon");
+        }
+
 
         [Test]
         public void AppCompatTestOneOff()

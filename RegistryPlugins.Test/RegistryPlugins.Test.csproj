@@ -157,6 +157,10 @@
       <Project>{8944873c-6dc4-453e-a2d0-9df2260d4a53}</Project>
       <Name>RegistryPlugin.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj">
+      <Project>{d3434de3-ded4-4f84-9ee4-4e3fcd9143c5}</Project>
+      <Name>RegistryPlugin.TaskFlowShellActivities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj">
       <Project>{6563c75f-c571-4e76-a072-77c021055bcf}</Project>
       <Name>RegistryPlugin.TerminalServerClient</Name>

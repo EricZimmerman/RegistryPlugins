@@ -74,7 +74,7 @@ namespace RegistryPlugin.OfficeMRU
                     rawTime = rawTime.Substring(0, rawTime.Length - 1);
                     var time = Convert.ToInt64(rawTime, 16);
 
-                    var firstOpen = DateTimeOffset.FromFileTime(time);
+                    var firstOpen = DateTimeOffset.FromFileTime(time).ToUniversalTime();
 
                     //  @"Software\Microsoft\Office\15.0\Word\User MRU\*\File MRU", //Software\Microsoft\Office\15.0\Word\Reading Locations
                     //Software\Microsoft\Office\15.0\Word\Reading Locations

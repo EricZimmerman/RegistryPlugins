@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.BluetoothSer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.BamDam", "RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj", "{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskFlowShellActivities", "RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj", "{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -182,6 +184,10 @@ Global
 		{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
