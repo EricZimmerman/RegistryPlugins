@@ -2,14 +2,16 @@
 {
     public class ValuesOut
     {
-        public ValuesOut(string fullPath, string exeName, string windowTitle, string other)
+        public ValuesOut(string fullPath, string exeName, string windowTitle, string other, int pos)
         {
             FullPath = fullPath;
             ExeName = exeName;
             WindowTitle = windowTitle;
             Other = other;
+            Position = pos;
         }
 
+        public int Position { get; }
         public string FullPath { get; }
         public string ExeName { get; }
         public string WindowTitle { get; }

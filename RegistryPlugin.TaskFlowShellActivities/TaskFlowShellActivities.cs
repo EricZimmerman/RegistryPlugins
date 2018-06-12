@@ -58,9 +58,11 @@ namespace RegistryPlugin.TaskFlowShellActivities
                     var rawData = dataVal.ValueDataRaw;
                     var index = 4;
 
+                    var position = 0;
+
                     var ts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(rawData, index)).ToUniversalTime();
 
-                    var val = new ValuesOut(null, null, null, $"Timestamp: {ts:yyyy-MM-dd HH:mm:ss}");
+                    var val = new ValuesOut(null, null, null, $"Timestamp: {ts:yyyy-MM-dd HH:mm:ss}",position);
                     _values.Add(val);
 
                     index += 8;
@@ -69,6 +71,7 @@ namespace RegistryPlugin.TaskFlowShellActivities
 
                     while (index < rawData.Length)
                     {
+                        position += 1;
                         if (index + 1 == rawData.Length)
                         {
                             break;
@@ -122,7 +125,7 @@ namespace RegistryPlugin.TaskFlowShellActivities
                         }
 
 
-                        val = new ValuesOut(fullPath, exeName, windowTitle, null);
+                        val = new ValuesOut(fullPath, exeName, windowTitle, null,position);
                         _values.Add(val);
                     }
                 }
