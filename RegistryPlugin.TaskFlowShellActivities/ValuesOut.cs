@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RegistryPlugin.TaskFlowShellActivities
+﻿namespace RegistryPlugin.TaskFlowShellActivities
 {
-   public class ValuesOut
+    public class ValuesOut
     {
-        public ValuesOut(string name, string value)
+        public ValuesOut(string fullPath, string exeName, string windowTitle, string other)
         {
-            Name = name;
-            Value = value;
+            FullPath = fullPath;
+            ExeName = exeName;
+            WindowTitle = windowTitle;
+            Other = other;
         }
 
-        public string Name { get; }
-        public string Value { get; }
+        public string FullPath { get; }
+        public string ExeName { get; }
+        public string WindowTitle { get; }
+        public string Other { get; }
+
+        public override string ToString()
+        {
+            return $"FP: {FullPath} WT: {WindowTitle}";
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.ServiceProcess;
 using NFluent;
@@ -39,21 +40,33 @@ namespace RegistryPlugins.Test
         {
             var r = new TaskFlowShellActivities();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentAppsERZ.DAT");
+         //  var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\!Private\NTUSER_ERZ_Win10.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$$windows.data.taskflow.shellactivities\Current");
+
+            Check.That(key).IsNotNull();
 
             Check.That(r.Values.Count).IsEqualTo(0);
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsEqualTo(325);
+          
 
-            var ff = (ValuesOut) r.Values[0];
+            Check.That(r.Values.Count).IsEqualTo(545);
 
-            Check.That(ff.CacheEntryPosition).IsEqualTo(0);
-            Check.That(ff.ProgramName).Contains("Logon");
+            var ff = (RegistryPlugin.TaskFlowShellActivities.ValuesOut) r.Values[0];
+
+            Check.That(ff.Other).IsNotEmpty();
+            Check.That(ff.Other).Contains("Timestamp");
+
+            Debug.WriteLine(ff.Other);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
         }
 
 
