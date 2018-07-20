@@ -41,7 +41,7 @@ namespace RegistryPlugins.Test
             var r = new TaskFlowShellActivities();
 
          //  var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentAppsERZ.DAT");
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\!Private\NTUSER_ERZ_Win10.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\!Private\NTUSER_ERZ_Win10.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$$windows.data.taskflow.shellactivities\Current");
