@@ -561,7 +561,8 @@ namespace RegistryPlugins.Test
         public void OpenSavePidlMruTest()
         {
             var r = new OpenSavePidlMRU();
-            var reg = new RegistryHive(@"..\..\Hives\ntuser1.dat");
+            var reg = new RegistryHive(@"c:\temp\ntuser.dat");
+        //  var reg = new RegistryHive(@"..\..\Hives\ntuser1.dat");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");

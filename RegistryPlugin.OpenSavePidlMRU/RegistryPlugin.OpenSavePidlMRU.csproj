@@ -59,6 +59,7 @@
     <Compile Include="ShellItems\ShellBag0x2f.cs" />
     <Compile Include="ShellItems\ShellBag0x31.cs" />
     <Compile Include="ShellItems\ShellBag0x32.cs" />
+    <Compile Include="ShellItems\ShellBag0X3A.cs" />
     <Compile Include="ShellItems\ShellBag0x40.cs" />
     <Compile Include="ShellItems\ShellBag0x61.cs" />
     <Compile Include="ShellItems\ShellBag0x71.cs" />

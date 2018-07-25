@@ -100,7 +100,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
 
                     var shellItemsRaw = new List<byte[]>();
 
-                    var mru = (int) mruListOrder[int.Parse(keyValue.ValueName)];
+                    var mru = mruListOrder.IndexOf(int.Parse(keyValue.ValueName));  //(int) mruListOrder[int.Parse(keyValue.ValueName)];
 
                     try
                     {
@@ -156,6 +156,8 @@ namespace RegistryPlugin.LastVisitedPidlMRU
                                     break;
                                 case 0xb1:
                                 case 0x31:
+                                case 0x35:
+                                case 0x36:
                                     bag = new ShellBag0X31(bytese);
 
                                     break;
@@ -163,6 +165,12 @@ namespace RegistryPlugin.LastVisitedPidlMRU
                                     bag = new ShellBag0X32(bytese);
 
                                     break;
+                                case 0x3a:
+                                    bag = new ShellBag0X3A(bytese);
+
+                                    break;
+
+                          
                                 case 0x71:
                                     bag = new ShellBag0X71(bytese);
 
