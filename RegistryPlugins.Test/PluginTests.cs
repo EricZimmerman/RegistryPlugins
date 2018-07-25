@@ -40,7 +40,7 @@ namespace RegistryPlugins.Test
         {
             var r = new TaskFlowShellActivities();
 
-         //  var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentAppsERZ.DAT");
+         //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
             var reg = new RegistryHive(@"D:\SynologyDrive\Registry\!Private\NTUSER_ERZ_Win10.DAT");
             reg.ParseHive();
 
@@ -97,7 +97,7 @@ namespace RegistryPlugins.Test
         {
             var r = new BamDam();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM_Creators");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_Creators");
             reg.ParseHive();
 
             var key = reg.GetKey(@"ControlSet001\Services\dam\UserSettings\S-1-5-21-238543598-4054144643-4261915534-1114");
@@ -143,7 +143,7 @@ namespace RegistryPlugins.Test
         {
             var r = new AppCompat();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM");
             reg.ParseHive();
 
             var key = reg.GetKey(@"ControlSet001\Control\Session Manager\AppCompatCache");
@@ -165,7 +165,7 @@ namespace RegistryPlugins.Test
         {
             var r = new AppCompat();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM_Creators");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_Creators");
             reg.ParseHive();
 
             var key = reg.GetKey(@"ControlSet001\Control\Session Manager\AppCompatCache");
@@ -188,7 +188,7 @@ namespace RegistryPlugins.Test
         {
             var r = new KnownNetworks();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SOFTWARE_dblake");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SOFTWARE_dblake");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
@@ -214,7 +214,7 @@ namespace RegistryPlugins.Test
         {
             var r = new OpenSavePidlMRU();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
@@ -239,7 +239,7 @@ namespace RegistryPlugins.Test
         {
             var r = new RecentDocs();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs");
@@ -262,7 +262,7 @@ namespace RegistryPlugins.Test
         {
             var r = new Services();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM_dblake");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_dblake");
             reg.ParseHive();
 
             var key = reg.GetKey(@"ControlSet001\Services");
@@ -301,7 +301,7 @@ namespace RegistryPlugins.Test
         {
             var r = new TypedURLs();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Internet Explorer\TypedURLs");
@@ -329,7 +329,7 @@ namespace RegistryPlugins.Test
         {
             var r = new WordWheelQuery();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\WordWheelQuery");
@@ -362,7 +362,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAssist();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\Count");
@@ -411,7 +411,7 @@ namespace RegistryPlugins.Test
         {
             var r = new DHCPNetworkHint();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM_dblake");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_dblake");
             reg.ParseHive();
 
             var key = reg.GetKey(@"ControlSet001\Services\Tcpip\Parameters\Interfaces");
@@ -479,7 +479,7 @@ namespace RegistryPlugins.Test
         public void KnownNetwork()
         {
             var r = new KnownNetworks();
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SOFTWARE_HPSpectre_EST");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SOFTWARE_HPSpectre_EST");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
@@ -495,7 +495,7 @@ namespace RegistryPlugins.Test
         public void LastVisitedMRUTest()
         {
             var r = new LastVisitedMRU();
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\ntuserNokiaShellBags.dat");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\ntuserNokiaShellBags.dat");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedMRU");
@@ -529,7 +529,7 @@ namespace RegistryPlugins.Test
         {
             var r = new MountedDevices();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SYSTEM");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM");
             reg.ParseHive();
 
             var key = reg.GetKey(@"MountedDevices");
@@ -545,7 +545,7 @@ namespace RegistryPlugins.Test
         public void OpenSaveMRUTest()
         {
             var r = new OpenSaveMRU();
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_Loveall.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_Loveall.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSaveMRU");
@@ -561,8 +561,8 @@ namespace RegistryPlugins.Test
         public void OpenSavePidlMruTest()
         {
             var r = new OpenSavePidlMRU();
-            var reg = new RegistryHive(@"c:\temp\ntuser.dat");
-        //  var reg = new RegistryHive(@"..\..\Hives\ntuser1.dat");
+            //var reg = new RegistryHive(@"c:\temp\ntuser.dat");
+          var reg = new RegistryHive(@"..\..\Hives\ntuser1.dat");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
@@ -578,7 +578,7 @@ namespace RegistryPlugins.Test
         public void RunMRUTest()
         {
             var r = new RunMRU();
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\ALL\NTUSER (8).DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\ALL\NTUSER (8).DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU");
@@ -595,7 +595,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SAM_dblake");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SAM_dblake");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 
@@ -622,7 +622,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SAM_brokenPlugin");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SAM_brokenPlugin");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 
@@ -641,7 +641,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\SAM_hasBigEndianDWord");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SAM_hasBigEndianDWord");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 
@@ -664,7 +664,7 @@ namespace RegistryPlugins.Test
         {
             var r = new RecentApps();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_RecentDocsERZ.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentDocsERZ.DAT");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 
@@ -739,7 +739,7 @@ namespace RegistryPlugins.Test
         {
             var r = new TerminalServerClient();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\ALL\NTUSER.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\ALL\NTUSER.DAT");
             reg.ParseHive();
 
             var key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
@@ -758,7 +758,7 @@ namespace RegistryPlugins.Test
 
             r = new TerminalServerClient();
 
-            reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\ALL\NTUSER3.DAT");
+            reg = new RegistryHive(@"D:\SynologyDrive\Registry\ALL\NTUSER3.DAT");
             reg.ParseHive();
 
             key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
@@ -782,7 +782,7 @@ namespace RegistryPlugins.Test
 
             r = new TerminalServerClient();
 
-            reg = new RegistryHive(@"D:\SynologyDrive\RegistryHives\NTUSER_dblake.DAT");
+            reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
             reg.ParseHive();
 
             key = reg.GetKey(@"Software\Microsoft\Terminal Server Client");
