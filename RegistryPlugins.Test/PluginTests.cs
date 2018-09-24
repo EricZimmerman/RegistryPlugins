@@ -664,7 +664,7 @@ namespace RegistryPlugins.Test
         {
             var r = new RecentApps();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentDocsERZ.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 

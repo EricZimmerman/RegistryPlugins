@@ -63,7 +63,7 @@ namespace RegistryPlugin.RecentApps
                     var lAccess = registryKey.Values.SingleOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
                     var lc = registryKey.Values.SingleOrDefault(t => t.ValueName == "LaunchCount")?.ValueData;
 
-                        var vo = new ValuesOut(registryKey.KeyName,appId,appPath,DateTimeOffset.FromFileTime(long.Parse(lAccess)),int.Parse(lc));
+                        var vo = new ValuesOut(registryKey.KeyName,appId,appPath,DateTimeOffset.FromFileTime(long.Parse(lAccess)).ToUniversalTime(),int.Parse(lc));
 
                     var recentItems = registryKey.SubKeys.SingleOrDefault(t => t.KeyName == "RecentItems");
 
@@ -75,7 +75,7 @@ namespace RegistryPlugin.RecentApps
                             var lAccess2 = recentItemsSubKey.Values.SingleOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
                             var appPath2 = recentItemsSubKey.Values.SingleOrDefault(t => t.ValueName == "Path")?.ValueData;
 
-                            vo.RecentItems.Add(new RecentItem(recentItemsSubKey.KeyName,displayName,DateTimeOffset.FromFileTime(long.Parse(lAccess2)),appPath2));
+                            vo.RecentItems.Add(new RecentItem(recentItemsSubKey.KeyName,displayName,DateTimeOffset.FromFileTime(long.Parse(lAccess2)).ToUniversalTime(),appPath2));
                             
                         }
                     }
