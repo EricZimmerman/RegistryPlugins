@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Registry;
 using RegistryExplorer.MountedDevices;
 using RegistryPlugin.AppCompatCache;
+using RegistryPlugin.AppCompatFlags;
 using RegistryPlugin.CIDSizeMRU;
 using RegistryPlugin.DHCPNetworkHint;
 using RegistryPlugin.FirstFolder;
@@ -27,6 +28,7 @@ using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
+using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.TaskFlowShellActivities;
 
 namespace RegistryPlugins.Test
@@ -69,6 +71,53 @@ namespace RegistryPlugins.Test
             }
         }
 
+        
+        [Test]
+        public void AppCompatFlags()
+        {
+            var r = new AppCompatFlags();
+
+            var reg = new RegistryHive(@"D:\Temp\SoftwareCID\Software");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\AppCompatFlags\CIT\System");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(325);
+
+            var ff = (ValuesOut) r.Values[0];
+
+            Check.That(ff.CacheEntryPosition).IsEqualTo(0);
+            Check.That(ff.ProgramName).Contains("Logon");
+        }
+
+          
+        [Test]
+        public void Syscache()
+        {
+            var r = new SyscacheObjectTable();
+
+            var reg = new RegistryHive(@"D:\Temp\SoftwareCID\Syscache.hve");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"DefaultObjectStore\ObjectTable");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(1585);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.SyscacheObjectTable.ValuesOut) r.Values[0];
+
+            Check.That(ff.Sha1).IsEqualTo("f34bbe523cf4b187b2c27da2bcd267412301745d");
+            Check.That(ff.MftEntryNumber).IsEqualTo(26442);
+            Check.That(ff.MftSequenceNumber).IsEqualTo(1);
+        }
 
         [Test]
         public void AppCompatTestOneOff()

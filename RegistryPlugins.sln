@@ -66,6 +66,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.BamDam", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskFlowShellActivities", "RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj", "{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags", "RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj", "{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SyscacheObjectTable", "RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj", "{1123721F-0300-4F07-9E02-66DCECDD1FEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -188,6 +192,14 @@ Global
 		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
