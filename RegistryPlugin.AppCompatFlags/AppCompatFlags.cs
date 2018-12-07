@@ -88,26 +88,6 @@ namespace RegistryPlugin.AppCompatFlags
    
                }
 
-
-
-
-
-//                foreach (var c in cache.Caches)
-//                {
-//                    foreach (var cacheEntry in c.Entries)
-//                    {
-//                        try
-//                        {
-//                            var vo = new ValuesOut("Foo");
-//
-//                            _values.Add(vo);
-//                        }
-//                        catch (Exception ex)
-//                        {
-//                            Errors.Add($"Value name: {cacheEntry.CacheEntryPosition}, message: {ex.Message}");
-//                        }
-//                    }
-//                }
             }
             catch (Exception ex)
             {

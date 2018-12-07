@@ -116,7 +116,8 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.Sha1).IsEqualTo("f34bbe523cf4b187b2c27da2bcd267412301745d");
             Check.That(ff.MftEntryNumber).IsEqualTo(26442);
-            Check.That(ff.MftSequenceNumber).IsEqualTo(1);
+            Check.That(ff.MftEntryNumber).IsEqualTo(26442);
+            Check.That(ff.KeyPath).IsEqualTo("DefaultObjectStore\\ObjectTable\\1");
         }
 
         [Test]

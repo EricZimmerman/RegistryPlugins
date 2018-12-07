@@ -10,7 +10,7 @@ namespace RegistryPlugin.SyscacheObjectTable
    public class ValuesOut
     {
 
-        public ValuesOut(long objectId, long usn, long usnJournalId, int mftEntryNumber, int mftSequenceNumber, string sha1, string aeProgramId, long objectLru)
+        public ValuesOut(long objectId, long usn, long usnJournalId, int mftEntryNumber, int mftSequenceNumber, string sha1, string aeProgramId, long objectLru, DateTimeOffset lastWriteTime, string keyPath)
         {
             ObjectId = objectId;
             Usn = usn;
@@ -20,9 +20,12 @@ namespace RegistryPlugin.SyscacheObjectTable
             Sha1 = sha1;
             AeProgramId = aeProgramId;
             ObjectLru = objectLru;
+            LastWriteTime = lastWriteTime;
+            KeyPath = keyPath;
         }
 
         
+        public string KeyPath { get; }
         public long ObjectId { get; }
         public long ObjectLru { get; }
         public long Usn { get; }
@@ -32,6 +35,7 @@ namespace RegistryPlugin.SyscacheObjectTable
 
         public string Sha1 { get; }
         public string AeProgramId { get; }
+        public DateTimeOffset LastWriteTime { get; }
         
     }
 }
