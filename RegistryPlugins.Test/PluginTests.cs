@@ -86,12 +86,13 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsEqualTo(325);
+            Check.That(r.Values.Count).IsEqualTo(37);
+            Check.That(r.Errors.Count).IsEqualTo(0);
 
-            var ff = (ValuesOut) r.Values[0];
+            var ff = (RegistryPlugin.AppCompatFlags.ValuesOut) r.Values[0];
 
-            Check.That(ff.CacheEntryPosition).IsEqualTo(0);
-            Check.That(ff.ProgramName).Contains("Logon");
+            Check.That(ff.ValueName).IsEqualTo("746E9C8C08A390000004EC55A1F64D10");
+            Check.That(ff.Executable).Contains("\\DEVICE");
         }
 
           

@@ -8,11 +8,13 @@ namespace RegistryPlugin.AppCompatFlags
 {
     public class ValuesOut
     {
-        public ValuesOut(string exePath)
+        public ValuesOut(string exePath,string valueName)
         {
             Executable = exePath;
+            ValueName = valueName;
         }
 
         public string Executable { get; set; }
+        public string ValueName { get; set; }
     }
 }

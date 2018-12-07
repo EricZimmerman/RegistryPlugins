@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ namespace RegistryPlugin.AppCompatFlags
             
         });
 
-        public string ValueName => "AppCompatCache";
+        public string ValueName => null;
         public string AlertMessage { get; private set; }
         public RegistryPluginType.PluginType PluginType => RegistryPluginType.PluginType.Grid;
         public string Author => "Eric Zimmerman";
@@ -69,23 +70,36 @@ namespace RegistryPlugin.AppCompatFlags
                 var instance = CreateInstance<NtfsFileSystem>("DiscUtils.Ntfs.LZNT1");
                 var compressor = (BlockCompressor)instance;
 
-                var dataLen = 100;
-
-                
-                //Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\CIT\System
-               
-
                foreach (var keyValue in key.Values)
                {
                    var compSize = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
                    var decompSize = BitConverter.ToInt32(keyValue.ValueDataRaw, 4);
 
-
                    byte[] decompressed = new byte[decompSize];
                    var numDecompressed = compressor.Decompress(keyValue.ValueDataRaw, 8, compSize, decompressed, 0);
 
-                   File.WriteAllBytes($"C:\\temp\\{keyValue.ValueName}_{Guid.NewGuid()}.bin",decompressed);
-   
+                  // File.WriteAllBytes($"C:\\temp\\{keyValue.ValueName}_{Guid.NewGuid()}.bin",decompressed);
+
+                  var uni = Encoding.Unicode.GetString(decompressed);
+
+                  var indexStart = uni.IndexOf("\\DEV");
+
+                  uni = uni.Substring(indexStart);
+
+                  var strs = uni.Split('\0');
+                  foreach (var str in strs)
+                  {
+                      if (str.Length < 8)
+                      {
+                          continue;
+                      }
+                      var vo = new ValuesOut(str,keyValue.ValueName);
+                      _values.Add(vo);
+                  }
+
+                  
+
+
                }
 
             }
