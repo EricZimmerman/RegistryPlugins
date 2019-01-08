@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ServiceProcess;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.Services
 {
-    public class Service
+    public class Service:IValueOut
     {
         public Service(string name, string description, string displayName, ServiceStartMode startMode,
             ServiceType serviceType, DateTimeOffset nameKeyLastWrite, DateTimeOffset? parametersKeyLastWrite,
@@ -37,5 +38,10 @@ namespace RegistryPlugin.Services
         public string ImagePath { get; }
         public string ServiceDLL { get; }
         public string RequiredPrivileges { get; }
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"Name: {Name} Desc: {Description}";
+        public string BatchValueData2 => $"Image path:{ImagePath} ServiceDLL: {ServiceDLL}";
+        public string BatchValueData3 => $"Name last write: {NameKeyLastWrite.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Parameters last write: {ParametersKeyLastWrite?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

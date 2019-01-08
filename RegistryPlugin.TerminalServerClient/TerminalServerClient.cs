@@ -83,6 +83,11 @@ namespace RegistryPlugin.TerminalServerClient
 
                 var serversKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Servers");
 
+                if (serversKey == null)
+                {
+                    return l;
+                }
+
                 foreach (var serverKey in serversKey.SubKeys)
                 {
                     var host = serverKey.KeyName;
@@ -103,6 +108,8 @@ namespace RegistryPlugin.TerminalServerClient
                     }
 
                     var ff = new ValuesOut(mru, host, hint, serversKey.LastWriteTime.Value);
+                    ff.BatchKeyPath = key.KeyPath;
+                    ff.BatchValueName = hintVal?.ValueName;
 
                     l.Add(ff);
                 }

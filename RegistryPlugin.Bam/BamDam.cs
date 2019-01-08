@@ -61,6 +61,8 @@ namespace RegistryPlugin.BamDam
                     var execTime = DateTimeOffset.FromFileTime(ts).ToUniversalTime();
 
                     var vo = new ValuesOut(keyValue.ValueName,execTime);
+                    vo.BatchKeyPath = key.KeyPath;
+                    vo.BatchValueName = keyValue.ValueName;
 
                     _values.Add(vo);
                 }

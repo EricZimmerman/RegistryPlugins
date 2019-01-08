@@ -63,6 +63,9 @@ namespace RegistryPlugin._7_ZipHistory
                             continue;
                         }
                         var v = new ValuesOut(arc);
+                        v.BatchKeyPath = key.KeyPath;
+                        v.BatchValueName = arcHist.ValueName;
+
                         Values.Add(v);
                     }
                 }

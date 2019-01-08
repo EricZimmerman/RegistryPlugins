@@ -99,6 +99,8 @@ namespace RegistryPlugin.RunMRU
                     }
 
                     var v = new ValuesOut(keyValue.ValueName, vd, mru, openedOn);
+                    v.BatchValueName = keyValue.ValueName;
+                    v.BatchKeyPath = key.KeyPath;
 
                     valuesList.Add(v);
                 }

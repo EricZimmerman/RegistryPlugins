@@ -78,7 +78,7 @@ namespace RegistryPlugin.AppCompatFlags
                    byte[] decompressed = new byte[decompSize];
                    var numDecompressed = compressor.Decompress(keyValue.ValueDataRaw, 8, compSize, decompressed, 0);
 
-                  // File.WriteAllBytes($"C:\\temp\\{keyValue.ValueName}_{Guid.NewGuid()}.bin",decompressed);
+                  // File.WriteAllBytes($"C:\\temp\\{keyValue.BatchValueName}_{Guid.NewGuid()}.bin",decompressed);
 
                   var uni = Encoding.Unicode.GetString(decompressed);
 
@@ -94,6 +94,10 @@ namespace RegistryPlugin.AppCompatFlags
                           continue;
                       }
                       var vo = new ValuesOut(str,keyValue.ValueName);
+
+                      vo.BatchKeyPath = key.KeyPath;
+                      vo.ValueName = keyValue.ValueName;
+
                       _values.Add(vo);
                   }
 

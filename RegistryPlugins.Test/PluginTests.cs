@@ -104,7 +104,7 @@ namespace RegistryPlugins.Test
             var reg = new RegistryHive(@"D:\Temp\SoftwareCID\Syscache.hve");
             reg.ParseHive();
 
-            var key = reg.GetKey(@"DefaultObjectStore\ObjectTable");
+            var key = reg.GetKey(@"DefaultObjectStore\ObjectTablere");
 
             Check.That(r.Values.Count).IsEqualTo(0);
 

@@ -219,9 +219,11 @@ namespace RegistryPlugin.RecentDocs
                     }
 
 
-                    var rd = new RecentDoc(mru, keyValue.ValueName, targetName, beef.MFTInformation.MFTEntryNumber,
-                        beef.MFTInformation.MFTSequenceNumber, beef.MFTInformation.Note, beef.CreatedOnTime,
-                        beef.LastAccessTime, beef.LongName, key.KeyName, openedOn, extLastOpened);
+                    var rd = new RecentDoc(mru, keyValue.ValueName, targetName,  beef.LongName, key.KeyName, openedOn, extLastOpened);
+
+                    rd.BatchKeyPath = key.KeyPath;
+                    rd.BatchValueName = keyValue.ValueName;
+
                     l.Add(rd);
                 }
             }

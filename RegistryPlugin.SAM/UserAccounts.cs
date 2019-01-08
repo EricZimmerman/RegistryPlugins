@@ -222,6 +222,9 @@ namespace RegistryPlugin.SAM
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
                             createdOn, groups, hint, parsedAccountFlags);
 
+                        u.BatchValueName = vVal.ValueName;
+                        u.BatchKeyPath = key1.KeyPath;
+
                         _values.Add(u);
                     }
                 }

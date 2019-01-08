@@ -100,7 +100,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
 
                     var shellItemsRaw = new List<byte[]>();
 
-                    var mru = mruListOrder.IndexOf(int.Parse(keyValue.ValueName));  //(int) mruListOrder[int.Parse(keyValue.ValueName)];
+                    var mru = mruListOrder.IndexOf(int.Parse(keyValue.ValueName));  //(int) mruListOrder[int.Parse(keyValue.BatchValueName)];
 
                     try
                     {

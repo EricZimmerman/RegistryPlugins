@@ -6,6 +6,7 @@ using System.Text;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
+using KeyValue = Registry.Abstractions.KeyValue;
 
 namespace RegistryPlugin.Ares
 {
@@ -57,7 +58,8 @@ namespace RegistryPlugin.Ares
                     var dh = networkDHTID.ValueData.Replace("-", "");
 
                     var v = new ValuesOut($"Ares Network DHTID", dh);
-
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = networkDHTID.ValueName;
                     _values.Add(v);
                 }
 
@@ -67,7 +69,8 @@ namespace RegistryPlugin.Ares
                     var dlf = DecodeHexToAscii(dlFolderVal.ValueData);
 
                     var v = new ValuesOut($"Download folder", dlf);
-
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = dlFolderVal.ValueName;
                     _values.Add(v);
                 }
 
@@ -77,7 +80,8 @@ namespace RegistryPlugin.Ares
                     var customMsg = customMshVal.ValueData;
 
                     var v = new ValuesOut($"Custom message", customMsg);
-
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = customMshVal.ValueName;
                     _values.Add(v);
                 }
 
@@ -87,7 +91,8 @@ namespace RegistryPlugin.Ares
                     var customMsg = DecodeHexToAscii(nickVal.ValueData);
 
                     var v = new ValuesOut($"User nickname", customMsg);
-
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = nickVal.ValueName;
                     _values.Add(v);
                 }
 
@@ -105,6 +110,9 @@ namespace RegistryPlugin.Ares
 
                         var v = new ValuesOut($"Away message", customMsg);
 
+                        v.BatchKeyPath = key.KeyPath;
+                        v.BatchValueName = awayMsgVal.ValueName;
+                        
                         _values.Add(v);
                     }
                 }
@@ -116,6 +124,9 @@ namespace RegistryPlugin.Ares
                     var lastConnect = DateTimeOffset.FromUnixTimeSeconds(int.Parse(lastConnectedVal.ValueData));
 
                     var v = new ValuesOut($"Last connection time", lastConnect.ToUniversalTime().ToString());
+
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = lastConnectedVal.ValueName;
 
                     _values.Add(v);
                 }
@@ -130,6 +141,9 @@ namespace RegistryPlugin.Ares
                     if (portNum > 0)
                     {
                         var v = new ValuesOut($"Port number", portNum.ToString());
+                        
+                        v.BatchKeyPath = key.KeyPath;
+                        v.BatchValueName = portVal.ValueName;
 
                         _values.Add(v);
                     }
@@ -140,6 +154,9 @@ namespace RegistryPlugin.Ares
                 if (guidVal != null)
                 {
                     var v = new ValuesOut($"Personal GUID", guidVal.ValueData);
+
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = guidVal.ValueName;
 
                     _values.Add(v);
                 }
@@ -179,6 +196,9 @@ namespace RegistryPlugin.Ares
                         }
 
                         var v = new ValuesOut($"Search history for '{searchType}'", string.Join(", ", terms));
+
+                        v.BatchKeyPath = registryKey.KeyPath;
+                        v.BatchValueName = "All";
 
                         _values.Add(v);
                     }

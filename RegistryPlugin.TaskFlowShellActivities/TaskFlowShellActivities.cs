@@ -126,6 +126,10 @@ namespace RegistryPlugin.TaskFlowShellActivities
 
 
                         val = new ValuesOut(fullPath, exeName, windowTitle, null,position);
+
+                        val.BatchKeyPath = key.KeyPath;
+                        val.BatchValueName = dataVal.ValueName;
+
                         _values.Add(val);
                     }
                 }

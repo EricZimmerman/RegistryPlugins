@@ -96,6 +96,9 @@ namespace RegistryPlugin.WordWheelQuery
 
                     var ff = new ValuesOut(st, mru,key.KeyName);
 
+                    ff.BatchKeyPath = key.KeyPath;
+                    ff.BatchValueName = keyValue.ValueName;
+
                     l.Add(ff);
                 }
             }

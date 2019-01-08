@@ -97,6 +97,8 @@ namespace RegistryPlugin.UserAssist
                     }
 
                     var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusTime.ToString(@"d'd, 'h'h, 'mm'm, 'ss's'"));
+                    vo.BatchKeyPath = key.KeyPath;
+                    vo.BatchValueName = keyValue.ValueName;
 
                     _values.Add(vo);
                 }

@@ -111,6 +111,10 @@ namespace RegistryPlugin.SyscacheObjectTable
                     var sha = aeFile.Length > 4 ? aeFile.Substring(4).ToLowerInvariant() : string.Empty;
 
                     var vo = new ValuesOut( objId, usn, usnId, (int) entryIndex, sequenceNumber, sha, aeProgram, objLru,registryKey.LastWriteTime.Value,Registry.Other.Helpers.StripRootKeyNameFromKeyPath(registryKey.KeyPath));
+
+                    vo.BatchKeyPath = key.KeyPath;
+                    vo.BatchValueName = "None";
+
                     _values.Add(vo);
                 }
                 catch (Exception ex)

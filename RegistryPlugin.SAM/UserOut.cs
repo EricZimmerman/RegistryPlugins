@@ -1,8 +1,9 @@
 ﻿using System;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.SAM
 {
-    public class UserOut
+    public class UserOut:IValueOut
     {
         public UserOut(int userId, int invalidLoginCount, int totalLoginCount, DateTimeOffset? lastLogin,
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
@@ -53,28 +54,27 @@ namespace RegistryPlugin.SAM
         public string HomeDirectory { get; }
 
         private AccountFlags AccountFlagsEnum { get; }
-        public bool AccountDisabled         => this.HasFlag(AccountFlags.AccountDisabled);
-        public bool HomeDirectoryRequired   => this.HasFlag(AccountFlags.HomeDirectoryRequired);
-        public bool PasswordNotRequired     => this.HasFlag(AccountFlags.PasswordNotRequired);
-        public bool TempDuplicateAccount    => this.HasFlag(AccountFlags.TempDuplicateAccount);
-        public bool NormalUserAccount       => this.HasFlag(AccountFlags.NormalUserAccount);
-        public bool MnsLogonAccount         => this.HasFlag(AccountFlags.MnsLogonAccount);
-        public bool InterdomainTrustAccount => this.HasFlag(AccountFlags.InterdomainTrustAccount);
-        public bool WorkstationTrustAccount => this.HasFlag(AccountFlags.WorkstationTrustAccount);
-        public bool ServerTrustAccount      => this.HasFlag(AccountFlags.ServerTrustAccount);
-        public bool PasswordDoesNotExpire   => this.HasFlag(AccountFlags.PasswordDoesNotExpire);
-        public bool AutoLocked              => this.HasFlag(AccountFlags.AutoLocked);
-
-        // old way using builtin Enum.HasFlags() --> Too slow!
-        //public bool AccountDisabled { 
-        //    get {
-        //        return AccountFlagsEnum.HasFlag(AccountFlags.AccountDisabled);
-        //    }
-        //}
+        public bool AccountDisabled         => HasFlag(AccountFlags.AccountDisabled);
+        public bool HomeDirectoryRequired   => HasFlag(AccountFlags.HomeDirectoryRequired);
+        public bool PasswordNotRequired     => HasFlag(AccountFlags.PasswordNotRequired);
+        public bool TempDuplicateAccount    => HasFlag(AccountFlags.TempDuplicateAccount);
+        public bool NormalUserAccount       => HasFlag(AccountFlags.NormalUserAccount);
+        public bool MnsLogonAccount         => HasFlag(AccountFlags.MnsLogonAccount);
+        public bool InterdomainTrustAccount => HasFlag(AccountFlags.InterdomainTrustAccount);
+        public bool WorkstationTrustAccount => HasFlag(AccountFlags.WorkstationTrustAccount);
+        public bool ServerTrustAccount      => HasFlag(AccountFlags.ServerTrustAccount);
+        public bool PasswordDoesNotExpire   => HasFlag(AccountFlags.PasswordDoesNotExpire);
+        public bool AutoLocked              => HasFlag(AccountFlags.AutoLocked);
 
         private bool HasFlag(AccountFlags flag)
         {
             return ((AccountFlagsEnum & flag) == flag);
         }
+
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"Username: {UserName} Id: {UserId}";
+        public string BatchValueData2 => $"Created: {CreatedOn.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Last login: {LastLoginTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"Account flags: {AccountFlagsEnum}";
     }
 }

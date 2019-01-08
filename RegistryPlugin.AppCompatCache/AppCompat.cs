@@ -91,7 +91,11 @@ namespace RegistryPlugin.AppCompatCache
                             var vo = new ValuesOut(cacheEntry.CacheEntryPosition, cacheEntry.Path,
                                 cacheEntry.LastModifiedTimeUTC);
 
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = ValueName;
+
                             _values.Add(vo);
+
                         }
                         catch (Exception ex)
                         {

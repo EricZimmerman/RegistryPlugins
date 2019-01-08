@@ -87,6 +87,8 @@ namespace RegistryPlugin.TypedURLs
                     var slack = Encoding.Unicode.GetString(keyValue.ValueSlackRaw).Replace('\0', ' ').Trim();
 
                     var ff = new TypedURL(url, ts, slack);
+                    ff.BatchValueName = keyValue.ValueName;
+                    ff.BatchKeyPath = key.KeyPath;
 
                     l.Add(ff);
                 }

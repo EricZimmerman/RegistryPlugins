@@ -76,6 +76,7 @@ namespace RegistryPlugin.BluetoothServicesBthPort
 
                     if (ff != null)
                     {
+                        
                         l.Add(ff);
                     }
 
@@ -125,7 +126,13 @@ namespace RegistryPlugin.BluetoothServicesBthPort
             }
 
             var name = Encoding.GetEncoding(1252).GetString(btname.ValueDataRaw);
-            return new ValuesOut(name, originKey, lastSeenDate);
+
+            var vo = new ValuesOut(name, originKey, lastSeenDate);
+
+            vo.BatchKeyPath = ssKey.KeyPath;
+            vo.BatchValueName = "Name/LastSeen";
+
+            return vo;
         }
     }
 }

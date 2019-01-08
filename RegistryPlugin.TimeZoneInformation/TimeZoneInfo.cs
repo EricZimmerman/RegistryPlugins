@@ -61,28 +61,47 @@ namespace RegistryPlugin.TimeZoneInformation
                 {
                     vn = keyValue.ValueName;
 
+                    ValuesOut vo = null;
+
                     switch (keyValue.ValueName)
                     {
                         case "TimeZoneKeyName":
-                            _values.Add(new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
 
                             break;
                         case "Bias":
                             var b0 = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, b0.ToString(), keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, b0.ToString(), keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
 
                             break;
                         case "StandardName":
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+
 
                             break;
                         case "StandardBias":
 
                             var b1 = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, b1.ToString(), keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, b1.ToString(), keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
 
                             break;
                         case "StandardStart":
@@ -119,17 +138,35 @@ namespace RegistryPlugin.TimeZoneInformation
                             var ss =
                                 $"Month {month0}, week of month {weekOfMonth0}, day of week {dayOfWeek0}, Hours:Minutes:Seconds:Milliseconds {hour0}:{minute0}:{second0}:{millisecond0}";
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, ss, keyValue.ValueData));
+
+                            vo = new ValuesOut(keyValue.ValueName, ss, keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+
+                            
 
                             break;
                         case "DaylightName":
-                            _values.Add(new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData));
+
+                            vo = new ValuesOut(keyValue.ValueName, keyValue.ValueData, keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+
 
                             break;
                         case "DaylightBias":
                             var b2 = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, b2.ToString(), keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, b2.ToString(), keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+
 
                             break;
                         case "DaylightStart":
@@ -145,7 +182,12 @@ namespace RegistryPlugin.TimeZoneInformation
                             var ss1 =
                                 $"Month {month1}, week of month {weekOfMonth1}, day of week {dayOfWeek1}, Hours:Minutes:Seconds:Milliseconds {hour1}:{minute1}:{second1}:{millisecond1}";
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, ss1, keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, ss1, keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+
 
 
                             break;
@@ -153,8 +195,12 @@ namespace RegistryPlugin.TimeZoneInformation
 
                             var b3 = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
 
-                            _values.Add(new ValuesOut(keyValue.ValueName, b3.ToString(), keyValue.ValueData));
+                            vo = new ValuesOut(keyValue.ValueName, b3.ToString(), keyValue.ValueData);
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
 
+                            _values.Add(vo);
+                            
                             break;
                     }
                 }

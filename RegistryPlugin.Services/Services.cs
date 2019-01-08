@@ -117,6 +117,9 @@ namespace RegistryPlugin.Services
                     var ff = new Service(name, desc, disp, startMode, startType, nameLastWrite, paramLastWrite, group,
                         imagePath, serviceDll, reqPrivs);
 
+                    ff.BatchKeyPath = key.KeyPath;
+                    ff.BatchValueName = "None";
+
                     l.Add(ff);
                 }
             }

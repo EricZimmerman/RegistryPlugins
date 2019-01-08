@@ -1,23 +1,17 @@
 ﻿using System;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.RecentDocs
 {
-    public class RecentDoc
+    public class RecentDoc:IValueOut
     {
-        public RecentDoc(int mruPos, string valueName, string targetName, ulong? mftEntry, int? mftseq, string mftInfo,
-            DateTimeOffset? created, DateTimeOffset? lastAccess, string lnkName, string extension,
+        public RecentDoc(int mruPos, string valueName, string targetName, string lnkName, string extension,
             DateTimeOffset? openedOn, DateTimeOffset? extensionLastOpened)
         {
             LnkName = lnkName;
             MruPosition = mruPos;
             ValueName = valueName;
             TargetName = targetName;
-            //     MFTEntryNumber = mftEntry;
-            //      MFTSequenceNumber = mftseq;
-            //     MFTInfo = mftInfo;
-            //      CreatedOn = created;
-            //      LastAccess = lastAccess;
-            //     LastAccess = lastAccess;
             Extension = extension;
             OpenedOn = openedOn?.UtcDateTime;
             ExtensionLastOpened = extensionLastOpened?.UtcDateTime;
@@ -32,13 +26,11 @@ namespace RegistryPlugin.RecentDocs
         public DateTime? OpenedOn { get; }
 
         public DateTime? ExtensionLastOpened { get; }
-        //       public DateTimeOffset? LastAccess { get; }
 
-        //      public DateTimeOffset? CreatedOn { get; }
-        //      public string MFTInfo { get; }
-
-        //     public int? MFTSequenceNumber { get; }
-
-        //       public ulong? MFTEntryNumber { get; }
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"Lnk: {LnkName} Target: {TargetName}";
+        public string BatchValueData2 => $"Opened on: {OpenedOn?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Ext last open: {ExtensionLastOpened?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"Mru: {MruPosition}";
     }
 }
