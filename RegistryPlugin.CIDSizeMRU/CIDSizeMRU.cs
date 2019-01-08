@@ -107,6 +107,9 @@ namespace RegistryPlugin.CIDSizeMRU
                     }
 
                     var ff = new CIDSizeInfo(exeName, mru, openedOn);
+                    ff.BatchValueName = keyValue.ValueName;
+                    ff.BatchKeyPath = key.KeyPath;
+
 
                     l.Add(ff);
                 }

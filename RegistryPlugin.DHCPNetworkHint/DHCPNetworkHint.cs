@@ -194,8 +194,13 @@ namespace RegistryPlugin.DHCPNetworkHint
             }
 
 
-            return new ValuesOut(hint, gateway, obt, exp, dhcpAddress, dhcpServer, originKey, ssKey.KeyName,
+            var vo =  new ValuesOut(hint, gateway, obt, exp, dhcpAddress, dhcpServer, originKey, ssKey.KeyName,
                 dhcpDomain);
+
+            vo.BatchValueName = "Multiple";
+            vo.BatchKeyPath = ssKey.KeyPath;
+
+            return vo;
         }
     }
 }

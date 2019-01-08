@@ -216,6 +216,10 @@ namespace RegistryPlugin.LastVisitedPidlMRU
 
                         var v = new ValuesOut(exeName,
                             $"{GetAbsolutePathFromTargetIDs(bags)}", det.ToString(), keyValue.ValueName, mru, openedOn);
+
+                        v.BatchKeyPath = key.KeyPath;
+                        v.BatchValueName = keyValue.ValueName;
+
                         valuesList.Add(v);
                     }
                     catch (Exception ex)

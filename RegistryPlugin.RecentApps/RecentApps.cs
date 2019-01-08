@@ -64,6 +64,8 @@ namespace RegistryPlugin.RecentApps
                     var lc = registryKey.Values.SingleOrDefault(t => t.ValueName == "LaunchCount")?.ValueData;
 
                         var vo = new ValuesOut(registryKey.KeyName,appId,appPath,DateTimeOffset.FromFileTime(long.Parse(lAccess)).ToUniversalTime(),int.Parse(lc));
+                        vo.BatchValueName = "Multiple";
+                        vo.BatchKeyPath = registryKey.KeyPath;
 
                     var recentItems = registryKey.SubKeys.SingleOrDefault(t => t.KeyName == "RecentItems");
 

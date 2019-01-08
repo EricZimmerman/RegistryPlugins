@@ -1,8 +1,9 @@
 ﻿using System;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.KnownNetworks
 {
-    public class KnownNetwork
+    public class KnownNetwork:IValueOut
     {
         public enum NameTypes
         {
@@ -44,5 +45,11 @@ namespace RegistryPlugin.KnownNetworks
             DNSSuffix = dnsSuffix;
             NetworkName = networkName;
         }
+
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"Name: {NetworkName} Type: {NameType}";
+        public string BatchValueData2 => $"First Connect LOCAL: {FirstConnectLOCAL:yyyy-MM-dd HH:mm:ss.fffffff} Last Connect LOCAL: {LastConnectedLOCAL:yyyy-MM-dd HH:mm:ss.fffffff})";
+        public string BatchValueData3 => $"Gateway MAC: {GatewayMacAddress}";
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.DHCPNetworkHint
 {
-    public class ValuesOut
+    public class ValuesOut:IValueOut
     {
         public ValuesOut(string hint, string gateway, DateTimeOffset obtained, DateTimeOffset expires,
             string dhcpAddress, string dhcpServer, string inter, string interSubkey, string dhcpDomain)
@@ -33,5 +34,10 @@ namespace RegistryPlugin.DHCPNetworkHint
         public string Interface { get; }
 
         public string InterfaceSubkey { get; }
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 { get; }
+        public string BatchValueData2 { get; }
+        public string BatchValueData3 { get; }
     }
 }

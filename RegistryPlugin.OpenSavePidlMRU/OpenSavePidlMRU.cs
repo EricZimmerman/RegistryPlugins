@@ -219,6 +219,9 @@ namespace RegistryPlugin.OpenSavePidlMRU
                             var v = new ValuesOut(registryKey.KeyName,
                                 $"{GetAbsolutePathFromTargetIDs(bags)}", det.ToString(), keyValue.ValueName, mru,
                                 openedOn);
+                            v.BatchKeyPath = registryKey.KeyPath;
+                            v.BatchValueName = keyValue.ValueName;
+
                             valuesList.Add(v);
                         }
                         catch (Exception ex)

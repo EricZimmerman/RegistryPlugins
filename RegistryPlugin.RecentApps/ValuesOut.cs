@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.RecentApps
 {
-   public class ValuesOut
+   public class ValuesOut:IValueOut
     {
         public ValuesOut(string keyName,string appId, string appPath, DateTimeOffset lastAccessed, int launchCount)
         {
@@ -27,6 +28,11 @@ namespace RegistryPlugin.RecentApps
         public string RecentDocs => string.Join(",",RecentItems);
 
         public List<RecentItem> RecentItems { get; }
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"AppId: {AppId} App path: {AppPath}";
+        public string BatchValueData2 => $"Last Accessed: {LastAccessed.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff})";
+        public string BatchValueData3 => $"Launch count: {LaunchCount}" ;
     }
 
 

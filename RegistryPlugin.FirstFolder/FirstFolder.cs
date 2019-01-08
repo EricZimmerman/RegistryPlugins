@@ -116,6 +116,8 @@ namespace RegistryPlugin.FirstFolder
                     }
 
                     var ff = new FolderInfo(exeName, folder, mru, openedOn);
+                    ff.BatchKeyPath = key.KeyPath;
+                    ff.BatchValueName = keyValue.ValueName;
 
                     l.Add(ff);
                 }

@@ -94,6 +94,8 @@ namespace RegistryPlugin.LastVisitedMRU
                     }
 
                     var v = new ValuesOut(keyValue.ValueName, segs[0], segs[1], mru, openedOn);
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = keyValue.ValueName;
 
                     valuesList.Add(v);
                 }

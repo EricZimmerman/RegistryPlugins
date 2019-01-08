@@ -105,6 +105,8 @@ namespace RegistryPlugin.OfficeMRU
                     }
 
                     var v = new ValuesOut(keyValue.ValueName, firstOpen, lastOpen, fName);
+                    v.BatchKeyPath = key.KeyPath;
+                    v.BatchValueName = keyValue.ValueName;
 
                     _values.Add(v);
                 }

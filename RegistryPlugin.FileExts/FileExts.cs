@@ -125,6 +125,8 @@ namespace RegistryPlugin.FileExts
                     //we have enough to add an entry
 
                     var vo = new ValuesOut(registryKey.KeyName, string.Join(", ", oe), string.Join(", ", op), uc);
+                    vo.BatchKeyPath = key.KeyPath;
+                    vo.BatchValueName = "Multiple";
 
                     _values.Add(vo);
                 }

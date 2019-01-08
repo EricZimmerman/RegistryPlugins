@@ -96,6 +96,10 @@ namespace RegistryPlugin.KnownNetworks
 
                     var kn = new KnownNetwork(networkName, networkType, GetDateFrom128Bit(rawCreated),
                         GetDateFrom128Bit(rawLast), isManaged, dnsSuffix, macAddress, profilesSubKey.KeyName);
+
+                    kn.BatchKeyPath = profilesSubKey.KeyPath;
+                    kn.BatchValueName = "Multiple";
+
                     _values.Add(kn);
                 }
                 catch (Exception e)

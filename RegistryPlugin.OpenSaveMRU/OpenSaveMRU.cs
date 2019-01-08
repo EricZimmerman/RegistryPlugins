@@ -87,6 +87,8 @@ namespace RegistryPlugin.OpenSaveMRU
                     }
 
                     var v1 = new ValuesOut("OpenSaveMRU", keyValue.ValueData, keyValue.ValueName, mru1, openedOn1);
+                    v1.BatchKeyPath = key.KeyPath;
+                    v1.BatchValueName = keyValue.ValueName;
 
                     valuesList.Add(v1);
                 }
@@ -127,6 +129,8 @@ namespace RegistryPlugin.OpenSaveMRU
 
                         var v = new ValuesOut(registryKey.KeyName, keyValue.ValueData, keyValue.ValueName, mru,
                             openedOn);
+                        v.BatchKeyPath = registryKey.KeyPath;
+                        v.BatchValueName = keyValue.ValueName;
 
                         valuesList.Add(v);
                     }
