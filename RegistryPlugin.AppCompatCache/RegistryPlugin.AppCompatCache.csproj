@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody">
-      <Version>3.3.0</Version>
+      <Version>3.3.3</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
