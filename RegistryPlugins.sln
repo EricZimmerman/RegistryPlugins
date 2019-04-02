@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28729.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPluginBase", "RegistryPluginBase\RegistryPluginBase.csproj", "{CA2F88E7-31E4-46F5-A9AE-881B2CEBBAB2}"
 EndProject
@@ -69,6 +69,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags", "RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj", "{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SyscacheObjectTable", "RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj", "{1123721F-0300-4F07-9E02-66DCECDD1FEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Taskband", "RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj", "{1935E640-924F-4699-AFE6-B177A9BF8970}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,6 +202,10 @@ Global
 		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1123721F-0300-4F07-9E02-66DCECDD1FEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1935E640-924F-4699-AFE6-B177A9BF8970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1935E640-924F-4699-AFE6-B177A9BF8970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1935E640-924F-4699-AFE6-B177A9BF8970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1935E640-924F-4699-AFE6-B177A9BF8970}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

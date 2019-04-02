@@ -60,7 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dependencies\AppCompatCache.dll" />
-    <Content Include="FodyWeavers.xml" />
+    <Content Include="FodyWeavers.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody">

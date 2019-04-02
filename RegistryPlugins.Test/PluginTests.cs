@@ -29,6 +29,7 @@ using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
 using RegistryPlugin.SyscacheObjectTable;
+using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskFlowShellActivities;
 
 namespace RegistryPlugins.Test
@@ -64,6 +65,38 @@ namespace RegistryPlugins.Test
             Check.That(ff.Other).Contains("Timestamp");
 
             Debug.WriteLine(ff.Other);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+        }
+
+        [Test]
+        public void Taskband()
+        {
+            var r = new Taskband();
+
+            //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"C:\Temp\ntclean.dat");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(14);
+
+            var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
+
+         //   Check.That(ff.Other).IsNotEmpty();
+          //  Check.That(ff.Other).Contains("Timestamp");
+
+            //Debug.WriteLine(ff.Other);
 
             foreach (var rValue in r.Values)
             {
