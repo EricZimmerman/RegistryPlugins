@@ -26,7 +26,9 @@ namespace RegistryPlugin.BamDam
             @"ControlSet001\Services\bam\UserSettings\*",
             @"ControlSet002\Services\bam\UserSettings\*",
             @"ControlSet001\Services\dam\UserSettings\*",
-            @"ControlSet002\Services\dam\UserSettings\*"
+            @"ControlSet002\Services\dam\UserSettings\*",
+            @"ControlSet001\Services\bam\State\UserSettings\*",
+            @"ControlSet002\Services\bam\State\UserSettings\*"
         });
 
         public string ValueName => null;

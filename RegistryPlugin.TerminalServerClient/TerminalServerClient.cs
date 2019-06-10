@@ -107,7 +107,9 @@ namespace RegistryPlugin.TerminalServerClient
                         hint = hintVal.ValueData;
                     }
 
-                    var ff = new ValuesOut(mru, host, hint, serversKey.LastWriteTime.Value);
+               
+
+                    var ff = new ValuesOut(mru, host, hint, serverKey.LastWriteTime.Value);
                     ff.BatchKeyPath = key.KeyPath;
                     ff.BatchValueName = hintVal?.ValueName;
 

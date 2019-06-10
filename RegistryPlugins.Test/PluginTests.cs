@@ -89,12 +89,45 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsEqualTo(14);
+            Check.That(r.Values.Count).IsEqualTo(15);
 
             var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
 
          //   Check.That(ff.Other).IsNotEmpty();
           //  Check.That(ff.Other).Contains("Timestamp");
+
+            //Debug.WriteLine(ff.Other);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+        }
+
+        [Test]
+        public void Taskband2()
+        {
+            var r = new Taskband();
+
+            //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"C:\Temp\ntuser.dat");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(17);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+            var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
+
+            //   Check.That(ff.Other).IsNotEmpty();
+            //  Check.That(ff.Other).Contains("Timestamp");
 
             //Debug.WriteLine(ff.Other);
 
@@ -858,6 +891,11 @@ namespace RegistryPlugins.Test
 
             Check.That(ff.MRUPosition).IsEqualTo(-1);
             Check.That(ff.HostName).Contains("GOON");
+            Check.That(ff.LastModified.Month).IsEqualTo(5);
+            Check.That(ff.LastModified.Minute).IsEqualTo(32);
+            Check.That(ff.LastModified.Second).IsEqualTo(8);
+            Check.That(ff.LastModified.Day).IsEqualTo(28);
+            
 
             ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[3];
 
