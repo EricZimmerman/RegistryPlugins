@@ -50,10 +50,9 @@
     <Compile Include="Services.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj">
-      <Project>{ca2f88e7-31e4-46f5-a9ae-881b2cebbab2}</Project>
-      <Name>RegistryPluginBase</Name>
-    </ProjectReference>
+    <PackageReference Include="RegistryPluginBase">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

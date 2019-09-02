@@ -35,9 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ExtensionBlocks\ExtensionBlocks\bin\Release\ExtensionBlocks.dll</HintPath>
     </Reference>
-    <Reference Include="Registry">
-      <HintPath>..\RegistryPluginBase\Dependencies\Registry.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,10 +50,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj">
-      <Project>{ca2f88e7-31e4-46f5-a9ae-881b2cebbab2}</Project>
-      <Name>RegistryPluginBase</Name>
-    </ProjectReference>
+    <PackageReference Include="RegistryPluginBase">
+      <Version>1.0.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

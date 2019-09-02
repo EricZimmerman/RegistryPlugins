@@ -10,6 +10,8 @@ using Registry.Abstractions;
 using RegistryPlugin.Taskband.ShellItems;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
+using ShellBag = RegistryPlugin.Taskband.ShellItems.ShellBag;
+
 
 namespace RegistryPlugin.Taskband
 {
@@ -140,7 +142,7 @@ namespace RegistryPlugin.Taskband
                             case 0x31:
                             case 0x35:
                             case 0x36:
-                                bag = new ShellBag0X31(bytese);
+                                bag = new ShellItems.ShellBag0X31(bytese);
 
                                 break;
                             case 0x32:
@@ -203,7 +205,7 @@ namespace RegistryPlugin.Taskband
                         exe = ((Beef001d) ed).Executable;
                     }
 
-                    var pp = shellBag.ExtensionBlocks.SingleOrDefault(t => t is ExtensionBlocks.Beef001e);
+                    var pp = shellBag.ExtensionBlocks.SingleOrDefault(t => t is Beef001e);
 
                     var pt = "(unknown)";
                     if (pp != null)

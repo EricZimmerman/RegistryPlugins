@@ -1,214 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78750675-D309-4C0C-80B9-22C6D238C38D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RegistryPlugins.Test</RootNamespace>
-    <AssemblyName>RegistryPlugins.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFrameworks>net462</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Eric Zimmerman</Authors>
+    <Company>Eric Zimmerman</Company>
+    <Product>RegistryPlugins.Test</Product>
+    <Description>RegistryPlugins.Test</Description>
+    <Copyright>Eric Zimmerman</Copyright>
+    <PackageProjectUrl>https://github.com/EricZimmerman/RegistryPlugins</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/EricZimmerman/RegistryPlugins</RepositoryUrl>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Registry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RegistryPluginBase\Dependencies\Registry.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
+    <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
+    <PackageReference Include="GuidMapping" Version="1.0.0" />
+    <PackageReference Include="NFluent" Version="2.6.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="Registry" Version="1.1.0" />
+    <PackageReference Include="RegistryPluginBase" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryExplorer.MountedDevices.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Ares\RegistryPlugin.Ares.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.OpenSavePidlMRU\RegistryPlugin.OpenSavePidlMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.RunMRU\RegistryPlugin.RunMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.SAM\RegistryPlugin.SAM.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.ServiceProcess" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="PluginTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="Hives\ntuser1.dat" />
-    <None Include="Hives\SAM" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryExplorer.MountedDevices.csproj">
-      <Project>{9b8f5ead-56b1-495b-a779-b0ab85979c37}</Project>
-      <Name>RegistryExplorer.MountedDevices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj">
-      <Project>{8d2af32b-92c5-4940-9b5a-d0b30935dd12}</Project>
-      <Name>RegistryPlugin.7-ZipHistory</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj">
-      <Project>{9fdd05f7-46bc-45d5-bb91-d5c003bcee1f}</Project>
-      <Name>RegistryPlugin.AppCompatCache</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj">
-      <Project>{4bd2306b-9eb7-4bc9-9b13-9f2d5222d457}</Project>
-      <Name>RegistryPlugin.AppCompatFlags</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.Ares\RegistryPlugin.Ares.csproj">
-      <Project>{3e08c307-af34-400e-ab0b-99df54e1adbc}</Project>
-      <Name>RegistryPlugin.Ares</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj">
-      <Project>{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}</Project>
-      <Name>RegistryPlugin.BamDam</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj">
-      <Project>{aa11dce3-ce1e-4a70-abbe-7a18419afe33}</Project>
-      <Name>RegistryPlugin.BluetoothServicesBthPort</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj">
-      <Project>{BA3A8987-719E-4AF6-A806-871C052C8BAE}</Project>
-      <Name>RegistryPlugin.CIDSizeMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj">
-      <Project>{228b4e4b-0294-4880-84f7-aea116257be7}</Project>
-      <Name>RegistryPlugin.DHCPNetworkHint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj">
-      <Project>{7f63722b-3a23-4cb6-9c3d-2a57eb122b73}</Project>
-      <Name>RegistryPlugin.FileExts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj">
-      <Project>{93476148-2369-4DF2-8794-9E5C7A094B79}</Project>
-      <Name>RegistryPlugin.FirstFolder</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj">
-      <Project>{199c70c7-7004-426f-add2-375928b3ed74}</Project>
-      <Name>RegistryPlugin.KnownNetworks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj">
-      <Project>{c613d9be-f24e-48cb-bfba-03906b326ae4}</Project>
-      <Name>RegistryPlugin.LastVisitedMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj">
-      <Project>{2868ba3d-6eb5-4c9a-a94d-110f0ea19129}</Project>
-      <Name>RegistryPlugin.LastVisitedPidlMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj">
-      <Project>{5d95bf82-c1ba-4a41-862f-ac693fe3b334}</Project>
-      <Name>RegistryPlugin.OfficeMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj">
-      <Project>{5116292f-2eac-405f-b0cf-77d11df3cdf8}</Project>
-      <Name>RegistryPlugin.OpenSaveMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.OpenSavePidlMRU\RegistryPlugin.OpenSavePidlMRU.csproj">
-      <Project>{a1be3977-df7b-412c-81e8-15722a4f7325}</Project>
-      <Name>RegistryPlugin.OpenSavePidlMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj">
-      <Project>{41B6AE52-CA34-457C-8842-2B0C13D5086D}</Project>
-      <Name>RegistryPlugin.RecentApps</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj">
-      <Project>{6f7ba570-291f-4290-94af-3a662e12d5d1}</Project>
-      <Name>RegistryPlugin.RecentDocs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.RunMRU\RegistryPlugin.RunMRU.csproj">
-      <Project>{fa88d426-fa86-43b4-a58e-0772175afaf0}</Project>
-      <Name>RegistryPlugin.RunMRU</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.SAM\RegistryPlugin.SAM.csproj">
-      <Project>{f50e158f-965c-49b7-ba91-7ed5dce4b77d}</Project>
-      <Name>RegistryPlugin.SAM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj">
-      <Project>{8944873c-6dc4-453e-a2d0-9df2260d4a53}</Project>
-      <Name>RegistryPlugin.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj">
-      <Project>{1123721f-0300-4f07-9e02-66dcecdd1fef}</Project>
-      <Name>RegistryPlugin.SyscacheObjectTable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj">
-      <Project>{1935e640-924f-4699-afe6-b177a9bf8970}</Project>
-      <Name>RegistryPlugin.Taskband</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj">
-      <Project>{d3434de3-ded4-4f84-9ee4-4e3fcd9143c5}</Project>
-      <Name>RegistryPlugin.TaskFlowShellActivities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj">
-      <Project>{6563c75f-c571-4e76-a072-77c021055bcf}</Project>
-      <Name>RegistryPlugin.TerminalServerClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj">
-      <Project>{eacb7738-27e1-4c15-b6cf-671fc18640b1}</Project>
-      <Name>RegistryPlugin.TimeZoneInformation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj">
-      <Project>{8bd60648-779c-417f-8e6f-f63f67946792}</Project>
-      <Name>RegistryPlugin.TypedURLs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj">
-      <Project>{f15a987f-c172-45c6-8135-6d8a6f673a5d}</Project>
-      <Name>RegistryPlugin.UserAssist</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj">
-      <Project>{341698c8-4fcc-41cb-8936-0971c43b0ba0}</Project>
-      <Name>RegistryPlugin.WordWheelQuery</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj">
-      <Project>{ca2f88e7-31e4-46f5-a9ae-881b2cebbab2}</Project>
-      <Name>RegistryPluginBase</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NFluent">
-      <Version>2.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.6.5</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit">
-      <Version>3.12.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+
 </Project>
