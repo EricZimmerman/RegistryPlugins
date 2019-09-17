@@ -58,13 +58,12 @@ namespace RegistryPlugin.MountedDevices
                 {
                     var vData = string.Empty;
 
-                    var first = Convert.ToString(keyValue.ValueDataRaw[0]);
 
-                    switch (first)
+                    switch (keyValue.ValueDataRaw[0])
                     {
-                        case "{":
-                        case "\\":
-                        case "_":
+                        case 0x7b: // {
+                        case 0x5c: // \
+                        case 0x5f: //_
                             
                             vData = Encoding.Unicode.GetString(keyValue.ValueDataRaw);
                             break;
