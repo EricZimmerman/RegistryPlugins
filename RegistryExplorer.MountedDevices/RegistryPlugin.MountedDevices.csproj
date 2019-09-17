@@ -7,8 +7,8 @@
     <ProjectGuid>{9B8F5EAD-56B1-495B-A779-B0AB85979C37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RegistryExplorer.MountedDevices</RootNamespace>
-    <AssemblyName>RegistryExplorer.MountedDevices</AssemblyName>
+    <RootNamespace>RegistryPlugin.MountedDevices</RootNamespace>
+    <AssemblyName>RegistryPlugin.MountedDevices</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

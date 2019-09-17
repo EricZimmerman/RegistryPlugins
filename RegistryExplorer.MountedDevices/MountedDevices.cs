@@ -6,7 +6,7 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryExplorer.MountedDevices
+namespace RegistryPlugin.MountedDevices
 {
     public class MountedDevices : IRegistryPluginGrid
     {
@@ -58,18 +58,26 @@ namespace RegistryExplorer.MountedDevices
                 {
                     var vData = string.Empty;
 
-                    currVal = keyValue.ValueName;
+                    var first = Convert.ToString(keyValue.ValueDataRaw[0]);
 
-
-                    switch (keyValue.ValueDataRaw[0])
+                    switch (first)
                     {
-                        case 0x5f:
+                        case "{":
+                        case "\\":
+                        case "_":
+                            
                             vData = Encoding.Unicode.GetString(keyValue.ValueDataRaw);
                             break;
-                        default:
-                            throw new Exception("fix me");
+                            
+                            default:
+                                vData = Encoding.GetEncoding(1252).GetString(keyValue.ValueDataRaw);
+                                break;
+
                     }
 
+                    currVal = keyValue.ValueName;
+
+                    
 
                     var v1 = new ValuesOut(keyValue.ValueName, vData);
 

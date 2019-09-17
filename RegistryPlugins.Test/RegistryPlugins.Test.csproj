@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryExplorer.MountedDevices.csproj" />
+    <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj" />
     <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj" />

@@ -6,7 +6,6 @@ using System.ServiceProcess;
 using NFluent;
 using NUnit.Framework;
 using Registry;
-using RegistryExplorer.MountedDevices;
 using RegistryPlugin.AppCompatCache;
 using RegistryPlugin.AppCompatFlags;
 using RegistryPlugin.CIDSizeMRU;
@@ -28,6 +27,7 @@ using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
+using RegistryPlugin.MountedDevices;
 using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskFlowShellActivities;
@@ -641,12 +641,11 @@ namespace RegistryPlugins.Test
         }
 
         [Test]
-        [Ignore("Not done")]
         public void MountedDevicesTest()
         {
             var r = new MountedDevices();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM");
+            var reg = new RegistryHive(@"C:\temp\tout\c\Windows\System32\config\SYSTEM");
             reg.ParseHive();
 
             var key = reg.GetKey(@"MountedDevices");
@@ -655,7 +654,7 @@ namespace RegistryPlugins.Test
 
             r.ProcessValues(key);
 
-            Check.That(r.Values.Count).IsEqualTo(65);
+            Check.That(r.Values.Count).IsEqualTo(55);
         }
 
         [Test]

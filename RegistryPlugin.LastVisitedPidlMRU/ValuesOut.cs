@@ -2,6 +2,7 @@
 using System.IO;
 using RegistryPluginBase.Interfaces;
 
+
 namespace RegistryPlugin.LastVisitedPidlMRU
 {
     public class ValuesOut:IValueOut
