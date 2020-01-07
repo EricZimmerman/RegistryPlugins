@@ -20,6 +20,6 @@ namespace RegistryPlugin.FileExts
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Extension: {Extension}";
         public string BatchValueData2 => $"Open Exes: {OpensWithExecutables} Open ProgIds: {OpensWithProgramIDs}";
-        public string BatchValueData3 => $"User choise: {UserChoice}";
+        public string BatchValueData3 => $"User choice: {UserChoice}";
     }
 }

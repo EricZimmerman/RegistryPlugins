@@ -115,9 +115,10 @@ namespace RegistryPlugin.FirstFolder
                         openedOn = key.LastWriteTime;
                     }
 
-                    var ff = new FolderInfo(exeName, folder, mru, openedOn);
-                    ff.BatchKeyPath = key.KeyPath;
-                    ff.BatchValueName = keyValue.ValueName;
+                    var ff = new FolderInfo(exeName, folder, mru, openedOn)
+                    {
+                        BatchKeyPath = key.KeyPath, BatchValueName = keyValue.ValueName
+                    };
 
                     l.Add(ff);
                 }

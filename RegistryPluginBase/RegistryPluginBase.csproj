@@ -10,15 +10,16 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/RegistryPlugins</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/RegistryPlugins</RepositoryUrl>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <Version>1.0.0.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0.0</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
     <PackageReference Include="GuidMapping" Version="1.0.0" />
-    <PackageReference Include="Registry" Version="1.1.0" />
+    <PackageReference Include="Registry" Version="1.1.0.5" />
   </ItemGroup>
 
 

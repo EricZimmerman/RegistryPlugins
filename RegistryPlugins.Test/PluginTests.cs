@@ -27,6 +27,7 @@ using RegistryPlugin.UserAssist;
 using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
 using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
+using RegistryPlugin.JumplistData;
 using RegistryPlugin.MountedDevices;
 using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
@@ -65,6 +66,36 @@ namespace RegistryPlugins.Test
             Check.That(ff.Other).Contains("Timestamp");
 
             Debug.WriteLine(ff.Other);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+        }
+
+        [Test]
+        public void JumplistData()
+        {
+            var r = new JumplistData();
+
+            //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_MarkElliot_RecentApps.DAT");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Search\JumplistData");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+            
+            Check.That(r.Values.Count).IsEqualTo(44);
+
+            var ff = (RegistryPlugin.JumplistData.ValuesOut) r.Values[0];
+
+            Check.That(ff.JumpListName).IsNotEmpty();
+            Check.That(ff.ExecutedOn).IsNotEqualTo(null);
 
             foreach (var rValue in r.Values)
             {

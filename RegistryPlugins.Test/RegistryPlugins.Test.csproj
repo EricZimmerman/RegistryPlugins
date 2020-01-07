@@ -20,8 +20,8 @@
     <PackageReference Include="GuidMapping" Version="1.0.0" />
     <PackageReference Include="NFluent" Version="2.6.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="Registry" Version="1.1.0" />
-    <PackageReference Include="RegistryPluginBase" Version="1.0.0" />
+    <PackageReference Include="Registry" Version="1.1.0.5" />
+    <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +36,7 @@
     <ProjectReference Include="..\RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj" />
     <ProjectReference Include="..\RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj" />
     <ProjectReference Include="..\RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.JumplistData\RegistryPlugin.JumplistData.csproj" />
     <ProjectReference Include="..\RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj" />
     <ProjectReference Include="..\RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj" />
