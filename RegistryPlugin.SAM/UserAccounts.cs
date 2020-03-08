@@ -172,9 +172,9 @@ namespace RegistryPlugin.SAM
                             lastIncorrectPwTime = tempTime.ToUniversalTime();
                         }
 
-                        if (fVal.ValueDataRaw.Length >= 0x56)
+                        if (fVal.ValueDataRaw.Length >= 0x38)
                         {
-                            parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x56);
+                            parsedAccountFlags = (AccountFlags)BitConverter.ToInt16(fVal.ValueDataRaw, 0x38);
                         }
                         
                     }
