@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
-    <PackageReference Include="GuidMapping" Version="1.0.0" />
+    <PackageReference Include="GuidMapping" Version="1.0.0.1" />
     <PackageReference Include="NFluent" Version="2.6.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="Registry" Version="1.1.0.5" />
@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj" />
     <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Ares\RegistryPlugin.Ares.csproj" />

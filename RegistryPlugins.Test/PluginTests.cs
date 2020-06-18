@@ -6,6 +6,7 @@ using System.ServiceProcess;
 using NFluent;
 using NUnit.Framework;
 using Registry;
+using RegistryPlugin.Adobe;
 using RegistryPlugin.AppCompatCache;
 using RegistryPlugin.AppCompatFlags;
 using RegistryPlugin.CIDSizeMRU;
@@ -168,7 +169,28 @@ namespace RegistryPlugins.Test
             }
         }
 
-        
+
+
+        [Test]
+        public void Adobe()
+        {
+            var r = new Adobe();
+
+            var reg = new RegistryHive(@"D:\Temp\Adobe_cRecentFiles_NTUSER.DAT");
+            
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Software\Adobe");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(114);
+            Check.That(r.Errors.Count).IsEqualTo(0);
+
+        }
+
         [Test]
         public void AppCompatFlags()
         {

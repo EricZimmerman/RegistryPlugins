@@ -74,6 +74,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Taskband", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.JumplistData", "RegistryPlugin.JumplistData\RegistryPlugin.JumplistData.csproj", "{3B8DD08C-1ADF-44B2-958F-72989B983BFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Adobe", "RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj", "{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -212,6 +214,10 @@ Global
 		{3B8DD08C-1ADF-44B2-958F-72989B983BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B8DD08C-1ADF-44B2-958F-72989B983BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B8DD08C-1ADF-44B2-958F-72989B983BFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
