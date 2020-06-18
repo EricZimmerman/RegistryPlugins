@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.ServiceProcess;
 using NFluent;
@@ -174,6 +176,81 @@ namespace RegistryPlugins.Test
         [Test]
         public void Adobe()
         {
+            /*var f = new List<string>();
+            f.Add("D:20200618035802+05'30'");
+            f.Add("D:20200618035756+05'30'");
+            f.Add("D:20200618035751+05'30'");
+            f.Add("D:20200618035744+05'30'");
+            f.Add("D:20200618035737+05'30'");
+            f.Add("D:20200617182700-04'00'");
+            f.Add("D:20200617182636-04'00'");
+            f.Add("D:20200617223217Z");
+            f.Add("D:20200617182628-04'00'");
+            f.Add("D:20200617181449-04'00'");
+            f.Add("D:20200617181442-04'00'");
+            f.Add("D:20200617181427-04'00'");
+            f.Add("D:20200617221353Z");
+            f.Add("D:20200617221332Z");
+            f.Add("D:20200617221318Z");
+            f.Add("D:20200617230951+01'00'");
+            f.Add("D:20200617230941+01'00'");
+            f.Add("D:20200617230930+01'00'");
+            f.Add("D:20200617230922+01'00'");
+            f.Add("D:20200617230912+01'00'");
+            f.Add("D:20200617230902+01'00'");
+            f.Add("D:20200617230854+01'00'");
+            f.Add("D:20200617223156Z");
+            f.Add("D:20200617230846+01'00'");
+            f.Add("D:20200617230730+01'00'");
+            f.Add("D:20200617230724+01'00'");
+            f.Add("D:20200617230718+01'00'");
+            f.Add("D:20200617223147Z");
+            f.Add("D:20200617230712+01'00'");
+            f.Add("D:20200617230702+01'00'");
+            f.Add("D:20200617230655+01'00'");
+            f.Add("D:20200617230647+01'00'");
+            f.Add("D:20200617230640+01'00'");
+            f.Add("D:20200617230217+01'00'");
+            f.Add("D:20200617230020+01'00'");
+            f.Add("D:20200617230016+01'00'");
+            f.Add("D:20200617223137Z");
+            f.Add("D:20200617223126Z");
+            f.Add("D:20200617223024Z");
+            f.Add("D:20200617223003Z");
+
+            foreach (var f1 in f)
+            {
+                var start = f1.Substring(2);
+                Console.WriteLine(start);
+
+                var year = start.Substring(0, 4);
+                var month = start.Substring(4, 2);
+                var day = start.Substring(6, 2);
+                var hours = start.Substring(8, 2);
+                var mins = start.Substring(10, 2);
+                var sec = start.Substring(12, 2);
+                var tzi = start.Substring(14);
+                tzi = tzi.Replace("'", ":").TrimEnd(':');
+
+                var dateString = $"{month}/{day}/{year}";
+                var timeString = $"{hours}:{mins}:{sec}";
+
+                Console.WriteLine($"{dateString} {timeString} {tzi}");
+
+                if (tzi.EndsWith("Z"))
+                {
+                    tzi = "+0:00";
+                }
+
+                var aaa = DateTimeOffset.ParseExact($"{dateString} {timeString} {tzi}","MM/dd/yyyy HH:mm:ss zzz",CultureInfo.InvariantCulture);
+
+                var dto = new DateTimeOffset(int.Parse(year),int.Parse(month),int.Parse(day),int.Parse(hours),int.Parse(mins),int.Parse(sec),TimeSpan.Zero);
+
+                Console.WriteLine($"dto: {dto:yyyy-MM-dd HH:mm:ss}");
+                Console.WriteLine($"As UTC: {aaa.ToUniversalTime():yyyy-MM-dd HH:mm:ss}");
+            }*/
+
+
             var r = new Adobe();
 
             var reg = new RegistryHive(@"D:\Temp\Adobe_cRecentFiles_NTUSER.DAT");

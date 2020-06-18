@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,7 +98,7 @@ var fullPath = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tDI
                                 pageCount = BitConverter.ToInt32(pageCountRaw, 0);
                             }
 
-                            var v = new ValuesOut(productKey.KeyName,versionKey.KeyName,fullPath,lastOpened,fileName,fileSize,fileSource,pageCount);
+                            var v = new ValuesOut(productKey.KeyName,versionKey.KeyName,fullPath,ConvertToDTO(lastOpened),fileName,fileSize,fileSource,pageCount);
 
                             v.BatchKeyPath = recentFiles.KeyPath;
                             v.BatchValueName = recentFilesSubKey.KeyName;
@@ -127,6 +128,35 @@ var fullPath = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tDI
             }
         }
 
+        private DateTimeOffset ConvertToDTO(string input)
+        {
+            var start = input.Substring(2);
+
+            var year = start.Substring(0, 4);
+            var month = start.Substring(4, 2);
+            var day = start.Substring(6, 2);
+            var hours = start.Substring(8, 2);
+            var mins = start.Substring(10, 2);
+            var sec = start.Substring(12, 2);
+            var tzi = start.Substring(14);
+            tzi = tzi.Replace("'", ":").TrimEnd(':');
+
+            var dateString = $"{month}/{day}/{year}";
+            var timeString = $"{hours}:{mins}:{sec}";
+
+           // Console.WriteLine($"{dateString} {timeString} {tzi}");
+
+            if (tzi.EndsWith("Z"))
+            {
+                tzi = "+0:00";
+            }
+
+            var aaa = DateTimeOffset.ParseExact($"{dateString} {timeString} {tzi}","MM/dd/yyyy HH:mm:ss zzz",CultureInfo.InvariantCulture);
+
+            return aaa.ToUniversalTime();
+
+            
+        }
 
         public IBindingList Values => _values;
 
