@@ -48,7 +48,7 @@ namespace RegistryPlugin.TrustedDocuments
         public string PluginName => "TrustedDocuments";
 
         public string ShortDescription =>
-            "Extracts names of Office documents where the user may have clicked on \"Enable Editing\" or \"Enable Macro or Enable Content\"";
+            "Extracts names of Office documents where the user may have clicked on \"Enable Editing\" or \"Enable Macro or Enable Content\"";;
 
         public string LongDescription => ShortDescription;
 
@@ -74,7 +74,7 @@ namespace RegistryPlugin.TrustedDocuments
                     var type = bin.Substring(bin.Length - 8);
                     string EventType;
                     byte[] dateval = StringToByteArray(hexDate);
-                    DateTime tstamp = ConvertWindowsDate(dateval);
+                    DateTimeOffset tstamp = ConvertWindowsDate(dateval);
                     if (type == "01000000")
                     {
                         EventType = "Enable Editing";
@@ -89,7 +89,7 @@ namespace RegistryPlugin.TrustedDocuments
                     }
                     // to read the username of the current NTUSER.DAT hive, go up a few levels and list the value Software\Microsoft\Internet Explorer\Suggested Sites\LocalLogFolder
                     var internetExplorerKey = key.Parent.Parent.Parent.Parent.Parent.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "Internet Explorer");
-                    string username="";
+                    string username = "";
                     foreach (var registryKey in internetExplorerKey.SubKeys)
                     {
                         var suggestedSitesKey = internetExplorerKey.SubKeys.SingleOrDefault(t => t.KeyName == "Suggested Sites");
@@ -102,7 +102,7 @@ namespace RegistryPlugin.TrustedDocuments
                             }
                         }
                     }
-                    var v = new ValuesOut(EventType, tstamp.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss.fffffff"), fName, username);
+                    var v = new ValuesOut(EventType, tstamp, fName, username);
                     v.BatchKeyPath = key.KeyPath;
                     v.BatchValueName = keyValue.ValueName;
                     _values.Add(v);
@@ -126,10 +126,10 @@ namespace RegistryPlugin.TrustedDocuments
                              .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
                              .ToArray();
         }
-        public static DateTime ConvertWindowsDate(byte[] bytes)
+        public static DateTimeOffset ConvertWindowsDate(byte[] bytes)
         {
             if (bytes.Length != 8) throw new ArgumentException();
-            return DateTime.FromFileTimeUtc(BitConverter.ToInt64(bytes, 0));
+            return DateTime.SpecifyKind((DateTime.FromFileTimeUtc(BitConverter.ToInt64(bytes, 0))),DateTimeKind.Utc);
         }
 
         public IBindingList Values => _values;

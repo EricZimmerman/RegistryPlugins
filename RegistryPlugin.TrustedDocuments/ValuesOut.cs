@@ -5,7 +5,7 @@ namespace RegistryPlugin.TrustedDocuments
 {
     public class ValuesOut:IValueOut
     {
-        public ValuesOut(string valueName, string tstamp, string fileName,string username)
+        public ValuesOut(string valueName, DateTimeOffset tstamp, string fileName,string username)
         {
             EventType = valueName;
             Timestamp = tstamp;
@@ -14,7 +14,7 @@ namespace RegistryPlugin.TrustedDocuments
         }
 
         public string EventType { get; }
-        public string Timestamp { get; }
+        public DateTimeOffset Timestamp { get; }
         public string FileName { get; }
         public string Username { get; }
         public string BatchKeyPath { get; set; }
