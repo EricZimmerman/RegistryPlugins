@@ -76,6 +76,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.JumplistData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Adobe", "RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj", "{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TrustedDocuments", "RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj", "{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -218,6 +220,10 @@ Global
 		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

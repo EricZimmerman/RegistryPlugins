@@ -48,7 +48,7 @@ namespace RegistryPlugin.TrustedDocuments
         public string PluginName => "TrustedDocuments";
 
         public string ShortDescription =>
-            "Extracts names of Office documents where the user may have clicked on \"Enable Editing\" or \"Enable Macro or Enable Content\"";;
+            "Extracts names of Office documents where the user may have clicked on \"Enable Editing\" or \"Enable Macro or Enable Content\"";
 
         public string LongDescription => ShortDescription;
 

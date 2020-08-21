@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D95BF82-C1BA-4A41-862F-AC693FE3B334}</ProjectGuid>
+    <ProjectGuid>{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RegistryPlugin.TrustedDocuments</RootNamespace>
