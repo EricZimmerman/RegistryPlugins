@@ -32,6 +32,7 @@ using RegistryPlugin.RecentApps;
 using RegistryPlugin.BamDam;
 using RegistryPlugin.JumplistData;
 using RegistryPlugin.MountedDevices;
+using RegistryPlugin.OfficeMRU;
 using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskFlowShellActivities;
@@ -42,6 +43,55 @@ namespace RegistryPlugins.Test
     public class PluginTests
     {
 
+
+
+
+        [Test]
+        public void MRU2()
+        {
+            var r = new OfficeMRU();
+
+            
+       
+
+            var reg = new RegistryHive(@"C:\Temp\tout\G\Users\fredr\NTUSER.DAT");
+
+
+            var l = new List<string>();
+                l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG1");
+                l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG2");
+                
+
+            reg.ProcessTransactionLogs(l, true);
+
+
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"SOFTWARE\Microsoft\Office\16.0\Word\User MRU\ADAL_71509F4C9F29E24E25306165B32FE79B68FD54A88446B7C792A3A9D5AB6BB5AE\File MRU");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+
+            Debug.WriteLine(r.Values.Count);
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
+        
         [Test]
         public void TaskShellitem()
         {

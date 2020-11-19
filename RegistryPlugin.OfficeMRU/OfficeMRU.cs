@@ -63,6 +63,15 @@ namespace RegistryPlugin.OfficeMRU
                 {
                     //[F00000000][T01D005C5B44B6300][O00000000]*C:\Users\eric\Desktop\aa\Out\Deduplicated.tsv
 
+                    if (keyValue.ValueName.StartsWith("FOLDER"))
+                    {
+                        var v1 = new ValuesOut(keyValue.ValueName,null,null,keyValue.ValueData);
+                        v1.BatchKeyPath = key.KeyPath;
+                        v1.BatchValueName = keyValue.ValueName;
+                        _values.Add(v1);
+                        continue;
+                    }
+
                     var segs = keyValue.ValueData.Split('*');
                     var fName = segs.Last();
 

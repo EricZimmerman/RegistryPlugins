@@ -19,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
     <PackageReference Include="GuidMapping" Version="1.0.0.1" />
-    <PackageReference Include="Registry" Version="1.1.0.5" />
+    <PackageReference Include="Registry" Version="1.1.1.1" />
   </ItemGroup>
 
 

@@ -18,9 +18,9 @@
   <ItemGroup>
     <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
     <PackageReference Include="GuidMapping" Version="1.0.0.1" />
-    <PackageReference Include="NFluent" Version="2.6.0" />
+    <PackageReference Include="NFluent" Version="2.7.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="Registry" Version="1.1.0.5" />
+    <PackageReference Include="Registry" Version="1.1.1.1" />
     <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
 
