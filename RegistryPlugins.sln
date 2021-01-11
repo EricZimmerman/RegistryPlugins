@@ -78,6 +78,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Adobe", "Reg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TrustedDocuments", "RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj", "{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskCache", "RegistryPlugin.TaskCache\RegistryPlugin.TaskCache.csproj", "{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -224,6 +226,10 @@ Global
 		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

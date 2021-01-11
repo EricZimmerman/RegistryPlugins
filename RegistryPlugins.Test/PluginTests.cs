@@ -35,6 +35,7 @@ using RegistryPlugin.MountedDevices;
 using RegistryPlugin.OfficeMRU;
 using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
+using RegistryPlugin.TaskCache;
 using RegistryPlugin.TaskFlowShellActivities;
 
 namespace RegistryPlugins.Test
@@ -42,6 +43,55 @@ namespace RegistryPlugins.Test
     [TestFixture]
     public class PluginTests
     {
+
+
+        
+        [Test]
+        public void TaskCache()
+        {
+            var r = new TaskCache();
+
+            
+       
+
+            var reg = new RegistryHive(@"D:\OneDrive\Registry\SOFTWARE_dblake");
+
+
+            // var l = new List<string>();
+            // l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG1");
+            // l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG2");
+                
+
+      //      reg.ProcessTransactionLogs(l, true);
+
+
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+
+            Debug.WriteLine(r.Values.Count);
+
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+
+
+
+
+
+
+
+
+        }
 
 
 

@@ -51,9 +51,11 @@
     <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj" />
     <ProjectReference Include="..\RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TaskCache\RegistryPlugin.TaskCache.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj" />
     <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj" />
     <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj" />
