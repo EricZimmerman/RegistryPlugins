@@ -33,17 +33,18 @@ namespace RegistryPlugin.KnownNetworks
         public DateTime FirstConnectLOCAL { get; }
         public DateTime LastConnectedLOCAL { get; }
 
-        public bool Managed { get; }
+        public bool Managed { get; private set; }
 
         public string DNSSuffix { get; private set; }
         public string GatewayMacAddress { get; private set; }
         public string ProfileGUID { get; }
 
-        public void UpdateInfo(string macAddress, string dnsSuffix, string networkName)
+        public void UpdateInfo(string macAddress, string dnsSuffix, string networkName, bool managed)
         {
             GatewayMacAddress = macAddress;
             DNSSuffix = dnsSuffix;
             NetworkName = networkName;
+            Managed = managed;
         }
 
         public string BatchKeyPath { get; set; }

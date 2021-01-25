@@ -135,7 +135,7 @@ namespace RegistryPlugin.KnownNetworks
 
                     var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
 
-                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork);
+                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork,false);
                 }
                 catch (Exception e)
                 {
@@ -162,7 +162,8 @@ namespace RegistryPlugin.KnownNetworks
 
                     var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
 
-                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork);
+                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork,true);
+             
                 }
                 catch (Exception e)
                 {

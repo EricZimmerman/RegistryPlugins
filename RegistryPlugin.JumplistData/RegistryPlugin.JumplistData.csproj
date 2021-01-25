@@ -39,10 +39,10 @@
       <HintPath>..\packages\GuidMapping.1.0.0.1\lib\net462\GuidMapping.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.7.5\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.7.7\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="Registry, Version=1.1.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Registry.1.1.1.1\lib\net462\Registry.dll</HintPath>
+    <Reference Include="Registry, Version=1.1.1.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Registry.1.1.1.2\lib\net462\Registry.dll</HintPath>
     </Reference>
     <Reference Include="RegistryPluginBase, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RegistryPluginBase.1.1.0\lib\net462\RegistryPluginBase.dll</HintPath>

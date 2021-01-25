@@ -839,6 +839,22 @@ namespace RegistryPlugins.Test
         }
 
         [Test]
+        public void KnownNetwork2()
+        {
+            var r = new KnownNetworks();
+            var reg = new RegistryHive(@"C:\Temp\Chad\SOFTWARE_clean");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\NetworkList");
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+            Check.That(r.Values.Count).IsEqualTo(4);
+        }
+
+        [Test]
         public void LastVisitedMRUTest()
         {
             var r = new LastVisitedMRU();
