@@ -82,6 +82,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskCache", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.USBSTOR", "RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj", "{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Uninstall", "RegistryPlugin.Uninstall\RegistryPlugin.Uninstall.csproj", "{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.VolumeInfoCache", "RegistryPlugin.VolumeInfoCache\RegistryPlugin.VolumeInfoCache.csproj", "{56D75B2F-5414-445F-958B-1B70CFFC7B55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.DeviceClasses", "RegistryPlugin.DeviceClasses\RegistryPlugin.DeviceClasses.csproj", "{01532E4B-67B5-4A75-8448-08794AEF685D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.USB", "RegistryPlugin.USB\RegistryPlugin.USB.csproj", "{2FDAE597-63A5-40C3-9066-E62A064FC1F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +244,22 @@ Global
 		{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D75B2F-5414-445F-958B-1B70CFFC7B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D75B2F-5414-445F-958B-1B70CFFC7B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D75B2F-5414-445F-958B-1B70CFFC7B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D75B2F-5414-445F-958B-1B70CFFC7B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01532E4B-67B5-4A75-8448-08794AEF685D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01532E4B-67B5-4A75-8448-08794AEF685D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01532E4B-67B5-4A75-8448-08794AEF685D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01532E4B-67B5-4A75-8448-08794AEF685D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FDAE597-63A5-40C3-9066-E62A064FC1F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FDAE597-63A5-40C3-9066-E62A064FC1F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FDAE597-63A5-40C3-9066-E62A064FC1F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FDAE597-63A5-40C3-9066-E62A064FC1F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
