@@ -53,7 +53,7 @@ namespace RegistryPlugin.USB
 
         public IBindingList Values => _values;
 
-        private string splitData(string data)
+        private string SplitData(string data)
         {
             if (data != null)
             {
@@ -79,8 +79,8 @@ namespace RegistryPlugin.USB
                     foreach (var subKey in registryKey.SubKeys)
                     {
                         string serialNumber = subKey.KeyName;
-                        string deviceDesc = splitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
-                        string friendlyName = splitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
+                        string deviceDesc = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
+                        string friendlyName = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
                         string locationinformation = subKey.Values.SingleOrDefault(t => t.ValueName == "LocationInformation")?.ValueData;
                         DateTimeOffset? ts = subKey.LastWriteTime;
 

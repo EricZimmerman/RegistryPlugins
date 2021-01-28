@@ -55,7 +55,7 @@ namespace RegistryPlugin.DeviceClasses
 
         public IBindingList Values => _values;
 
-        private ValuesOut parseData(RegistryKey subKey)
+        private ValuesOut ParseData(RegistryKey subKey)
         {
             string[] keyName = subKey.KeyName.Replace("##?#", "").Split('#');
 
@@ -86,7 +86,7 @@ namespace RegistryPlugin.DeviceClasses
                         continue;
 
                     foreach (var subKey in registryKey.SubKeys)
-                        l.Add(parseData(subKey));
+                        l.Add(ParseData(subKey));
                 }
                 catch (Exception ex)
                 {
