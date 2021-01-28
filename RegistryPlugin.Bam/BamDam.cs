@@ -24,7 +24,7 @@ namespace RegistryPlugin.BamDam
         public List<string> KeyPaths => new List<string>(new[]
         {
             @"ControlSet00*\Services\bam\UserSettings\*",
-            @"ControlSet00*\Services\dam\UserSettings\*"
+            @"ControlSet00*\Services\dam\UserSettings\*",
             @"ControlSet00*\Services\bam\State\UserSettings\*"
         });
 

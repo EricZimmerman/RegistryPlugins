@@ -21,7 +21,7 @@ namespace RegistryPlugin.DeviceClasses
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet00*\Control\DeviceClasses",
+            @"ControlSet00*\Control\DeviceClasses"
         });
 
         public string ValueName => null;
