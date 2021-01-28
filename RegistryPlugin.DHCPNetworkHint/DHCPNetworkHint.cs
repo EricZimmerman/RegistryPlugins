@@ -24,10 +24,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet001\Services\Tcpip\Parameters\Interfaces",
-            @"ControlSet002\Services\Tcpip\Parameters\Interfaces",
-            @"ControlSet003\Services\Tcpip\Parameters\Interfaces",
-            @"ControlSet004\Services\Tcpip\Parameters\Interfaces"
+            @"ControlSet00*\Services\Tcpip\Parameters\Interfaces"
         });
 
 

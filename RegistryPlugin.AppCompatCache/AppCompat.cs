@@ -24,11 +24,7 @@ namespace RegistryPlugin.AppCompatCache
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet001\Control\Session Manager\AppCompatCache",
-            @"ControlSet002\Control\Session Manager\AppCompatCache",
-            @"ControlSet003\Control\Session Manager\AppCompatCache",
-            @"ControlSet004\Control\Session Manager\AppCompatCache",
-            @"ControlSet005\Control\Session Manager\AppCompatCache"
+            @"ControlSet00*\Control\Session Manager\AppCompatCache"
         });
 
         public string ValueName => "AppCompatCache";
