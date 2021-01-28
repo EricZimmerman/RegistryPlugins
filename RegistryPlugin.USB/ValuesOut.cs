@@ -1,0 +1,31 @@
+﻿using System;
+using RegistryPluginBase.Interfaces;
+
+namespace RegistryPlugin.USB
+{
+    public class ValuesOut : IValueOut
+    {
+        public ValuesOut(string keyName, string serialNumber, string deviceName, string friendlyName, string locationinformation, DateTimeOffset? timestamp)
+        {
+            KeyName = keyName;
+            SerialNumber = serialNumber;
+            DeviceName = deviceName;
+            FriendlyName = friendlyName;
+            LocationInformation = locationinformation;
+            Timestamp = timestamp;
+        }
+
+        public DateTimeOffset? Timestamp { get; }
+
+        public string KeyName { get; }
+        public string SerialNumber { get; }
+        public string DeviceName { get; }
+        public string FriendlyName { get; }
+        public string LocationInformation { get; }
+        public string BatchKeyPath { get; set; }
+        public string BatchValueName { get; set; }
+        public string BatchValueData1 => $"KeyName: {KeyName} SerialNumber: {SerialNumber} DeviceName: {DeviceName} FriendlyName: {FriendlyName}";
+        public string BatchValueData2 => $"Location Information: {LocationInformation}";
+        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+    }
+}

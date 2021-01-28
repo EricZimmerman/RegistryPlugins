@@ -6,22 +6,23 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.USBSTOR
+namespace RegistryPlugin.Uninstall
 {
-    public class USBSTOR : IRegistryPluginGrid
+    public class VolumeInfoCache : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public USBSTOR()
+        public VolumeInfoCache()
         {
             _values = new BindingList<ValuesOut>();
 
             Errors = new List<string>();
         }
-        public string InternalGuid => "efcd3292-b6d7-4251-bd95-df6bdb34f0fe";
+        public string InternalGuid => "afedb770-1479-4ec1-977f-2f9facfcd9d2";
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet00*\Enum\USBSTOR"
+            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", // NTUSER.DAT
+            @"Microsoft\Windows\CurrentVersion\Uninstall"           // SOFTWARE
         });
 
         public string ValueName => null;
@@ -30,10 +31,10 @@ namespace RegistryPlugin.USBSTOR
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "USBSTOR";
+        public string PluginName => "Uninstall";
 
         public string ShortDescription
-            => "USBSTOR Information";
+            => "CurrentVersion\\Uninstall Information";
 
         public string LongDescription => ShortDescription;
 
@@ -59,26 +60,19 @@ namespace RegistryPlugin.USBSTOR
 
             foreach (var subKey in key.SubKeys)
             {
-                if (subKey.SubKeys.Count == 0)
+                try
                 {
-                    continue;
-                }
-
-                try 
-                {
-                    string[] words = subKey.KeyName.Split('&');
-
-                    if (words.Length != 4)
-                        continue;
-
-                    string Manufacture = words[1];
-                    string Title = words[2];
-                    string Version = words[3];
-                    string serialNumber = subKey.SubKeys.First().KeyName;
-
+                    string keyName = subKey.KeyName;
+                    string displayName = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                    string displayVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
+                    string Publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                    string installDate = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
+                    string installSource = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
+                    string installLocation = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
+                    string uninstallString = subKey.Values.SingleOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(Manufacture, Title, Version, serialNumber, ts)
+                    var ff = new ValuesOut(keyName, displayName, displayVersion, Publisher, installDate, installSource, installLocation, uninstallString, ts)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath

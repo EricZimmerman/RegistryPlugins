@@ -6,22 +6,22 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.USBSTOR
+namespace RegistryPlugin.DeviceClasses
 {
-    public class USBSTOR : IRegistryPluginGrid
+    public class DeviceClasses : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public USBSTOR()
+        public DeviceClasses()
         {
             _values = new BindingList<ValuesOut>();
 
             Errors = new List<string>();
         }
-        public string InternalGuid => "efcd3292-b6d7-4251-bd95-df6bdb34f0fe";
+        public string InternalGuid => "8be740fe-9d72-4876-a066-6e78a20c8d19";
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet00*\Enum\USBSTOR"
+            @"ControlSet00*\Control\DeviceClasses",
         });
 
         public string ValueName => null;
@@ -30,15 +30,17 @@ namespace RegistryPlugin.USBSTOR
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "USBSTOR";
+        public string PluginName => "DevicesClasses";
 
         public string ShortDescription
-            => "USBSTOR Information";
+            => "DevicesClasses Information";
 
-        public string LongDescription => ShortDescription;
+        public string LongDescription => "http://forensic-proof.com/archives/3632";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
+
+        public List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}"};
 
         public void ProcessValues(RegistryKey key)
         {
@@ -53,37 +55,38 @@ namespace RegistryPlugin.USBSTOR
 
         public IBindingList Values => _values;
 
+        private ValuesOut parseData(RegistryKey subKey)
+        {
+            string[] keyName = subKey.KeyName.Replace("##?#", "").Split('#');
+
+            string Type = keyName[0];
+            string Name = keyName[1];
+            string serialNumber = keyName[2];
+
+            DateTimeOffset? ts = subKey.LastWriteTime;
+
+            var ff = new ValuesOut(Type, Name, serialNumber, ts)
+            {
+                BatchValueName = "Multiple",
+                BatchKeyPath = subKey.KeyPath
+            };
+            return ff;
+        }
+
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
 
-            foreach (var subKey in key.SubKeys)
+            foreach (var registryKey in key.SubKeys)
             {
-                if (subKey.SubKeys.Count == 0)
-                {
-                    continue;
-                }
-
-                try 
-                {
-                    string[] words = subKey.KeyName.Split('&');
-
-                    if (words.Length != 4)
+                try
+                { 
+                    bool contains = GUIDs.Contains(registryKey.KeyName, StringComparer.OrdinalIgnoreCase);
+                    if (!contains)
                         continue;
 
-                    string Manufacture = words[1];
-                    string Title = words[2];
-                    string Version = words[3];
-                    string serialNumber = subKey.SubKeys.First().KeyName;
-
-                    DateTimeOffset? ts = subKey.LastWriteTime;
-
-                    var ff = new ValuesOut(Manufacture, Title, Version, serialNumber, ts)
-                    {
-                        BatchValueName = "Multiple",
-                        BatchKeyPath = subKey.KeyPath
-                    };
-                    l.Add(ff);
+                    foreach (var subKey in registryKey.SubKeys)
+                        l.Add(parseData(subKey));
                 }
                 catch (Exception ex)
                 {
