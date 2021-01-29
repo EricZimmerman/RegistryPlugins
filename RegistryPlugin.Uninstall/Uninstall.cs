@@ -21,8 +21,9 @@ namespace RegistryPlugin.Uninstall
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall", // NTUSER.DAT
-            @"Microsoft\Windows\CurrentVersion\Uninstall"           // SOFTWARE
+            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",     // NTUSER.DAT
+            @"Microsoft\Windows\CurrentVersion\Uninstall",              // SOFTWARE
+            @"WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"   // SOFTWARE
         });
 
         public string ValueName => null;
