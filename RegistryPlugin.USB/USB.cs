@@ -94,7 +94,7 @@ namespace RegistryPlugin.USB
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing USBSTOR key: {ex.Message}");
+                    Errors.Add($"Error processing USB key: {ex.Message}");
                 }
             }
 

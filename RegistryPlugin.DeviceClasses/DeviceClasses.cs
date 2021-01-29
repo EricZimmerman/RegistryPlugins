@@ -90,7 +90,7 @@ namespace RegistryPlugin.DeviceClasses
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing USBSTOR key: {ex.Message}");
+                    Errors.Add($"Error processing DeviceClasses key: {ex.Message}");
                 }
             }
 

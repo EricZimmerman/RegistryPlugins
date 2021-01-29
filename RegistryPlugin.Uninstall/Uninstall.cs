@@ -82,7 +82,7 @@ namespace RegistryPlugin.Uninstall
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing USBSTOR key: {ex.Message}");
+                    Errors.Add($"Error processing Uninstall key: {ex.Message}");
                 }
             }
 
