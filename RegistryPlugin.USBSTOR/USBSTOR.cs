@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -40,6 +41,33 @@ namespace RegistryPlugin.USBSTOR
         public double Version => 0.1;
         public List<string> Errors { get; }
 
+        private readonly List<string> GUIDs = new List<string> { "{540b947e-8b40-45bc-a8a2-6a0b894cbda2}", "{83da6326-97a6-4088-9453-a1923f573b29}"};
+
+        private byte[] GetData(RegistryKey serialSubKey, string guidValue, string numValue)
+        {
+            var properties = serialSubKey.SubKeys.SingleOrDefault(t => t.KeyName == "Properties");
+            if (properties == null)
+                return null;
+
+            var GUID = properties.SubKeys.SingleOrDefault(t => t.KeyName == guidValue);
+            if (GUID == null)
+                return null;
+
+            var subKey = GUID.SubKeys.SingleOrDefault(t => t.KeyName == numValue);
+            if (subKey == null)
+                return null;
+
+            return subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
+        }
+
+        private DateTimeOffset? GetUTC(byte[] data)
+        {
+            if (data == null || data.Length != 8)
+                return null;
+
+            return DateTimeOffset.FromFileTime(BitConverter.ToInt64(data, 0)).ToUniversalTime();
+        }
+
         public void ProcessValues(RegistryKey key)
         {
             _values.Clear();
@@ -64,7 +92,7 @@ namespace RegistryPlugin.USBSTOR
                     continue;
                 }
 
-                try 
+                try
                 {
                     string[] words = subKey.KeyName.Split('&');
 
@@ -74,11 +102,29 @@ namespace RegistryPlugin.USBSTOR
                     string Manufacture = words[1];
                     string Title = words[2];
                     string Version = words[3];
-                    string serialNumber = subKey.SubKeys.First().KeyName;
 
+                    var serialSubKey = subKey.SubKeys.First();
+                    string serialNumber = serialSubKey.KeyName;
+
+                    string deviceName = Encoding.Unicode?.GetString(
+                        GetData(serialSubKey, GUIDs[0], "0004")
+                    );
+                    DateTimeOffset? installed = GetUTC(
+                        GetData(serialSubKey, GUIDs[1], "0064")
+                    );
+                    DateTimeOffset? firstInstalled = GetUTC(
+                        GetData(serialSubKey, GUIDs[1], "0065")
+                    );
+                    DateTimeOffset? lastConnected = GetUTC(
+                        GetData(serialSubKey, GUIDs[1], "0066")
+                    );
+                    DateTimeOffset? lastRemoved = GetUTC(
+                        GetData(serialSubKey, GUIDs[1], "0067")
+                    );
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(Manufacture, Title, Version, serialNumber, ts)
+                    var ff = new ValuesOut(Manufacture, Title, Version, serialNumber, ts,
+                        deviceName, installed, firstInstalled, lastConnected, lastRemoved)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
