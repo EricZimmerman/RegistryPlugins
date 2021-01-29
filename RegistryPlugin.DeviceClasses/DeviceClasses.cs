@@ -30,17 +30,17 @@ namespace RegistryPlugin.DeviceClasses
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "DevicesClasses";
+        public string PluginName => "DeviceClasses";
 
         public string ShortDescription
-            => "DevicesClasses Information";
+            => "DeviceClasses Information";
 
         public string LongDescription => "http://forensic-proof.com/archives/3632";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
 
-        public List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}"};
+        private readonly List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}"};
 
         public void ProcessValues(RegistryKey key)
         {
