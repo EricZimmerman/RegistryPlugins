@@ -30,10 +30,10 @@ namespace RegistryPlugin.DeviceClasses
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "DevicesClasses";
+        public string PluginName => "DeviceClasses";
 
         public string ShortDescription
-            => "DevicesClasses Information";
+            => "DeviceClasses Information";
 
         public string LongDescription => "http://forensic-proof.com/archives/3632";
 
