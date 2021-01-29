@@ -34,7 +34,7 @@ namespace RegistryPlugin.Uninstall
         public string PluginName => "Uninstall";
 
         public string ShortDescription
-            => "CurrentVersion\\Uninstall Information";
+            => "Installed Programs";
 
         public string LongDescription => ShortDescription;
 
