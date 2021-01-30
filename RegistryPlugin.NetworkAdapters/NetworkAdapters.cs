@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.Uninstall
+namespace RegistryPlugin.NetworkAdapters
 {
-    public class VolumeInfoCache : IRegistryPluginGrid
+    public class NetworkAdapters : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public VolumeInfoCache()
+        public NetworkAdapters()
         {
             _values = new BindingList<ValuesOut>();
 
             Errors = new List<string>();
         }
-        public string InternalGuid => "afedb770-1479-4ec1-977f-2f9facfcd9d2";
+        public string InternalGuid => "0fff7743-08b3-4fdb-8514-6559bf3d009d";
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",     // NTUSER.DAT
-            @"Microsoft\Windows\CurrentVersion\Uninstall",              // SOFTWARE
-            @"WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"   // SOFTWARE
+            @"ControlSet00*\Control\Class\{4d36e972-e325-11ce-bfc1-08002be10318}"
         });
 
         public string ValueName => null;
@@ -32,10 +31,10 @@ namespace RegistryPlugin.Uninstall
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "Uninstall";
+        public string PluginName => "NetworkAdapters";
 
         public string ShortDescription
-            => "Installed Programs";
+            => "NetworkAdapters Information";
 
         public string LongDescription => ShortDescription;
 
@@ -63,17 +62,19 @@ namespace RegistryPlugin.Uninstall
             {
                 try
                 {
-                    string keyName = subKey.KeyName;
-                    string displayName = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                    string displayVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
-                    string Publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                    string installDate = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                    string installSource = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
-                    string installLocation = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
-                    string uninstallString = subKey.Values.SingleOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
+                    Regex regex = new Regex(@"^00\d\d$");
+                    if (!regex.IsMatch(subKey.KeyName))
+                        continue;
+
+                    string driverDesc = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverDesc")?.ValueData;
+                    string driverDate = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverDate")?.ValueData;
+                    string driverVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverVersion")?.ValueData;
+                    string deviceInstanceID = subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceInstanceID")?.ValueData;
+                    string providerName = subKey.Values.SingleOrDefault(t => t.ValueName == "ProviderName")?.ValueData;
+
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(keyName, displayName, displayVersion, Publisher, installDate, installSource, installLocation, uninstallString, ts)
+                    var ff = new ValuesOut(driverDesc, driverDate, driverVersion, deviceInstanceID, providerName, ts)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
@@ -82,7 +83,7 @@ namespace RegistryPlugin.Uninstall
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing Uninstall key: {ex.Message}");
+                    Errors.Add($"Error processing {{4d36e972-e325-11ce-bfc1-08002be10318}} key: {ex.Message}");
                 }
             }
 

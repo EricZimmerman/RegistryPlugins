@@ -74,7 +74,7 @@ namespace RegistryPlugin.VolumeInfoCache
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing USBSTOR key: {ex.Message}");
+                    Errors.Add($"Error processing VolumeInfoCache key: {ex.Message}");
                 }
             }
 

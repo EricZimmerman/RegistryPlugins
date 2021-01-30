@@ -6,24 +6,23 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.Uninstall
+namespace RegistryPlugin.AppPaths
 {
-    public class VolumeInfoCache : IRegistryPluginGrid
+    public class AppPaths : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public VolumeInfoCache()
+        public AppPaths()
         {
             _values = new BindingList<ValuesOut>();
 
             Errors = new List<string>();
         }
-        public string InternalGuid => "afedb770-1479-4ec1-977f-2f9facfcd9d2";
+        public string InternalGuid => "d22bab60-393a-48cb-a1d7-45a67364f137";
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall",     // NTUSER.DAT
-            @"Microsoft\Windows\CurrentVersion\Uninstall",              // SOFTWARE
-            @"WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"   // SOFTWARE
+            @"Microsoft\Windows\CurrentVersion\App Paths",          // SOFTWARE
+            @"SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths"  // NTUSER.DAT
         });
 
         public string ValueName => null;
@@ -32,10 +31,10 @@ namespace RegistryPlugin.Uninstall
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "Uninstall";
+        public string PluginName => "AppPaths";
 
         public string ShortDescription
-            => "Installed Programs";
+            => "AppPaths Information";
 
         public string LongDescription => ShortDescription;
 
@@ -63,17 +62,12 @@ namespace RegistryPlugin.Uninstall
             {
                 try
                 {
-                    string keyName = subKey.KeyName;
-                    string displayName = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                    string displayVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
-                    string Publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                    string installDate = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                    string installSource = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
-                    string installLocation = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
-                    string uninstallString = subKey.Values.SingleOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
+                    string fileName = subKey.KeyName;
+                    string path1 = subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueData;
+                    string path2 = subKey.Values.SingleOrDefault(t => t.ValueName == "Path")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(keyName, displayName, displayVersion, Publisher, installDate, installSource, installLocation, uninstallString, ts)
+                    var ff = new ValuesOut(fileName, path1, path2, ts)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
@@ -82,7 +76,7 @@ namespace RegistryPlugin.Uninstall
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing Uninstall key: {ex.Message}");
+                    Errors.Add($"Error processing AppPaths key: {ex.Message}");
                 }
             }
 

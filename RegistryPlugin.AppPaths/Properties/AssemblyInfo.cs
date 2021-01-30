@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RegistryPlugin.Uninstall")]
+[assembly: AssemblyTitle("RegistryPlugin.AppPaths")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RegistryPlugin.Uninstall")]
+[assembly: AssemblyProduct("RegistryPlugin.AppPaths")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5ce1de8b-ec81-4923-9682-2f5bb0adef44")]
+[assembly: Guid("46ea89bb-756f-401d-9fac-fce6b516df70")]
 
 // Version information for an assembly consists of the following four values:
 //
