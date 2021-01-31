@@ -65,9 +65,6 @@ namespace RegistryPlugin.DeviceClasses
             string Name = keyName[1];
             string serialNumber = keyName[2];
 
-            if (serialNumber.StartsWith("{"))
-                serialNumber = null;
-
             string regexData = null;
 
             DateTimeOffset? ts = subKey.LastWriteTime;
