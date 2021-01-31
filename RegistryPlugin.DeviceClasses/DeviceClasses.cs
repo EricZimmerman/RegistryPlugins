@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -40,7 +41,7 @@ namespace RegistryPlugin.DeviceClasses
         public double Version => 0.1;
         public List<string> Errors { get; }
 
-        private readonly List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}"};
+        private readonly List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}"};
 
         public void ProcessValues(RegistryKey key)
         {
@@ -55,17 +56,34 @@ namespace RegistryPlugin.DeviceClasses
 
         public IBindingList Values => _values;
 
-        private ValuesOut ParseData(RegistryKey subKey)
+        private ValuesOut ParseData(RegistryKey subKey, string guidfolder)
         {
-            string[] keyName = subKey.KeyName.Replace("##?#", "").Split('#');
+            string filterName = subKey.KeyName.Replace("##?#", "");
+            string[] keyName = filterName.Split('#');
 
             string Type = keyName[0];
             string Name = keyName[1];
             string serialNumber = keyName[2];
 
+            string regexData = null;
+
             DateTimeOffset? ts = subKey.LastWriteTime;
 
-            var ff = new ValuesOut(Type, Name, serialNumber, ts)
+            // https://github.com/keydet89/RegRipper3.0/blob/master/plugins/portdev.pl
+            if (new Regex(@"\#\#").IsMatch(filterName))
+                regexData = filterName.Split(new string[] { "##" }, StringSplitOptions.None)[1];
+
+            if (new Regex(@"\?\?").IsMatch(filterName))
+                regexData = filterName.Split(new string[] { "??" }, StringSplitOptions.None)[1];
+
+            if (regexData != null)
+            {
+                string[] result = regexData.Split('#');
+                Name = result[1];
+                serialNumber = result[2];
+            }
+
+            var ff = new ValuesOut(guidfolder, Type, Name, serialNumber, ts)
             {
                 BatchValueName = "Multiple",
                 BatchKeyPath = subKey.KeyPath
@@ -86,7 +104,7 @@ namespace RegistryPlugin.DeviceClasses
                         continue;
 
                     foreach (var subKey in registryKey.SubKeys)
-                        l.Add(ParseData(subKey));
+                        l.Add(ParseData(subKey, registryKey.KeyName));
                 }
                 catch (Exception ex)
                 {

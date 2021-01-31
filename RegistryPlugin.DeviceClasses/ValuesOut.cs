@@ -5,8 +5,9 @@ namespace RegistryPlugin.DeviceClasses
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string type, string name, string serialNumber, DateTimeOffset? timestamp)
+        public ValuesOut(string guidfolder, string type, string name, string serialNumber, DateTimeOffset? timestamp)
         {
+            GuidFolder = guidfolder;
             Type = type;
             Name = name;
             SerialNumber = serialNumber;
@@ -15,6 +16,7 @@ namespace RegistryPlugin.DeviceClasses
 
         public DateTimeOffset? Timestamp { get; }
 
+        public string GuidFolder { get; }
         public string Type { get; }
         public string Name { get; }
         public string SerialNumber { get; }
