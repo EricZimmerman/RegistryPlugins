@@ -22,11 +22,7 @@ namespace RegistryPlugin.TimeZoneInformation
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet001\Control\TimeZoneInformation",
-            @"ControlSet002\Control\TimeZoneInformation",
-            @"ControlSet003\Control\TimeZoneInformation",
-            @"ControlSet004\Control\TimeZoneInformation",
-            @"ControlSet005\Control\TimeZoneInformation"
+            @"ControlSet00*\Control\TimeZoneInformation"
         });
 
         public string ValueName => null;

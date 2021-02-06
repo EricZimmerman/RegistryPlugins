@@ -24,8 +24,7 @@ namespace RegistryPlugin.BluetoothServicesBthPort
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet001\services\BTHPORT\Parameters\Devices",
-            @"ControlSet002\services\BTHPORT\Parameters\Devices"
+            @"ControlSet00*\services\BTHPORT\Parameters\Devices"
         });
 
         public string ValueName => null;

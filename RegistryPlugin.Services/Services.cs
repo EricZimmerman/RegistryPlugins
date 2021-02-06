@@ -24,10 +24,7 @@ namespace RegistryPlugin.Services
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet001\Services",
-            @"ControlSet002\Services",
-            @"ControlSet003\Services",
-            @"ControlSet004\Services"
+            @"ControlSet00*\Services"
         });
 
 
