@@ -1,24 +1,15 @@
-Plugins to write:
+# Plugins to write:
 
-NTuser
+NTUser
 
-- MountPoints2
+MountPoints2
 
-- MountedDevices
-
-
-
---- TO SORT ---
+# TO SORT
 
 Windows Info
-
 
 InstalledApps
 
 FirewallPolicy
 
 AppCompatFlags\* ? bookmarks
-
-
-
-
