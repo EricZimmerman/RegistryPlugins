@@ -34,6 +34,6 @@ namespace RegistryPlugin.Adobe
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Product: {ProductName} {ProductVersion}";
         public string BatchValueData2 => $"FullPath: {FullPath}";
-        public string BatchValueData3 => $"LastOpened: {LastOpened}";
+        public string BatchValueData3 => $"LastOpened: {LastOpened?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff})";}
     }
 }
