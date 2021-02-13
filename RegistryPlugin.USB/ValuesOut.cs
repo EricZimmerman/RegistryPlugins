@@ -26,6 +26,6 @@ namespace RegistryPlugin.USB
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"KeyName: {KeyName} SerialNumber: {SerialNumber} DeviceName: {DeviceName} FriendlyName: {FriendlyName}";
         public string BatchValueData2 => $"Location Information: {LocationInformation}";
-        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }
