@@ -40,7 +40,7 @@ namespace RegistryPlugin.TaskCache
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Created on: {CreatedOn.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
-        public string BatchValueData2 => $"Last start/stop: {LastStart?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}/{LastStop?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData2 => $"Last start: {LastStart?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}, Last stop: {LastStop?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => $"Path: {Path}";
 
         public override string ToString()
