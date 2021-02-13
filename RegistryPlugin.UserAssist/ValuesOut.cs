@@ -26,8 +26,7 @@ namespace RegistryPlugin.UserAssist
         public DateTime? LastExecuted { get; }
 
         public string BatchValueData1 => $"{ProgramName}";
-
-        public string BatchValueData2 => $"Last executed: {LastExecuted?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
-        public string BatchValueData3 => $"Run count: {RunCounter:N0} ";
+        public string BatchValueData2 => $"Last executed: {LastExecuted?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"Run count: {RunCounter:N0}";
     }
 }

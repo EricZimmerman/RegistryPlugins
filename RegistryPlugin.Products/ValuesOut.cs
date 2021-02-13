@@ -32,6 +32,6 @@ namespace RegistryPlugin.Products
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"DisplayName: {DisplayName} PackageName: {PackageName} InstallDate: {InstallDate} Publisher: {Publisher} Language: {Language}";
         public string BatchValueData2 => $"InstallLocation: {InstallLocation} InstallSource: {InstallSource} Comments: {Comments}";
-        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

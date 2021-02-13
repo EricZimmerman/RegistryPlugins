@@ -36,7 +36,7 @@ namespace RegistryPlugin._7_ZipHistory
         public string PluginName => "7-Zip archive history";
 
         public string ShortDescription =>
-            "Extracts archive history from ArcHistory key";
+            "Extracts archive history from ArcHistory value";
 
         public string LongDescription => ShortDescription;
 

@@ -40,8 +40,8 @@ namespace RegistryPlugin.SyscacheObjectTable
 
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"MFT Entry/seq: {MftEntryNumber}/{MftSequenceNumber}";
+        public string BatchValueData1 => $"MFT Entry/Seq: {MftEntryNumber}/{MftSequenceNumber}";
         public string BatchValueData2 => $"SHA-1: {Sha1}";
-        public string BatchValueData3 => $"Last write: {LastWriteTime.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Last write: {LastWriteTime.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

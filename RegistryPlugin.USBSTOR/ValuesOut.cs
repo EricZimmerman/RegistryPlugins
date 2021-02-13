@@ -33,12 +33,12 @@ namespace RegistryPlugin.USBSTOR
         public DateTimeOffset? LastRemoved { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"Manufacture: {Manufacturer} Title: {Title} Version: {Version} SerialNumber: {SerialNumber}";
-        public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData1 => $"Manufacturer: {Manufacturer} Title: {Title} Version: {Version} SerialNumber: {SerialNumber}";
+        public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => 
-            $"Installed: {Installed?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} " +
-            $"FirstInstalled: {FirstInstalled?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} " +
-            $"LastConnected: {LastConnected?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} " +
+            $"Installed: {Installed?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}" +
+            $"FirstInstalled: {FirstInstalled?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}" +
+            $"LastConnected: {LastConnected?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}" +
             $"LastRemoved: {LastRemoved?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

@@ -26,6 +26,6 @@ namespace RegistryPlugin.OpenSaveMRU
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"File name: {Filename}";
         public string BatchValueData2 => $"Opened: {OpenedOn?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff})";
-        public string BatchValueData3  => $"Mru: {MruPosition}";
+        public string BatchValueData3  => $"MRU: {MruPosition}";
     }
 }

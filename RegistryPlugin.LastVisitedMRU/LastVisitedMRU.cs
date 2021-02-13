@@ -102,7 +102,7 @@ namespace RegistryPlugin.LastVisitedMRU
             }
             catch (Exception ex)
             {
-                Errors.Add($"Error processing OpenSaveMRU subkey {currentKey}: {ex.Message}");
+                Errors.Add($"Error processing LastVisitedMRU subkey {currentKey}: {ex.Message}");
             }
 
             if (Errors.Count > 0)

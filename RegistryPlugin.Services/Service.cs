@@ -41,7 +41,7 @@ namespace RegistryPlugin.Services
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Name: {Name} Desc: {Description}";
-        public string BatchValueData2 => $"Image path:{ImagePath} ServiceDLL: {ServiceDLL}";
-        public string BatchValueData3 => $"Name last write: {NameKeyLastWrite.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Parameters last write: {ParametersKeyLastWrite?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData2 => $"Image path: {ImagePath} ServiceDLL: {ServiceDLL}";
+        public string BatchValueData3 => $"Name last write: {NameKeyLastWrite.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}, Parameters last write: {ParametersKeyLastWrite?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

@@ -20,6 +20,6 @@ namespace RegistryPlugin.TimeZoneInformation
         public string BatchValueName { get; set; }
         public string BatchValueData1 => ValueData;
         public string BatchValueData2 => ValueDataRaw;
-        public string BatchValueData3 =>  string.Empty;
+        public string BatchValueData3 => string.Empty;
     }
 }
