@@ -26,7 +26,6 @@ namespace RegistryPlugin.NetworkAdapters
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"DriveName: {DriverDesc} DriverDate: {DriverDate} DriverVersion: {DriverVersion} ProviderName: {ProviderName}";
         public string BatchValueData2 => $"DeviceInstanceid: {DeviceInstanceid}";
-        public string BatchValueData3 =>
-            $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }
