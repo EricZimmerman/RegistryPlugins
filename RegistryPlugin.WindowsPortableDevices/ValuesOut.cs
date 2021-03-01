@@ -24,6 +24,6 @@ namespace RegistryPlugin.WindowsPortableDevices
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Device: {Device} SerialNumber: {SerialNumber} Guid: {Guid}";
         public string BatchValueData2 => $"FriendlyName: {FriendlyName}";
-        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }
