@@ -50,7 +50,7 @@ namespace RegistryPlugin.KnownNetworks
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Name: {NetworkName} Type: {NameType}";
-        public string BatchValueData2 => $"First Connect LOCAL: {FirstConnectLOCAL:yyyy-MM-dd HH:mm:ss.fffffff} Last Connect LOCAL: {LastConnectedLOCAL:yyyy-MM-dd HH:mm:ss.fffffff})";
+        public string BatchValueData2 => $"First Connect LOCAL: {FirstConnectLOCAL:yyyy-MM-dd HH:mm:ss.fffffff} Last Connect LOCAL: {LastConnectedLOCAL:yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => $"Gateway MAC: {GatewayMacAddress}";
     }
 }
