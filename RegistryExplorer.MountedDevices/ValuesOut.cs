@@ -16,7 +16,7 @@ namespace RegistryPlugin.MountedDevices
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Name: {DeviceName}";
-        public string BatchValueData2 => $"Data: {DeviceData})";
+        public string BatchValueData2 => $"Data: {DeviceData}";
         public string BatchValueData3 => string.Empty ;
     }
 }

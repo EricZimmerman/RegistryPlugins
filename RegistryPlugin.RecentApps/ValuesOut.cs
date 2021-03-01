@@ -31,7 +31,7 @@ namespace RegistryPlugin.RecentApps
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"AppId: {AppId} App path: {AppPath}";
-        public string BatchValueData2 => $"Last Accessed: {LastAccessed.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff})";
+        public string BatchValueData2 => $"Last Accessed: {LastAccessed.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => $"Launch count: {LaunchCount}" ;
     }
 

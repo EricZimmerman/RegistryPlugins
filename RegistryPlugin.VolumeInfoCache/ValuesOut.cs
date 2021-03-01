@@ -19,7 +19,7 @@ namespace RegistryPlugin.VolumeInfoCache
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"DriveName: {DriveName} VolumeLabel: {VolumeLabel}";
-        public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => string.Empty;
     }
 }
