@@ -23,6 +23,6 @@ namespace RegistryPlugin.TerminalServerClient
         public string BatchValueName { get; set; }
         public string BatchValueData1 => HostName;
         public string BatchValueData2 => $"User: {Username}, MRU: {MRUPosition}";
-        public string BatchValueData3 => $"Last modified: {LastModified.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} ";
+        public string BatchValueData3 => $"Last modified: {LastModified.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }
