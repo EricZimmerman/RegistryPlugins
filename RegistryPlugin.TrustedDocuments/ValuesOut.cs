@@ -20,7 +20,7 @@ namespace RegistryPlugin.TrustedDocuments
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"File Name: {FileName}";
-        public string BatchValueData2 => $"File Opened: {Timestamp})";
-        public string BatchValueData3 => $"Event Type: {EventType})";
+        public string BatchValueData2 => $"File Opened: {Timestamp}";
+        public string BatchValueData3 => $"Event Type: {EventType}";
     }
 }
