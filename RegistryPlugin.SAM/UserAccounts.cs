@@ -123,6 +123,13 @@ namespace RegistryPlugin.SAM
                 try
                 {
                     var fVal = key1.Values.SingleOrDefault(t => t.ValueName == "F");
+                    var internetUserNameVal = key1.Values.SingleOrDefault(t => t.ValueName == "InternetUserName");
+
+                    var internetUserName = string.Empty;
+                    if (internetUserNameVal != null)
+                    {
+                        internetUserName = Encoding.Unicode.GetString(internetUserNameVal.ValueDataRaw);
+                    }
 
                     var userId = 0;
                     var invalidLogins = 0;
@@ -220,7 +227,9 @@ namespace RegistryPlugin.SAM
 
                         var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
-                            createdOn, groups, hint, parsedAccountFlags);
+                            createdOn, groups, hint, parsedAccountFlags,internetUserName);
+
+                       
 
                         u.BatchValueName = vVal.ValueName;
                         u.BatchKeyPath = key1.KeyPath;

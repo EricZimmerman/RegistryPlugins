@@ -984,7 +984,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SAM_brokenPlugin");
+            var reg = new RegistryHive(@"C:\temp\E_Windows_System32_config_SAM");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 
