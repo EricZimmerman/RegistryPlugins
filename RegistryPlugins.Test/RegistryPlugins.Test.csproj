@@ -16,11 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
-    <PackageReference Include="GuidMapping" Version="1.0.0.1" />
-    <PackageReference Include="NFluent" Version="2.7.1" />
-    <PackageReference Include="NUnit" Version="3.13.0" />
-    <PackageReference Include="Registry" Version="1.1.1.2" />
+    <PackageReference Include="ExtensionBlocks" Version="1.2.0" />
+    <PackageReference Include="GuidMapping" Version="1.0.0.4" />
+    <PackageReference Include="NFluent" Version="2.7.2" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="Registry" Version="1.2.1" />
     <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
 

@@ -444,10 +444,10 @@ namespace RegistryPlugins.Test
         {
             var r = new BamDam();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_Creators");
+            var reg = new RegistryHive(@"C:\temp\SYSTEM\system");
             reg.ParseHive();
 
-            var key = reg.GetKey(@"ControlSet001\Services\dam\UserSettings\S-1-5-21-238543598-4054144643-4261915534-1114");
+            var key = reg.GetKey(@"ControlSet001\Services\bam\State\UserSettings\S-1-5-21-2507465465-2372827616-1507098901-1001");
 
             Check.That(r.Values.Count).IsEqualTo(0);
 

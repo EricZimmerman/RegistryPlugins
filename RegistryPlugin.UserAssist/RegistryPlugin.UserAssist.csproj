@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Registry">
-      <Version>1.1.1.2</Version>
+      <Version>1.2.1</Version>
     </PackageReference>
     <PackageReference Include="RegistryPluginBase">
       <Version>1.1.0</Version>
