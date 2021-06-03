@@ -37,6 +37,7 @@ using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskCache;
 using RegistryPlugin.TaskFlowShellActivities;
+using RegistryPlugin.USBSTOR;
 
 namespace RegistryPlugins.Test
 {
@@ -140,6 +141,40 @@ namespace RegistryPlugins.Test
 
         }
 
+        
+        [Test]
+        public void UsbStor()
+        {
+            var r = new USBSTOR();
+
+            //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"C:\temp\SYSTEM");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Enum\USBSTOR");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+          
+
+            Check.That(r.Values.Count).IsEqualTo(4);
+
+            var ff = (RegistryPlugin.USBSTOR.ValuesOut) r.Values[0];
+
+            Check.That(ff.DiskId).IsNotEmpty();
+            Check.That(ff.DiskId).Contains("Timestamp");
+
+            Debug.WriteLine(ff.DiskId);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+        }
 
         
         [Test]

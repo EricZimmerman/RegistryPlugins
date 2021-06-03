@@ -57,6 +57,7 @@
     <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj" />
     <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj" />
     <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj" />
 
