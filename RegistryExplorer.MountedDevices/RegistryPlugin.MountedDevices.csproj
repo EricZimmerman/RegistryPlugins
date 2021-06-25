@@ -6,9 +6,6 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="RegistryPluginBase" Version="1.1.0"/>
   </ItemGroup>
 </Project>
