@@ -8,10 +8,10 @@ using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.Uninstall
 {
-    public class VolumeInfoCache : IRegistryPluginGrid
+    public class UnInstall : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public VolumeInfoCache()
+        public UnInstall()
         {
             _values = new BindingList<ValuesOut>();
 

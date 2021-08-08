@@ -102,6 +102,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WindowsPorta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FeatureUsage", "RegistryPlugin.FeatureUsage\RegistryPlugin.FeatureUsage.csproj", "{73C9854B-85CC-4D7B-A7BF-99F1F0981115}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WinRAR", "RegistryPlugin.WinRAR\RegistryPlugin.WinRAR.csproj", "{378E5828-6C33-43DA-8A9F-E5F090253A4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags2", "RegistryPlugin.AppCompatFlags2\RegistryPlugin.AppCompatFlags2.csproj", "{4A5BB547-EC5E-4A43-934E-32EFA99070D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -296,6 +300,14 @@ Global
 		{73C9854B-85CC-4D7B-A7BF-99F1F0981115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C9854B-85CC-4D7B-A7BF-99F1F0981115}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C9854B-85CC-4D7B-A7BF-99F1F0981115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{378E5828-6C33-43DA-8A9F-E5F090253A4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{378E5828-6C33-43DA-8A9F-E5F090253A4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{378E5828-6C33-43DA-8A9F-E5F090253A4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{378E5828-6C33-43DA-8A9F-E5F090253A4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
