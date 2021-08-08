@@ -37,6 +37,7 @@ using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskCache;
 using RegistryPlugin.TaskFlowShellActivities;
+using RegistryPlugin.USBSTOR;
 
 namespace RegistryPlugins.Test
 {
@@ -140,6 +141,40 @@ namespace RegistryPlugins.Test
 
         }
 
+        
+        [Test]
+        public void UsbStor()
+        {
+            var r = new USBSTOR();
+
+            //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
+            var reg = new RegistryHive(@"C:\temp\SYSTEM");
+            reg.ParseHive();
+
+            var key = reg.GetKey(@"ControlSet001\Enum\USBSTOR");
+
+            Check.That(key).IsNotNull();
+
+            Check.That(r.Values.Count).IsEqualTo(0);
+
+            r.ProcessValues(key);
+
+          
+
+            Check.That(r.Values.Count).IsEqualTo(4);
+
+            var ff = (RegistryPlugin.USBSTOR.ValuesOut) r.Values[0];
+
+            Check.That(ff.DiskId).IsNotEmpty();
+            Check.That(ff.DiskId).Contains("Timestamp");
+
+            Debug.WriteLine(ff.DiskId);
+
+            foreach (var rValue in r.Values)
+            {
+                Debug.WriteLine(rValue);
+            }
+        }
 
         
         [Test]
@@ -444,10 +479,10 @@ namespace RegistryPlugins.Test
         {
             var r = new BamDam();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SYSTEM_Creators");
+            var reg = new RegistryHive(@"C:\temp\SYSTEM\system");
             reg.ParseHive();
 
-            var key = reg.GetKey(@"ControlSet001\Services\dam\UserSettings\S-1-5-21-238543598-4054144643-4261915534-1114");
+            var key = reg.GetKey(@"ControlSet001\Services\bam\State\UserSettings\S-1-5-21-2507465465-2372827616-1507098901-1001");
 
             Check.That(r.Values.Count).IsEqualTo(0);
 
@@ -984,7 +1019,7 @@ namespace RegistryPlugins.Test
         {
             var r = new UserAccounts();
 
-            var reg = new RegistryHive(@"D:\SynologyDrive\Registry\SAM_brokenPlugin");
+            var reg = new RegistryHive(@"C:\temp\E_Windows_System32_config_SAM");
             reg.RecoverDeleted = true;
             reg.ParseHive();
 

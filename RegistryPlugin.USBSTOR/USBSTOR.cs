@@ -94,37 +94,56 @@ namespace RegistryPlugin.USBSTOR
 
                 try
                 {
-                    string[] words = subKey.KeyName.Split('&');
+                    var words = subKey.KeyName.Split('&');
 
                     if (words.Length != 4)
                         continue;
 
-                    string Manufacture = words[1];
-                    string Title = words[2];
-                    string Version = words[3];
+                    var Manufacture = words[1];
+                    var Title = words[2];
+                    var Version = words[3];
 
                     var serialSubKey = subKey.SubKeys.First();
-                    string serialNumber = serialSubKey.KeyName;
+                    var serialNumber = serialSubKey.KeyName;
 
-                    string deviceName = Encoding.Unicode?.GetString(
+                    var deviceName = Encoding.Unicode?.GetString(
                         GetData(serialSubKey, GUIDs[0], "0004")
                     );
-                    DateTimeOffset? installed = GetUTC(
+                    var installed = GetUTC(
                         GetData(serialSubKey, GUIDs[1], "0064")
                     );
-                    DateTimeOffset? firstInstalled = GetUTC(
+                    var firstInstalled = GetUTC(
                         GetData(serialSubKey, GUIDs[1], "0065")
                     );
-                    DateTimeOffset? lastConnected = GetUTC(
+                   var  lastConnected = GetUTC(
                         GetData(serialSubKey, GUIDs[1], "0066")
                     );
-                    DateTimeOffset? lastRemoved = GetUTC(
+                    var lastRemoved = GetUTC(
                         GetData(serialSubKey, GUIDs[1], "0067")
                     );
-                    DateTimeOffset? ts = subKey.LastWriteTime;
+                    var ts = subKey.LastWriteTime;
+
+                    var partsMgrKey = subKey.SubKeys.First().SubKeys.SingleOrDefault(t => t.KeyName == "Device Parameters");
+
+                    var diskId = "";
+
+                    if (partsMgrKey != null)
+                    {
+                        var aaaa = partsMgrKey.SubKeys.SingleOrDefault(t => t.KeyName == "Partmgr");
+
+                        if (aaaa != null)
+                        {
+                            var ddd = aaaa.Values.SingleOrDefault(t => t.ValueName == "DiskId");
+
+                            if (ddd != null)
+                            {
+                                diskId = ddd.ValueData;
+                            }
+                        }
+                    }
 
                     var ff = new ValuesOut(Manufacture, Title, Version, serialNumber, ts,
-                        deviceName, installed, firstInstalled, lastConnected, lastRemoved)
+                        deviceName, installed, firstInstalled, lastConnected, lastRemoved,diskId)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath

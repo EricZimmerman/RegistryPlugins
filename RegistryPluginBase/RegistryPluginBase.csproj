@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net461;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;net462;net5.0;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Eric Zimmerman</Authors>
     <Company>Eric Zimmerman</Company>
@@ -15,12 +14,9 @@
     <Version>1.1.0.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="ExtensionBlocks" Version="1.1.0" />
-    <PackageReference Include="GuidMapping" Version="1.0.0.1" />
-    <PackageReference Include="Registry" Version="1.1.1.2" />
+    <PackageReference Include="ExtensionBlocks" Version="1.2.0" />
+    <PackageReference Include="GuidMapping" Version="1.0.0.4" />
+    <PackageReference Include="Registry" Version="1.2.1" />
   </ItemGroup>
-
-
 </Project>

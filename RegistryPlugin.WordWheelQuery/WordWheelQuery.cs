@@ -94,7 +94,14 @@ namespace RegistryPlugin.WordWheelQuery
 
                     var st = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Trim('\0');
 
-                    var ff = new ValuesOut(st, mru,key.KeyName);
+                    DateTimeOffset? ts = null;
+
+                    if (mru == 0)
+                    {
+                        ts = key.LastWriteTime;
+                    }
+
+                    var ff = new ValuesOut(st, mru,key.KeyName,ts);
 
                     ff.BatchKeyPath = key.KeyPath;
                     ff.BatchValueName = keyValue.ValueName;
