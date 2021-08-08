@@ -33,7 +33,8 @@ namespace RegistryPlugin.WinRAR
         public string ShortDescription
             => "WinRAR Information";
 
-        public string LongDescription => ShortDescription;
+        public string LongDescription 
+            => "https://github.com/libyal/winreg-kb/blob/main/documentation/WinRar%20keys.asciidoc";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
