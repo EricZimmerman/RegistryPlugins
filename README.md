@@ -8,14 +8,16 @@ Plugins are helpful in that they are able to display more data within the Regist
 
 ## Plugin Output in Registry Explorer
 
-This example highlights what the UserAssist Plugin provides as an added benefit vs. the raw data values parsed from the Registry.
+This example highlights what the [UserAssist](https://github.com/EricZimmerman/RegistryPlugins/tree/master/RegistryPlugin.UserAssist) Plugin provides as an added benefit vs. the raw data values parsed from the Registry.
 
-Values tab shows the raw values within the Registry in their native ROT13 format. The UserAssist tab shows the ROT13 output converted into human readable data. 
+The `Values` tab shows the raw values within the Registry in their native ROT13 format. The `UserAssist` tab shows the ROT13 output converted into human readable data. 
 
 ![gif](https://github.com/rathbuna/RegistryPlugins/blob/master/RegistryExplorerPluginsInAction.gif)
 
 ## Plugin Output in RECmd (CSV)
 
-You will know that a Plugin is being used within your RECmd CSV output if the `ValueType` columns displays `(plugin)` as the value. From there, the author of the Plugin will be able to organize the parsed data within the `ValueData`, ValueData2`, and the `ValueData3` columns. This allows for more data to be parsed in less rows for more efficient and useful CSV output!
+You will know that a Plugin is being used within your RECmd CSV output if the `ValueType` columns displays `(plugin)` as the value. From there, the author of the Plugin will be able to organize the parsed data within the `ValueData`, `ValueData2`, and the `ValueData3` columns. This allows for more data to be parsed in less rows for more efficient and useful CSV output!
 
 ![test](https://github.com/rathbuna/RegistryPlugins/blob/master/RECmdPluginExampleOutput.jpg)
+
+[RECmd Batch Files](https://github.com/EricZimmerman/RECmd/tree/master/BatchExamples) help make CSV output useful and efficient while reducing the noise. The [Kroll Batch File](https://github.com/EricZimmerman/RECmd/blob/master/BatchExamples/Kroll_Batch.reb) is currently taking advantage of most, if not all, of the Registry Plugins within this repo. It is strongly recommended to use that Batch File when parsing the Windows Registry with RECmd. 
