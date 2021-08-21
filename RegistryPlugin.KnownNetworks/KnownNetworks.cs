@@ -75,6 +75,7 @@ namespace RegistryPlugin.KnownNetworks
                         networkName = profileName;
                     }
 
+                    var firstNetwork = string.Empty;
                     var dnsSuffix = string.Empty;
                     var macAddress = string.Empty;
 
@@ -94,7 +95,7 @@ namespace RegistryPlugin.KnownNetworks
                         }
                     }
 
-                    var kn = new KnownNetwork(networkName, networkType, GetDateFrom128Bit(rawCreated),
+                    var kn = new KnownNetwork(networkName, firstNetwork, networkType, GetDateFrom128Bit(rawCreated),
                         GetDateFrom128Bit(rawLast), isManaged, dnsSuffix, macAddress, profilesSubKey.KeyName);
 
                     kn.BatchKeyPath = profilesSubKey.KeyPath;
@@ -135,7 +136,7 @@ namespace RegistryPlugin.KnownNetworks
 
                     var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
 
-                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork,false);
+                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork, false);
                 }
                 catch (Exception e)
                 {
@@ -162,8 +163,7 @@ namespace RegistryPlugin.KnownNetworks
 
                     var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
 
-                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork,true);
-             
+                    kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork, true);
                 }
                 catch (Exception e)
                 {
