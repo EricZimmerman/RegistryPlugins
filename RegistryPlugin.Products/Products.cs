@@ -21,7 +21,7 @@ namespace RegistryPlugin.Products
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"Microsoft\Windows\CurrentVersion\Installer\UserData\S-1-5-18\Products"
+            @"Microsoft\Windows\CurrentVersion\Installer\UserData\*\Products"
         });
 
         public string ValueName => null;

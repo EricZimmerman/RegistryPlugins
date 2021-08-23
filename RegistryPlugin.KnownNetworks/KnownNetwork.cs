@@ -13,10 +13,11 @@ namespace RegistryPlugin.KnownNetworks
             Unknown = 0
         }
 
-        public KnownNetwork(string networkName, NameTypes type, DateTimeOffset firstConnect, DateTimeOffset lastConnect,
+        public KnownNetwork(string networkName, string firstNetwork, NameTypes type, DateTimeOffset firstConnect, DateTimeOffset lastConnect,
             bool managed, string dnsSuffix, string gatewayMacAddress, string profileGuid)
         {
             NetworkName = networkName;
+            FirstNetwork = firstNetwork;
             NameType = type;
             FirstConnectLOCAL = firstConnect.DateTime;
             LastConnectedLOCAL = lastConnect.DateTime;
@@ -26,7 +27,7 @@ namespace RegistryPlugin.KnownNetworks
             ProfileGUID = profileGuid;
         }
 
-
+        public string FirstNetwork { get; private set; }
         public string NetworkName { get; private set; }
         public NameTypes NameType { get; }
 
@@ -39,11 +40,11 @@ namespace RegistryPlugin.KnownNetworks
         public string GatewayMacAddress { get; private set; }
         public string ProfileGUID { get; }
 
-        public void UpdateInfo(string macAddress, string dnsSuffix, string networkName, bool managed)
+        public void UpdateInfo(string macAddress, string dnsSuffix, string firstNetwork, bool managed)
         {
             GatewayMacAddress = macAddress;
             DNSSuffix = dnsSuffix;
-            NetworkName = networkName;
+            FirstNetwork = firstNetwork;
             Managed = managed;
         }
 
