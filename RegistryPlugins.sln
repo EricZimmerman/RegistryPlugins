@@ -106,6 +106,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WinRAR", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags2", "RegistryPlugin.AppCompatFlags2\RegistryPlugin.AppCompatFlags2.csproj", "{4A5BB547-EC5E-4A43-934E-32EFA99070D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplication", "RegistryPlugin.Amcache-InventoryApplication\RegistryPlugin.Amcache-InventoryApplication.csproj", "{49588F14-3AAD-42E2-B937-E322F6729817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplicationFile", "RegistryPlugin.Amcache-InventoryApplicationFile\RegistryPlugin.Amcache-InventoryApplicationFile.csproj", "{22192328-2E31-4A11-91B5-75C845F6CCF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplicationShortcut", "RegistryPlugin.Amcache-InventoryApplicationShortcut\RegistryPlugin.Amcache-InventoryApplicationShortcut.csproj", "{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDeviceContainer", "RegistryPlugin.Amcache-InventoryDeviceContainer\RegistryPlugin.Amcache-InventoryDeviceContainer.csproj", "{5C960461-7A06-4D26-9855-09FC8C317FCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDevicePnp", "RegistryPlugin.Amcache-InventoryDevicePnp\RegistryPlugin.Amcache-InventoryDevicePnp.csproj", "{98DD7C55-34DD-43E0-9D3A-265B9328A22C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDriverBinary", "RegistryPlugin.Amcache-InventoryDriverBinary\RegistryPlugin.Amcache-InventoryDriverBinary.csproj", "{A083E580-0022-4DCF-839E-30147631D75C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -308,6 +320,30 @@ Global
 		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A5BB547-EC5E-4A43-934E-32EFA99070D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49588F14-3AAD-42E2-B937-E322F6729817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49588F14-3AAD-42E2-B937-E322F6729817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49588F14-3AAD-42E2-B937-E322F6729817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49588F14-3AAD-42E2-B937-E322F6729817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22192328-2E31-4A11-91B5-75C845F6CCF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22192328-2E31-4A11-91B5-75C845F6CCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22192328-2E31-4A11-91B5-75C845F6CCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22192328-2E31-4A11-91B5-75C845F6CCF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C960461-7A06-4D26-9855-09FC8C317FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C960461-7A06-4D26-9855-09FC8C317FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C960461-7A06-4D26-9855-09FC8C317FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C960461-7A06-4D26-9855-09FC8C317FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DD7C55-34DD-43E0-9D3A-265B9328A22C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DD7C55-34DD-43E0-9D3A-265B9328A22C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DD7C55-34DD-43E0-9D3A-265B9328A22C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DD7C55-34DD-43E0-9D3A-265B9328A22C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A083E580-0022-4DCF-839E-30147631D75C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A083E580-0022-4DCF-839E-30147631D75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A083E580-0022-4DCF-839E-30147631D75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A083E580-0022-4DCF-839E-30147631D75C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
