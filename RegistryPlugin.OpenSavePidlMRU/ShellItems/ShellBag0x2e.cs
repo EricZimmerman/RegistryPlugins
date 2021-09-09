@@ -174,7 +174,7 @@ namespace RegistryPlugin.OpenSavePidlMRU.ShellItems
                     }
                     catch (ArgumentException ex)
                     {
-                        throw ex;
+                        throw;
                         // Syntax error in the regular expression
                     }
                 }

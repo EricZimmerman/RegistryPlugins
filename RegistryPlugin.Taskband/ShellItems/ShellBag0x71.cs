@@ -134,7 +134,7 @@ namespace RegistryPlugin.Taskband.ShellItems
                     }
                     catch (ArgumentException ex)
                     {
-                        throw ex;
+                        throw;
                         // Syntax error in the regular expression
                     }
                 }

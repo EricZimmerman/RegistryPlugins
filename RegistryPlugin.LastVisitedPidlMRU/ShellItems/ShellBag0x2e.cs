@@ -174,7 +174,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                     }
                     catch (ArgumentException ex)
                     {
-                        throw ex;
+                        throw;
                         // Syntax error in the regular expression
                     }
                 }
