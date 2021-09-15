@@ -37,7 +37,7 @@ namespace RegistryPlugin.FeatureUsage
         public string LongDescription 
             => "https://blog.group-ib.com/featureusage";
 
-        public double Version => 0.1;
+        public double Version => 0.2;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -61,17 +61,14 @@ namespace RegistryPlugin.FeatureUsage
             {
                 try
                 {
-                    if (subKey.KeyName == "AppBadgeUpdated" || subKey.KeyName == "AppLaunch" || subKey.KeyName == "AppSwitched")
+                    foreach (var i in subKey.Values)
                     {
-                        foreach (var i in subKey.Values)
+                        var ff = new ValuesOut(subKey.KeyName, i?.ValueName, i?.ValueData)
                         {
-                            var ff = new ValuesOut(i?.ValueName)
-                            {
-                                BatchValueName = "Multiple",
-                                BatchKeyPath = subKey.KeyPath
-                            };
-                            l.Add(ff);
-                        }
+                            BatchValueName = "Multiple",
+                            BatchKeyPath = subKey.KeyPath
+                        };
+                        l.Add(ff);
                     }
                 }
                 catch (Exception ex)

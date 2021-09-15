@@ -5,16 +5,20 @@ namespace RegistryPlugin.FeatureUsage
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string path)
+        public ValuesOut(string keypath, string valuename, string count)
         {
-            Path = path;
+            KeyPath = keypath;
+            ValueName = valuename;
+            Count = count;
         }
 
-        public string Path { get; }
+        public string KeyPath { get; }
+        public string ValueName { get; }
+        public string Count { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"Path: {Path}";
-        public string BatchValueData2 => $"";
-        public string BatchValueData3 => $"";
+        public string BatchValueData1 => $"KeyPath: {KeyPath}";
+        public string BatchValueData2 => $"ValueName: {ValueName}";
+        public string BatchValueData3 => $"Count: {Count}";
     }
 }
