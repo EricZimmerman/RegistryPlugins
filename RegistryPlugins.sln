@@ -121,7 +121,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.IconLayouts", "RegistryPlugin.IconLayouts\RegistryPlugin.IconLayouts.csproj", "{1412D439-E445-4709-B105-65D1F31393D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkSetup2", "RegistryPlugin.NetworkSetup2\RegistryPlugin.NetworkSetup2.csproj", "{451B0EB3-DD7F-4722-BAFE-989B04FFC23A}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FirewallRules", "RegistryPlugin.FirewallRules\RegistryPlugin.FirewallRules.csproj", "{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
