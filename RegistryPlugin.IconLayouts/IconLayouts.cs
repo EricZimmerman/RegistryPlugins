@@ -55,7 +55,7 @@ namespace RegistryPlugin.IconLayouts
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
-            var iconlayouts = key.Values.Single(t => t.ValueName == "IconLayouts").ValueDataRaw;
+            var iconlayouts = key.Values.SingleOrDefault(t => t.ValueName == "IconLayouts").ValueDataRaw;
             if (iconlayouts != null)
             {
                 var br = new BinaryReader(new MemoryStream(iconlayouts));
