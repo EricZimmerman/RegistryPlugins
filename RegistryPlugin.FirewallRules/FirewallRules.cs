@@ -91,20 +91,16 @@ namespace RegistryPlugin.FirewallRules
 
                     foreach (var j in ruleList)
                     {
-                        Regex rgx = new Regex(@"Action=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Action=.*").IsMatch(j))
                             action = j.Split('=')[1];
 
-                        rgx = new Regex(@"Active=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Active=.*").IsMatch(j))
                             active = j.Split('=')[1];
 
-                        rgx = new Regex(@"Dir=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Dir=.*").IsMatch(j))
                             dir = j.Split('=')[1];
 
-                        rgx = new Regex(@"Protocol=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Protocol=.*").IsMatch(j))
                         {
                             var protocolNum = j.Split('=')[1];
                             try 
@@ -117,16 +113,13 @@ namespace RegistryPlugin.FirewallRules
                             }
                         }
 
-                        rgx = new Regex(@"Name=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Name=.*").IsMatch(j))
                             name = j.Split('=')[1];
 
-                        rgx = new Regex(@"Desc=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"Desc=.*").IsMatch(j))
                             desc = j.Split('=')[1];
 
-                        rgx = new Regex(@"App=.*");
-                        if (rgx.IsMatch(j))
+                        if (new Regex(@"App=.*").IsMatch(j))
                             app = j.Split('=')[1];
                     }
 
