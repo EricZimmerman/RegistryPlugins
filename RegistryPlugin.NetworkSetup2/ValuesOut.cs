@@ -24,6 +24,6 @@ namespace RegistryPlugin.NetworkSetup2
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"ProtocolList: {ProtocolList} Alias: {Alias}";
         public string BatchValueData2 => $"Description: {Description} Type: {Type}";
-        public string BatchValueData3 => $"PermanentAddress: {PermanentAddress} CurrentAddress:{CurrentAddress}";
+        public string BatchValueData3 => $"PermanentAddress: {PermanentAddress} CurrentAddress (Mac Address): {CurrentAddress}";
     }
 }
