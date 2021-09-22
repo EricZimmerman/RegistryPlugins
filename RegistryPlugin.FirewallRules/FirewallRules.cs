@@ -71,6 +71,29 @@ namespace RegistryPlugin.FirewallRules
             {"143","Ethernet"}
         };
 
+        public void SetData(string regexValue, string compareString, List<String> data)
+        {
+            if (new Regex(regexValue).IsMatch(compareString))
+            {
+                var splitData = compareString.Split('=');
+                if (splitData[0] == "Protocol")
+                {
+                    try
+                    {
+                        data.Add(NumToProtocol[splitData[1]]);
+                    }
+                    catch
+                    {
+                        data.Add(splitData[1]);
+                    }
+                }
+                else
+                {
+                    data.Add(splitData[1]);
+                }
+            }
+        }
+
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
@@ -81,50 +104,31 @@ namespace RegistryPlugin.FirewallRules
                     string rules = i.ValueData;
                     string[] ruleList = rules.Split('|');
 
-                    string action = null;
-                    string active = null;
-                    string dir = null;
-                    string protocol = null;
-                    string name = null;
-                    string desc = null;
-                    string app = null;
+                    List<String> action = new List<String>();
+                    List<String> active = new List<String>();
+                    List<String> dir = new List<String>();
+                    List<String> protocol = new List<String>();
+                    List<String> lport = new List<String>();
+                    List<String> rport = new List<String>();
+                    List<String> name = new List<String>();
+                    List<String> desc = new List<String>();
+                    List<String> app = new List<String>();
 
                     foreach (var j in ruleList)
                     {
-                        if (new Regex(@"Action=.*").IsMatch(j))
-                            action = j.Split('=')[1];
-
-                        if (new Regex(@"Active=.*").IsMatch(j))
-                            active = j.Split('=')[1];
-
-                        if (new Regex(@"Dir=.*").IsMatch(j))
-                            dir = j.Split('=')[1];
-
-                        if (new Regex(@"Protocol=.*").IsMatch(j))
-                        {
-                            var protocolNum = j.Split('=')[1];
-                            try 
-                            {
-                                protocol = NumToProtocol[protocolNum];
-                            }
-                            catch
-                            {
-                                protocol = protocolNum;
-                            }
-                        }
-
-                        if (new Regex(@"Name=.*").IsMatch(j))
-                            name = j.Split('=')[1];
-
-                        if (new Regex(@"Desc=.*").IsMatch(j))
-                            desc = j.Split('=')[1];
-
-                        if (new Regex(@"App=.*").IsMatch(j))
-                            app = j.Split('=')[1];
+                        SetData(@"Action=.*", j, action);
+                        SetData(@"Active=.*", j, active);
+                        SetData(@"Dir=.*", j, dir);
+                        SetData(@"Protocol=.*", j, protocol);
+                        SetData(@"LPort=.*", j,lport);
+                        SetData(@"RPort=.*", j,rport);
+                        SetData(@"Name=.*", j,name);
+                        SetData(@"Desc=.*", j,desc);
+                        SetData(@"App=.*", j, app);
                     }
 
-
-                    var ff = new ValuesOut(action, active, dir, protocol, name, desc, app)
+                    var ff = new ValuesOut(string.Join(",", action), string.Join(",", active), string.Join(",", dir), 
+                        string.Join(",", protocol), string.Join(",", lport), string.Join(",", rport), string.Join(",", name), string.Join(",", desc), string.Join(",", app))
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = key.KeyPath
