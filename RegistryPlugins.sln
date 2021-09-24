@@ -124,6 +124,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkSetup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FirewallRules", "RegistryPlugin.FirewallRules\RegistryPlugin.FirewallRules.csproj", "{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkSettings", "RegistryPlugin.NetworkSettings\RegistryPlugin.NetworkSettings.csproj", "{D06D48F7-36C5-4AC6-8197-71792517E44A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -362,6 +364,10 @@ Global
 		{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D06D48F7-36C5-4AC6-8197-71792517E44A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D06D48F7-36C5-4AC6-8197-71792517E44A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D06D48F7-36C5-4AC6-8197-71792517E44A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D06D48F7-36C5-4AC6-8197-71792517E44A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
