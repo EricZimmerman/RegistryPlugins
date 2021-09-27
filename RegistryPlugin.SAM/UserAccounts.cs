@@ -131,7 +131,9 @@ namespace RegistryPlugin.SAM
                         internetUserName = Encoding.Unicode.GetString(internetUserNameVal.ValueDataRaw);
                     }
 
+                    var keyId = 0;
                     var userId = 0;
+                    var validUserId = false;
                     var invalidLogins = 0;
                     var totalLogins = 0;
                     DateTimeOffset? lastLoginTime = null;
@@ -142,7 +144,10 @@ namespace RegistryPlugin.SAM
 
                     if (fVal != null)
                     {
+                        keyId = int.Parse(key1.KeyName, System.Globalization.NumberStyles.HexNumber);
                         userId = BitConverter.ToInt32(fVal.ValueDataRaw, 0x30);
+                        validUserId = keyId == userId;
+
                         invalidLogins = BitConverter.ToInt16(fVal.ValueDataRaw, 0x40);
                         totalLogins = BitConverter.ToInt16(fVal.ValueDataRaw, 0x42);
 
@@ -225,7 +230,7 @@ namespace RegistryPlugin.SAM
                         }
 
 
-                        var u = new UserOut(userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
+                        var u = new UserOut(validUserId, userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
                             createdOn, groups, hint, parsedAccountFlags,internetUserName);
 

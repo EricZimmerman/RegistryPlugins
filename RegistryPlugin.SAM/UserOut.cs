@@ -5,12 +5,13 @@ namespace RegistryPlugin.SAM
 {
     public class UserOut:IValueOut
     {
-        public UserOut(int userId, int invalidLoginCount, int totalLoginCount, DateTimeOffset? lastLogin,
+        public UserOut(bool validuserid, int userId, int invalidLoginCount, int totalLoginCount, DateTimeOffset? lastLogin,
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
             string username,
             string fullName, string comment, string userComment, string homeDir, DateTimeOffset createdOn,
             string groups, string pwHint, AccountFlags parsedAccountFlags, string internetUserName)
         {
+            ValidUserId = validuserid;
             UserId = userId;
             InvalidLoginCount = invalidLoginCount;
             TotalLoginCount = totalLoginCount;
@@ -29,6 +30,8 @@ namespace RegistryPlugin.SAM
             AccountFlagsEnum = parsedAccountFlags;
             InternetUserName = internetUserName;
         }
+
+        public bool ValidUserId { get; }
 
         public int UserId { get; }
 
@@ -56,6 +59,8 @@ namespace RegistryPlugin.SAM
         public string InternetUserName { get; }
 
         private AccountFlags AccountFlagsEnum { get; }
+
+        public bool KeyNameValid            => HasFlag(AccountFlags.AccountDisabled);
         public bool AccountDisabled         => HasFlag(AccountFlags.AccountDisabled);
         public bool HomeDirectoryRequired   => HasFlag(AccountFlags.HomeDirectoryRequired);
         public bool PasswordNotRequired     => HasFlag(AccountFlags.PasswordNotRequired);
@@ -75,7 +80,7 @@ namespace RegistryPlugin.SAM
 
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"Username: {UserName} Id: {UserId}";
+        public string BatchValueData1 => $"Username: {UserName} Id: {UserId} ValidUserId: {ValidUserId}";
         public string BatchValueData2 => $"Created: {CreatedOn.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Last login: {LastLoginTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Last password change: {LastPasswordChange?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Last incorrect password: {LastIncorrectPassword?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Expires on: {ExpiresOn?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => $"Account flags: {AccountFlagsEnum}";
     }
