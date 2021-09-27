@@ -59,7 +59,6 @@ namespace RegistryPlugin.SAM
         public string InternetUserName { get; }
 
         private AccountFlags AccountFlagsEnum { get; }
-
         public bool AccountDisabled         => HasFlag(AccountFlags.AccountDisabled);
         public bool HomeDirectoryRequired   => HasFlag(AccountFlags.HomeDirectoryRequired);
         public bool PasswordNotRequired     => HasFlag(AccountFlags.PasswordNotRequired);
