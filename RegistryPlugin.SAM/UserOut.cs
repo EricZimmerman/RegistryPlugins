@@ -60,7 +60,6 @@ namespace RegistryPlugin.SAM
 
         private AccountFlags AccountFlagsEnum { get; }
 
-        public bool KeyNameValid            => HasFlag(AccountFlags.AccountDisabled);
         public bool AccountDisabled         => HasFlag(AccountFlags.AccountDisabled);
         public bool HomeDirectoryRequired   => HasFlag(AccountFlags.HomeDirectoryRequired);
         public bool PasswordNotRequired     => HasFlag(AccountFlags.PasswordNotRequired);
