@@ -9,7 +9,7 @@ namespace RegistryPlugin.SAM
             DateTimeOffset? lastPwChange, DateTimeOffset? lastIncorrectLogin, DateTimeOffset? expiresOn,
             string username,
             string fullName, string comment, string userComment, string homeDir, DateTimeOffset createdOn,
-            string groups, string pwHint, AccountFlags parsedAccountFlags, string internetUserName)
+            string groups, string pwHint, AccountFlags parsedAccountFlags, string internetUserName, string resetdata)
         {
             ValidUserId = validuserid;
             UserId = userId;
@@ -29,6 +29,7 @@ namespace RegistryPlugin.SAM
             PasswordHint = pwHint;
             AccountFlagsEnum = parsedAccountFlags;
             InternetUserName = internetUserName;
+            ResetData = resetdata;
         }
 
         public bool ValidUserId { get; }
@@ -57,6 +58,7 @@ namespace RegistryPlugin.SAM
         public string UserComment { get; }
         public string HomeDirectory { get; }
         public string InternetUserName { get; }
+        public string ResetData { get; }
 
         private AccountFlags AccountFlagsEnum { get; }
         public bool AccountDisabled         => HasFlag(AccountFlags.AccountDisabled);

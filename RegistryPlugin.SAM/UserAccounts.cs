@@ -131,6 +131,13 @@ namespace RegistryPlugin.SAM
                         internetUserName = Encoding.Unicode.GetString(internetUserNameVal.ValueDataRaw);
                     }
 
+                    var resetDataVal = key1.Values.SingleOrDefault(t => t.ValueName == "ResetData");
+                    var resetData = string.Empty;
+                    if (resetDataVal != null)
+                    {
+                        resetData = Encoding.Unicode.GetString(resetDataVal.ValueDataRaw);
+                    }
+
                     var keyId = 0;
                     var userId = 0;
                     var validUserId = false;
@@ -232,7 +239,7 @@ namespace RegistryPlugin.SAM
 
                         var u = new UserOut(validUserId, userId, invalidLogins, totalLogins, lastLoginTime, lastPwChangeTime,
                             lastIncorrectPwTime, acctExpiresTime, name1, full1, comment, userComment, homeDir,
-                            createdOn, groups, hint, parsedAccountFlags,internetUserName);
+                            createdOn, groups, hint, parsedAccountFlags,internetUserName, resetData);
 
                        
 
