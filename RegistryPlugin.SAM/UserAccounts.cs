@@ -61,8 +61,6 @@ namespace RegistryPlugin.SAM
             @"SAM\Domains\Account\Users"
         });
 
-        //TODO  @"SAM\Domains\Builtin"
-
         public string ValueName => null;
         public string AlertMessage { get; private set; }
         public RegistryPluginType.PluginType PluginType => RegistryPluginType.PluginType.Grid;
