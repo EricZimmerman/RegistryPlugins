@@ -10,10 +10,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GuidMapping" Version="1.0.0.4"/>
-    <PackageReference Include="NLog" Version="4.7.10"/>
-    <PackageReference Include="Registry" Version="1.2.1"/>
-    <PackageReference Include="RegistryPluginBase" Version="1.1.0"/>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0"/>
+    <PackageReference Include="GuidMapping" Version="1.0.0.4" />
+    <PackageReference Include="NLog" Version="4.7.11" />
+    <PackageReference Include="Registry" Version="1.2.2" />
+    <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 </Project>

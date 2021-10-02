@@ -6,7 +6,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Registry" Version="1.2.1"/>
-    <PackageReference Include="RegistryPluginBase" Version="1.1.0"/>
+    <PackageReference Include="Registry" Version="1.2.2" />
+    <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
 </Project>

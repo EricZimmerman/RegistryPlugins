@@ -7,12 +7,12 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.2.0">
+    <PackageReference Include="Costura.Fody" Version="5.6.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="DiscUtils.Ntfs" Version="0.16.4"/>
-    <PackageReference Include="DiscUtils.Streams" Version="0.16.4"/>
-    <PackageReference Include="RegistryPluginBase" Version="1.1.0"/>
+    <PackageReference Include="DiscUtils.Ntfs" Version="0.16.13" />
+    <PackageReference Include="DiscUtils.Streams" Version="0.16.13" />
+    <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
