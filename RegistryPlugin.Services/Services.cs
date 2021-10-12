@@ -107,7 +107,7 @@ namespace RegistryPlugin.Services
 
                     var paramLastWrite = paramKey?.LastWriteTime;
 
-                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName == "ServiceDLL")?.ValueData ??
+                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName.ToUpperInvariant() == "SERVICEDLL")?.ValueData ??
                                      string.Empty;
 
 
