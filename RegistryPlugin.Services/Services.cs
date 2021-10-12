@@ -71,22 +71,22 @@ namespace RegistryPlugin.Services
                     var name = keyValue.KeyName;
 
 
-                    var descVal = keyValue.Values.SingleOrDefault(t => t.ValueName == "Description");
+                    var descVal = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("Description",StringComparison.OrdinalIgnoreCase) );
                     var desc = descVal?.ValueData ?? string.Empty;
 
-                    var dispVal = keyValue.Values.SingleOrDefault(t => t.ValueName == "DisplayName");
+                    var dispVal = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("DisplayName",StringComparison.OrdinalIgnoreCase) );
                     var disp = dispVal?.ValueData ?? string.Empty;
 
                     var group = keyValue.Values.SingleOrDefault(t => t.ValueName == "Group")?.ValueData ?? string.Empty;
-                    var imagePath = keyValue.Values.SingleOrDefault(t => t.ValueName == "ImagePath")?.ValueData ??
+                    var imagePath = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("ImagePath",StringComparison.OrdinalIgnoreCase) )?.ValueData ??
                                     string.Empty;
                     var reqPrivs =
-                        keyValue.Values.SingleOrDefault(t => t.ValueName == "RequiredPrivileges")?.ValueData ??
+                        keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("RequiredPrivileges",StringComparison.OrdinalIgnoreCase) )?.ValueData ??
                         string.Empty;
 
                     var startType = ServiceType.Adapter;
 
-                    var ssv = keyValue.Values.SingleOrDefault(t => t.ValueName == "Type");
+                    var ssv = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("Type",StringComparison.OrdinalIgnoreCase) );
 
                     if (ssv != null)
                     {
@@ -95,7 +95,7 @@ namespace RegistryPlugin.Services
 
                     var startMode = ServiceStartMode.Disabled;
 
-                    var stv = keyValue.Values.SingleOrDefault(t => t.ValueName == "Start");
+                    var stv = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("Start",StringComparison.OrdinalIgnoreCase) );
 
                     if (stv != null)
                     {
@@ -103,11 +103,11 @@ namespace RegistryPlugin.Services
                     }
 
 
-                    var paramKey = keyValue.SubKeys.SingleOrDefault(t => t.KeyName == "Parameters");
+                    var paramKey = keyValue.SubKeys.SingleOrDefault(t => t.KeyName.Equals("Parameters",StringComparison.OrdinalIgnoreCase));
 
                     var paramLastWrite = paramKey?.LastWriteTime;
 
-                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName.ToUpperInvariant() == "SERVICEDLL")?.ValueData ??
+                    var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName.Equals("SERVICEDLL",StringComparison.OrdinalIgnoreCase))?.ValueData ??
                                      string.Empty;
 
 
