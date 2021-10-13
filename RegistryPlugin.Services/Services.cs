@@ -77,6 +77,9 @@ namespace RegistryPlugin.Services
                     var dispVal = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("DisplayName",StringComparison.OrdinalIgnoreCase) );
                     var disp = dispVal?.ValueData ?? string.Empty;
 
+                    var serviceDllVal = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("ServiceDll",StringComparison.OrdinalIgnoreCase) );
+                    var serviceDllkey = serviceDllVal?.ValueData ?? string.Empty;
+
                     var group = keyValue.Values.SingleOrDefault(t => t.ValueName == "Group")?.ValueData ?? string.Empty;
                     var imagePath = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("ImagePath",StringComparison.OrdinalIgnoreCase) )?.ValueData ??
                                     string.Empty;
@@ -110,9 +113,16 @@ namespace RegistryPlugin.Services
                     var serviceDll = paramKey?.Values.SingleOrDefault(t => t.ValueName.Equals("SERVICEDLL",StringComparison.OrdinalIgnoreCase))?.ValueData ??
                                      string.Empty;
 
+                    var svcDllInfo = string.Empty;
+                    if (serviceDllkey != string.Empty)
+                    {
+                        svcDllInfo = $"{key.KeyName} ServiceDll: {serviceDllkey} / Parameter ServiceDll: ";
+                    }
+
+                    svcDllInfo = $"{svcDllInfo}{serviceDll}";
 
                     var ff = new Service(name, desc, disp, startMode, startType, nameLastWrite, paramLastWrite, group,
-                        imagePath, serviceDll, reqPrivs);
+                        imagePath, svcDllInfo, reqPrivs);
 
                     ff.BatchKeyPath = key.KeyPath;
                     ff.BatchValueName = "None";
