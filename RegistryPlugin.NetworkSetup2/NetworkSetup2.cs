@@ -60,22 +60,22 @@ namespace RegistryPlugin.NetworkSetup2
                     try
                     {
                         var kernel = i.SubKeys.SingleOrDefault(t => t.KeyName == "Kernel");
-                        if (kernel != null)
-                        {
-                            var protocollist = kernel.Values.SingleOrDefault(t => t.ValueName == "ProtocolList")?.ValueData;
-                            var ifalias = kernel.Values.SingleOrDefault(t => t.ValueName == "IfAlias")?.ValueData;
-                            var ifdescr = kernel.Values.SingleOrDefault(t => t.ValueName == "IfDescr")?.ValueData;
-                            var iftype = kernel.Values.SingleOrDefault(t => t.ValueName == "IfType")?.ValueData;
-                            var permanentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "PermanentAddress")?.ValueData;
-                            var currentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "CurrentAddress")?.ValueData;
+                        if (kernel == null)
+                            continue;
 
-                            var ff = new ValuesOut(protocollist, ifalias, ifdescr, iftype, permanentaddress, currentaddress)
-                            {
-                                BatchValueName = "Multiple",
-                                BatchKeyPath = i.KeyPath
-                            };
-                            l.Add(ff);
-                        }
+                        var protocollist = kernel.Values.SingleOrDefault(t => t.ValueName == "ProtocolList")?.ValueData;
+                        var ifalias = kernel.Values.SingleOrDefault(t => t.ValueName == "IfAlias")?.ValueData;
+                        var ifdescr = kernel.Values.SingleOrDefault(t => t.ValueName == "IfDescr")?.ValueData;
+                        var iftype = kernel.Values.SingleOrDefault(t => t.ValueName == "IfType")?.ValueData;
+                        var permanentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "PermanentAddress")?.ValueData;
+                        var currentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "CurrentAddress")?.ValueData;
+
+                        var ff = new ValuesOut(protocollist, ifalias, ifdescr, iftype, permanentaddress, currentaddress)
+                        {
+                            BatchValueName = "Multiple",
+                            BatchKeyPath = i.KeyPath
+                        };
+                        l.Add(ff);
                     }
                     catch (Exception ex)
                     {

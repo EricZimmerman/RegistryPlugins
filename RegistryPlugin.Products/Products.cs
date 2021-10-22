@@ -61,28 +61,19 @@ namespace RegistryPlugin.Products
             {
                 try
                 {
-                    string displayName = null;
-                    string packageName = null;
-                    string installDate = null;
-                    string publisher = null;
-                    string language = null;
-                    string installLocation = null;
-                    string installSource = null;
-                    string comments = null;
-                    DateTimeOffset? ts = null;
-
                     var properties = subKey.SubKeys.SingleOrDefault(t => t.KeyName == "InstallProperties");
-                    if (properties != null) {
-                        displayName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                        packageName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
-                        installDate = properties.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                        publisher = properties.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                        language = properties.Values.SingleOrDefault(t => t.ValueName == "Language")?.ValueData;
-                        installLocation = properties.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
-                        installSource = properties.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
-                        comments = properties.Values.SingleOrDefault(t => t.ValueName == "Comments")?.ValueData;
-                        ts = properties.LastWriteTime;
-                    }
+                    if (properties == null)
+                        continue;
+
+                    var displayName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                    var packageName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
+                    var installDate = properties.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
+                    var publisher = properties.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                    var language = properties.Values.SingleOrDefault(t => t.ValueName == "Language")?.ValueData;
+                    var installLocation = properties.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
+                    var installSource = properties.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
+                    var comments = properties.Values.SingleOrDefault(t => t.ValueName == "Comments")?.ValueData;
+                    DateTimeOffset? ts = properties.LastWriteTime;
 
                     var ff = new ValuesOut(displayName, packageName, installDate, publisher, language, installLocation, installSource, comments, ts)
                     {

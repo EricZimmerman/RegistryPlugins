@@ -65,7 +65,7 @@ namespace RegistryPlugin.IconLayouts
                 var count = BitConverter.ToInt16(countBytes, 0);
                 br.BaseStream.Position += 0x6;
 
-                for (var i  = 0; i < count; i++)
+                for (var i = 0; i < count; i++)
                 {
                     byte[] lengthBytes = br.ReadBytes(2);
                     var length = BitConverter.ToInt16(lengthBytes, 0);
