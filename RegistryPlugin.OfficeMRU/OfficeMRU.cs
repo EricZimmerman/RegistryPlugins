@@ -23,16 +23,10 @@ namespace RegistryPlugin.OfficeMRU
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"Software\Microsoft\Office\15.0\Word\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\15.0\Excel\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\15.0\PowerPoint\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\15.0\Access\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\15.0\OneNote\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\16.0\Word\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\16.0\Excel\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\16.0\PowerPoint\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\16.0\Access\User MRU\*\File MRU",
-            @"Software\Microsoft\Office\16.0\OneNote\User MRU\*\File MRU"
+            @"Software\Microsoft\Office\*\*\User MRU\*\File MRU",
+            @"Software\Microsoft\Office\*\*\User MRU\*\Place MRU",
+            @"Software\Microsoft\Office\*\*\File MRU",
+            @"Software\Microsoft\Office\*\*\Place MRU",
         });
 
         public string ValueName => null;
