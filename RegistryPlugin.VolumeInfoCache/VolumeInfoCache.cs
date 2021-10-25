@@ -53,6 +53,32 @@ namespace RegistryPlugin.VolumeInfoCache
 
         public IBindingList Values => _values;
 
+        // https://docs.microsoft.com/en-us/dotnet/api/system.io.drivetype?view=net-5.0
+        public Dictionary<string, string> NumToDriveType = new Dictionary<string, string>()
+        {
+            {"0","Unknown"},
+            {"1","NoRootDirectory"},
+            {"2","Removable"},
+            {"3","Fixed"},
+            {"4","Network"},
+            {"5","CDROM"},
+            {"6","RAM"}
+        };
+
+        public string SetDriveType(string data)
+        {
+            string drivetype = null;
+            try
+            {
+                drivetype = NumToDriveType[data];
+            }
+            catch
+            {
+                drivetype = data;
+            }
+            return drivetype;
+        }
+
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
@@ -63,9 +89,11 @@ namespace RegistryPlugin.VolumeInfoCache
                 {
                     string driveName = subKey.KeyName;
                     string volumeLabel = subKey.Values.SingleOrDefault(t => t.ValueName == "VolumeLabel")?.ValueData;
+                    string drivetype = SetDriveType(subKey.Values.SingleOrDefault(t => t.ValueName == "DriveType")?.ValueData);
+
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(driveName, volumeLabel, ts)
+                    var ff = new ValuesOut(driveName, volumeLabel, drivetype, ts)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
