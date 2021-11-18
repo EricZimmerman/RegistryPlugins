@@ -85,7 +85,7 @@ namespace RegistryPlugin.WindowsApp
                                 displayName = packagesPath.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
                                 packageRootFolder = packagesPath.Values.SingleOrDefault(t => t.ValueName == "PackageRootFolder")?.ValueData;
                             }
-                            var ff = new ValuesOut(displayName, installTime, packageRootFolder)
+                            var ff = new ValuesOut(AppPath.KeyName, displayName, installTime, packageRootFolder)
                             {
                                 BatchValueName = "Multiple",
                                 BatchKeyPath = subKey.KeyPath
