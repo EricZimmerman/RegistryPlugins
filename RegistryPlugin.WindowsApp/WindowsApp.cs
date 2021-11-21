@@ -21,7 +21,8 @@ namespace RegistryPlugin.WindowsApp
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository"
+            @"Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository", // UsrClass.dat
+            @"Software\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\Repository" // NTUSER.dat
         });
 
         public string ValueName => null;
