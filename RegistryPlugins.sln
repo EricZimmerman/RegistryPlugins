@@ -130,6 +130,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SAMBuiltin",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WindowsApp", "RegistryPlugin.WindowsApp\RegistryPlugin.WindowsApp.csproj", "{4989E80B-32F5-4989-8CF2-735968985E93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.RADAR", "RegistryPlugin.RADAR\RegistryPlugin.RADAR.csproj", "{2C60C58A-559B-4C77-8ED8-0F58A1581520}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -380,6 +382,10 @@ Global
 		{4989E80B-32F5-4989-8CF2-735968985E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4989E80B-32F5-4989-8CF2-735968985E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4989E80B-32F5-4989-8CF2-735968985E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C60C58A-559B-4C77-8ED8-0F58A1581520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C60C58A-559B-4C77-8ED8-0F58A1581520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C60C58A-559B-4C77-8ED8-0F58A1581520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C60C58A-559B-4C77-8ED8-0F58A1581520}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
