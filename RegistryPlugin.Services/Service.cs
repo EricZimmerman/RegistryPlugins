@@ -1,13 +1,33 @@
 ﻿using System;
-using System.ServiceProcess;
 using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.Services
 {
     public class Service:IValueOut
     {
+        public enum ServiceStartMode
+        {
+            Boot = 0,
+            System = 1,
+            Automatic = 2,
+            Manual = 3,
+            Disabled = 4
+        }
+
+        [Flags]
+        public enum ServiceTypeEnum
+        {
+            KernelDriver = 1,
+            FileSystemDriver = 2,
+            Adapter = 4,
+            RecognizerDriver = 8,
+            Win32OwnProcess = 16,
+            Win32ShareProcess = 32,
+            InteractiveProcess = 256
+        }
+
         public Service(string name, string description, string displayName, ServiceStartMode startMode,
-            ServiceType serviceType, DateTimeOffset nameKeyLastWrite, DateTimeOffset? parametersKeyLastWrite,
+            ServiceTypeEnum serviceType, DateTimeOffset nameKeyLastWrite, DateTimeOffset? parametersKeyLastWrite,
             string group, string imagePath, string serviceDll, string reqPrivs)
         {
             Name = name;
@@ -28,7 +48,7 @@ namespace RegistryPlugin.Services
         public string DisplayName { get; }
         public ServiceStartMode StartMode { get; }
 
-        public ServiceType ServiceType { get; }
+        public ServiceTypeEnum ServiceType { get; }
 
         public DateTime NameKeyLastWrite { get; }
         public DateTime? ParametersKeyLastWrite { get; }

@@ -146,7 +146,7 @@ namespace RegistryPlugin.Taskband.ShellItems
                             ExtensionBlocks.Add(block1);
                         }
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException)
                     {
                         throw;
                         // Syntax error in the regular expression
@@ -301,7 +301,7 @@ namespace RegistryPlugin.Taskband.ShellItems
                             ExtensionBlocks.Add(block1);
                         }
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException)
                     {
                         throw;
                         // Syntax error in the regular expression
