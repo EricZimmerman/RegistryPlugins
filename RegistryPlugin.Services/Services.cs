@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.ServiceProcess;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -87,22 +86,22 @@ namespace RegistryPlugin.Services
                         keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("RequiredPrivileges",StringComparison.OrdinalIgnoreCase) )?.ValueData ??
                         string.Empty;
 
-                    var startType = ServiceType.Adapter;
+                    var startType = Service.ServiceTypeEnum.Adapter;
 
                     var ssv = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("Type",StringComparison.OrdinalIgnoreCase) );
 
                     if (ssv != null)
                     {
-                        startType = (ServiceType) int.Parse(ssv.ValueData);
+                        startType = (Service.ServiceTypeEnum) int.Parse(ssv.ValueData);
                     }
 
-                    var startMode = ServiceStartMode.Disabled;
+                    var startMode = Service.ServiceStartMode.Disabled;
 
                     var stv = keyValue.Values.SingleOrDefault(t => t.ValueName.Equals("Start",StringComparison.OrdinalIgnoreCase) );
 
                     if (stv != null)
                     {
-                        startMode = (ServiceStartMode) int.Parse(stv.ValueData);
+                        startMode = (Service.ServiceStartMode) int.Parse(stv.ValueData);
                     }
 
 

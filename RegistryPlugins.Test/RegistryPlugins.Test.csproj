@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net462</TargetFrameworks>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetFramework>net462</TargetFramework>
     <Authors>Eric Zimmerman</Authors>
     <Company>Eric Zimmerman</Company>
     <Product>RegistryPlugins.Test</Product>
@@ -10,20 +8,16 @@
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/RegistryPlugins</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/RegistryPlugins</RepositoryUrl>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0.0</Version>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="ExtensionBlocks" Version="1.2.0" />
-    <PackageReference Include="GuidMapping" Version="1.0.0.4" />
+    <PackageReference Include="ExtensionBlocks" Version="1.2.0.1" />
+    <PackageReference Include="GuidMapping" Version="1.0.0.5" />
     <PackageReference Include="NFluent" Version="2.7.2" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="Registry" Version="1.2.2" />
+    <PackageReference Include="Registry" Version="1.3.2" />
     <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj" />
     <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj" />
@@ -60,12 +54,8 @@
     <ProjectReference Include="..\RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj" />
     <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj" />
     <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj" />
-
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
-
-
 </Project>

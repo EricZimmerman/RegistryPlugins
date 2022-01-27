@@ -132,7 +132,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                             ExtensionBlocks.Add(block1);
                         }
                     }
-                    catch (ArgumentException ex)
+                    catch (ArgumentException)
                     {
                         throw;
                         // Syntax error in the regular expression
