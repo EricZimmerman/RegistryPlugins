@@ -202,7 +202,7 @@ namespace RegistryPlugin.OpenSavePidlMRU.ShellItems
                 len1 += 1;
             }
 
-            var s1 = Encoding.GetEncoding(1252).GetString(rawBytes, index, len1);
+            var s1 = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(rawBytes, index, len1);
 
             ShortName = s1;
 

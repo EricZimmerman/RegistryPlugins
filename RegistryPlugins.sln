@@ -1,136 +1,136 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32113.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPluginBase", "RegistryPluginBase\RegistryPluginBase.csproj", "{CA2F88E7-31E4-46F5-A9AE-881B2CEBBAB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.UserAssist", "RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj", "{F15A987F-C172-45C6-8135-6D8A6F673A5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.UserAssist", "RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj", "{F15A987F-C172-45C6-8135-6D8A6F673A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatCache", "RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj", "{9FDD05F7-46BC-45D5-BB91-D5C003BCEE1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.AppCompatCache", "RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj", "{9FDD05F7-46BC-45D5-BB91-D5C003BCEE1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SAM", "RegistryPlugin.SAM\RegistryPlugin.SAM.csproj", "{F50E158F-965C-49B7-BA91-7ED5DCE4B77D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SAM", "RegistryPlugin.SAM\RegistryPlugin.SAM.csproj", "{F50E158F-965C-49B7-BA91-7ED5DCE4B77D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugins.Test", "RegistryPlugins.Test\RegistryPlugins.Test.csproj", "{78750675-D309-4C0C-80B9-22C6D238C38D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.RecentDocs", "RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj", "{6F7BA570-291F-4290-94AF-3A662E12D5D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.RecentDocs", "RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj", "{6F7BA570-291F-4290-94AF-3A662E12D5D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TimeZoneInformation", "RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj", "{EACB7738-27E1-4C15-B6CF-671FC18640B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TimeZoneInformation", "RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj", "{EACB7738-27E1-4C15-B6CF-671FC18640B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Ares", "RegistryPlugin.Ares\RegistryPlugin.Ares.csproj", "{3E08C307-AF34-400E-AB0B-99DF54E1ADBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Ares", "RegistryPlugin.Ares\RegistryPlugin.Ares.csproj", "{3E08C307-AF34-400E-AB0B-99DF54E1ADBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.OpenSavePidlMRU", "RegistryPlugin.OpenSavePidlMRU\RegistryPlugin.OpenSavePidlMRU.csproj", "{A1BE3977-DF7B-412C-81E8-15722A4F7325}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.OpenSavePidlMRU", "RegistryPlugin.OpenSavePidlMRU\RegistryPlugin.OpenSavePidlMRU.csproj", "{A1BE3977-DF7B-412C-81E8-15722A4F7325}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FileExts", "RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj", "{7F63722B-3A23-4CB6-9C3D-2A57EB122B73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.FileExts", "RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj", "{7F63722B-3A23-4CB6-9C3D-2A57EB122B73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FirstFolder", "RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj", "{93476148-2369-4DF2-8794-9E5C7A094B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.FirstFolder", "RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj", "{93476148-2369-4DF2-8794-9E5C7A094B79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.CIDSizeMRU", "RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj", "{BA3A8987-719E-4AF6-A806-871C052C8BAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.CIDSizeMRU", "RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj", "{BA3A8987-719E-4AF6-A806-871C052C8BAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.LastVisitedPidlMRU", "RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj", "{2868BA3D-6EB5-4C9A-A94D-110F0EA19129}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.LastVisitedPidlMRU", "RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj", "{2868BA3D-6EB5-4C9A-A94D-110F0EA19129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.7-ZipHistory", "RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj", "{8D2AF32B-92C5-4940-9B5A-D0B30935DD12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.7-ZipHistory", "RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj", "{8D2AF32B-92C5-4940-9B5A-D0B30935DD12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.LastVisitedMRU", "RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj", "{C613D9BE-F24E-48CB-BFBA-03906B326AE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.LastVisitedMRU", "RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj", "{C613D9BE-F24E-48CB-BFBA-03906B326AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.RunMRU", "RegistryPlugin.RunMRU\RegistryPlugin.RunMRU.csproj", "{FA88D426-FA86-43B4-A58E-0772175AFAF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.RunMRU", "RegistryPlugin.RunMRU\RegistryPlugin.RunMRU.csproj", "{FA88D426-FA86-43B4-A58E-0772175AFAF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.OpenSaveMRU", "RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj", "{5116292F-2EAC-405F-B0CF-77D11DF3CDF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.OpenSaveMRU", "RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj", "{5116292F-2EAC-405F-B0CF-77D11DF3CDF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.MountedDevices", "RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj", "{9B8F5EAD-56B1-495B-A779-B0AB85979C37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.MountedDevices", "RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj", "{9B8F5EAD-56B1-495B-A779-B0AB85979C37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.KnownNetworks", "RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj", "{199C70C7-7004-426F-ADD2-375928B3ED74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.KnownNetworks", "RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj", "{199C70C7-7004-426F-ADD2-375928B3ED74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WordWheelQuery", "RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj", "{341698C8-4FCC-41CB-8936-0971C43B0BA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.WordWheelQuery", "RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj", "{341698C8-4FCC-41CB-8936-0971C43B0BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TypedURLs", "RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj", "{8BD60648-779C-417F-8E6F-F63F67946792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TypedURLs", "RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj", "{8BD60648-779C-417F-8E6F-F63F67946792}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04F6A245-1E48-49FC-965C-6CE7F4523072}"
 	ProjectSection(SolutionItems) = preProject
 		TODO = TODO
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Services", "RegistryPlugin.Services\RegistryPlugin.Services.csproj", "{8944873C-6DC4-453E-A2D0-9DF2260D4A53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Services", "RegistryPlugin.Services\RegistryPlugin.Services.csproj", "{8944873C-6DC4-453E-A2D0-9DF2260D4A53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.OfficeMRU", "RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj", "{5D95BF82-C1BA-4A41-862F-AC693FE3B334}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.OfficeMRU", "RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj", "{5D95BF82-C1BA-4A41-862F-AC693FE3B334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TerminalServerClient", "RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj", "{6563C75F-C571-4E76-A072-77C021055BCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TerminalServerClient", "RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj", "{6563C75F-C571-4E76-A072-77C021055BCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.DHCPNetworkHint", "RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj", "{228B4E4B-0294-4880-84F7-AEA116257BE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.DHCPNetworkHint", "RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj", "{228B4E4B-0294-4880-84F7-AEA116257BE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.RecentApps", "RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj", "{41B6AE52-CA34-457C-8842-2B0C13D5086D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.RecentApps", "RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj", "{41B6AE52-CA34-457C-8842-2B0C13D5086D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.BluetoothServicesBthPort", "RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj", "{AA11DCE3-CE1E-4A70-ABBE-7A18419AFE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.BluetoothServicesBthPort", "RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj", "{AA11DCE3-CE1E-4A70-ABBE-7A18419AFE33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.BamDam", "RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj", "{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.BamDam", "RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj", "{B02E5B54-C98E-4A9B-BB35-36ECF0901FFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskFlowShellActivities", "RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj", "{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TaskFlowShellActivities", "RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj", "{D3434DE3-DED4-4F84-9EE4-4E3FCD9143C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags", "RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj", "{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.AppCompatFlags", "RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj", "{4BD2306B-9EB7-4BC9-9B13-9F2D5222D457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SyscacheObjectTable", "RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj", "{1123721F-0300-4F07-9E02-66DCECDD1FEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SyscacheObjectTable", "RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj", "{1123721F-0300-4F07-9E02-66DCECDD1FEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Taskband", "RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj", "{1935E640-924F-4699-AFE6-B177A9BF8970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Taskband", "RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj", "{1935E640-924F-4699-AFE6-B177A9BF8970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.JumplistData", "RegistryPlugin.JumplistData\RegistryPlugin.JumplistData.csproj", "{3B8DD08C-1ADF-44B2-958F-72989B983BFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.JumplistData", "RegistryPlugin.JumplistData\RegistryPlugin.JumplistData.csproj", "{3B8DD08C-1ADF-44B2-958F-72989B983BFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Adobe", "RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj", "{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Adobe", "RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj", "{DCF8BCCC-4ACD-4269-BCFB-7E54C0AB5FF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TrustedDocuments", "RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj", "{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TrustedDocuments", "RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj", "{AA11BA04-9FD1-4159-859E-4BEA13DA51F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.TaskCache", "RegistryPlugin.TaskCache\RegistryPlugin.TaskCache.csproj", "{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.TaskCache", "RegistryPlugin.TaskCache\RegistryPlugin.TaskCache.csproj", "{1936CC01-A3FF-4BFF-8FBC-F146ECF7E6BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.USBSTOR", "RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj", "{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.USBSTOR", "RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj", "{E3072DF1-AEBE-4E7B-9342-C60494FEAB17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Uninstall", "RegistryPlugin.Uninstall\RegistryPlugin.Uninstall.csproj", "{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Uninstall", "RegistryPlugin.Uninstall\RegistryPlugin.Uninstall.csproj", "{5CE1DE8B-EC81-4923-9682-2F5BB0ADEF44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.VolumeInfoCache", "RegistryPlugin.VolumeInfoCache\RegistryPlugin.VolumeInfoCache.csproj", "{56D75B2F-5414-445F-958B-1B70CFFC7B55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.VolumeInfoCache", "RegistryPlugin.VolumeInfoCache\RegistryPlugin.VolumeInfoCache.csproj", "{56D75B2F-5414-445F-958B-1B70CFFC7B55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.DeviceClasses", "RegistryPlugin.DeviceClasses\RegistryPlugin.DeviceClasses.csproj", "{01532E4B-67B5-4A75-8448-08794AEF685D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.DeviceClasses", "RegistryPlugin.DeviceClasses\RegistryPlugin.DeviceClasses.csproj", "{01532E4B-67B5-4A75-8448-08794AEF685D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.USB", "RegistryPlugin.USB\RegistryPlugin.USB.csproj", "{2FDAE597-63A5-40C3-9066-E62A064FC1F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.USB", "RegistryPlugin.USB\RegistryPlugin.USB.csproj", "{2FDAE597-63A5-40C3-9066-E62A064FC1F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppPaths", "RegistryPlugin.AppPaths\RegistryPlugin.AppPaths.csproj", "{46EA89BB-756F-401D-9FAC-FCE6B516DF70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.AppPaths", "RegistryPlugin.AppPaths\RegistryPlugin.AppPaths.csproj", "{46EA89BB-756F-401D-9FAC-FCE6B516DF70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Products", "RegistryPlugin.Products\RegistryPlugin.Products.csproj", "{B5B67FD2-8BB7-4573-8C98-034FD9D99D44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Products", "RegistryPlugin.Products\RegistryPlugin.Products.csproj", "{B5B67FD2-8BB7-4573-8C98-034FD9D99D44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkAdapters", "RegistryPlugin.NetworkAdapters\RegistryPlugin.NetworkAdapters.csproj", "{E00488CE-5B68-48C9-946C-181EAC49E21B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.NetworkAdapters", "RegistryPlugin.NetworkAdapters\RegistryPlugin.NetworkAdapters.csproj", "{E00488CE-5B68-48C9-946C-181EAC49E21B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.ProfileList", "RegistryPlugin.ProfileList\RegistryPlugin.ProfileList.csproj", "{8E78B861-09E9-4573-B7EB-1273FFCEC32F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.ProfileList", "RegistryPlugin.ProfileList\RegistryPlugin.ProfileList.csproj", "{8E78B861-09E9-4573-B7EB-1273FFCEC32F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WindowsPortableDevices", "RegistryPlugin.WindowsPortableDevices\RegistryPlugin.WindowsPortableDevices.csproj", "{44BE7508-F3E2-42DE-A93B-13D3B756A1E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.WindowsPortableDevices", "RegistryPlugin.WindowsPortableDevices\RegistryPlugin.WindowsPortableDevices.csproj", "{44BE7508-F3E2-42DE-A93B-13D3B756A1E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FeatureUsage", "RegistryPlugin.FeatureUsage\RegistryPlugin.FeatureUsage.csproj", "{73C9854B-85CC-4D7B-A7BF-99F1F0981115}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.FeatureUsage", "RegistryPlugin.FeatureUsage\RegistryPlugin.FeatureUsage.csproj", "{73C9854B-85CC-4D7B-A7BF-99F1F0981115}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WinRAR", "RegistryPlugin.WinRAR\RegistryPlugin.WinRAR.csproj", "{378E5828-6C33-43DA-8A9F-E5F090253A4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.WinRAR", "RegistryPlugin.WinRAR\RegistryPlugin.WinRAR.csproj", "{378E5828-6C33-43DA-8A9F-E5F090253A4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.AppCompatFlags2", "RegistryPlugin.AppCompatFlags2\RegistryPlugin.AppCompatFlags2.csproj", "{4A5BB547-EC5E-4A43-934E-32EFA99070D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.AppCompatFlags2", "RegistryPlugin.AppCompatFlags2\RegistryPlugin.AppCompatFlags2.csproj", "{4A5BB547-EC5E-4A43-934E-32EFA99070D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplication", "RegistryPlugin.Amcache-InventoryApplication\RegistryPlugin.Amcache-InventoryApplication.csproj", "{49588F14-3AAD-42E2-B937-E322F6729817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryApplication", "RegistryPlugin.Amcache-InventoryApplication\RegistryPlugin.Amcache-InventoryApplication.csproj", "{49588F14-3AAD-42E2-B937-E322F6729817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplicationFile", "RegistryPlugin.Amcache-InventoryApplicationFile\RegistryPlugin.Amcache-InventoryApplicationFile.csproj", "{22192328-2E31-4A11-91B5-75C845F6CCF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryApplicationFile", "RegistryPlugin.Amcache-InventoryApplicationFile\RegistryPlugin.Amcache-InventoryApplicationFile.csproj", "{22192328-2E31-4A11-91B5-75C845F6CCF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryApplicationShortcut", "RegistryPlugin.Amcache-InventoryApplicationShortcut\RegistryPlugin.Amcache-InventoryApplicationShortcut.csproj", "{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryApplicationShortcut", "RegistryPlugin.Amcache-InventoryApplicationShortcut\RegistryPlugin.Amcache-InventoryApplicationShortcut.csproj", "{0D8DDDAB-B732-428C-BE6B-3B9EB520F69E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDeviceContainer", "RegistryPlugin.Amcache-InventoryDeviceContainer\RegistryPlugin.Amcache-InventoryDeviceContainer.csproj", "{5C960461-7A06-4D26-9855-09FC8C317FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryDeviceContainer", "RegistryPlugin.Amcache-InventoryDeviceContainer\RegistryPlugin.Amcache-InventoryDeviceContainer.csproj", "{5C960461-7A06-4D26-9855-09FC8C317FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDevicePnp", "RegistryPlugin.Amcache-InventoryDevicePnp\RegistryPlugin.Amcache-InventoryDevicePnp.csproj", "{98DD7C55-34DD-43E0-9D3A-265B9328A22C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryDevicePnp", "RegistryPlugin.Amcache-InventoryDevicePnp\RegistryPlugin.Amcache-InventoryDevicePnp.csproj", "{98DD7C55-34DD-43E0-9D3A-265B9328A22C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-InventoryDriverBinary", "RegistryPlugin.Amcache-InventoryDriverBinary\RegistryPlugin.Amcache-InventoryDriverBinary.csproj", "{A083E580-0022-4DCF-839E-30147631D75C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.Amcache-InventoryDriverBinary", "RegistryPlugin.Amcache-InventoryDriverBinary\RegistryPlugin.Amcache-InventoryDriverBinary.csproj", "{A083E580-0022-4DCF-839E-30147631D75C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.IconLayouts", "RegistryPlugin.IconLayouts\RegistryPlugin.IconLayouts.csproj", "{1412D439-E445-4709-B105-65D1F31393D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.IconLayouts", "RegistryPlugin.IconLayouts\RegistryPlugin.IconLayouts.csproj", "{1412D439-E445-4709-B105-65D1F31393D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkSetup2", "RegistryPlugin.NetworkSetup2\RegistryPlugin.NetworkSetup2.csproj", "{451B0EB3-DD7F-4722-BAFE-989B04FFC23A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.NetworkSetup2", "RegistryPlugin.NetworkSetup2\RegistryPlugin.NetworkSetup2.csproj", "{451B0EB3-DD7F-4722-BAFE-989B04FFC23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.FirewallRules", "RegistryPlugin.FirewallRules\RegistryPlugin.FirewallRules.csproj", "{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.FirewallRules", "RegistryPlugin.FirewallRules\RegistryPlugin.FirewallRules.csproj", "{7DA2D233-690E-48F2-AD1E-34D462A7B8E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.NetworkSettings", "RegistryPlugin.NetworkSettings\RegistryPlugin.NetworkSettings.csproj", "{D06D48F7-36C5-4AC6-8197-71792517E44A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.NetworkSettings", "RegistryPlugin.NetworkSettings\RegistryPlugin.NetworkSettings.csproj", "{D06D48F7-36C5-4AC6-8197-71792517E44A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.SAMBuiltin", "RegistryPlugin.SAMBuiltin\RegistryPlugin.SAMBuiltin.csproj", "{0B1908D0-AEB7-4210-AAEF-D69650085DAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SAMBuiltin", "RegistryPlugin.SAMBuiltin\RegistryPlugin.SAMBuiltin.csproj", "{0B1908D0-AEB7-4210-AAEF-D69650085DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.WindowsApp", "RegistryPlugin.WindowsApp\RegistryPlugin.WindowsApp.csproj", "{4989E80B-32F5-4989-8CF2-735968985E93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.WindowsApp", "RegistryPlugin.WindowsApp\RegistryPlugin.WindowsApp.csproj", "{4989E80B-32F5-4989-8CF2-735968985E93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.RADAR", "RegistryPlugin.RADAR\RegistryPlugin.RADAR.csproj", "{2C60C58A-559B-4C77-8ED8-0F58A1581520}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.RADAR", "RegistryPlugin.RADAR\RegistryPlugin.RADAR.csproj", "{2C60C58A-559B-4C77-8ED8-0F58A1581520}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

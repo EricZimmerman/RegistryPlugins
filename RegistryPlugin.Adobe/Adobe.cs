@@ -74,7 +74,7 @@ public class Adobe : IRegistryPluginGrid
                             {
 var fullPath = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tDIText")
                                 ?.ValueData;
-                            var lastOpened = Encoding.GetEncoding(1252).GetString(recentFilesSubKey.Values
+                            var lastOpened = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(recentFilesSubKey.Values
                                 .SingleOrDefault(t => t.ValueName == "sDate")
                                 ?.ValueDataRaw).Trim('\0');
                             var fileName = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tFileName")

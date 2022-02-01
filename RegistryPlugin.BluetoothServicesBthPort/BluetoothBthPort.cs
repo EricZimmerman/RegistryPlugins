@@ -124,7 +124,7 @@ namespace RegistryPlugin.BluetoothServicesBthPort
                 lastSeenDate = DateTimeOffset.FromFileTime((long) BitConverter.ToUInt64(lastSeen.ValueDataRaw, 0));
             }
 
-            var name = Encoding.GetEncoding(1252).GetString(btname.ValueDataRaw);
+            var name = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(btname.ValueDataRaw);
 
             var vo = new ValuesOut(name, originKey, lastSeenDate);
 

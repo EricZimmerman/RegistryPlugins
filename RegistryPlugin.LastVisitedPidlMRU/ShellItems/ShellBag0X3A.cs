@@ -28,7 +28,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                 index = 0xC;
             }
 
-            var rawVal = Encoding.GetEncoding(1252).GetString(rawBytes, index, size);
+            var rawVal = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(rawBytes, index, size);
 
             var segs = rawVal.Split('|');
 

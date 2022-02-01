@@ -72,7 +72,7 @@ namespace RegistryPlugin.Taskband.ShellItems
 
             index += len;
 
-            var shortName = Encoding.GetEncoding(1252).GetString(tempBytes);
+            var shortName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(tempBytes);
 
             ShortName = shortName;
 

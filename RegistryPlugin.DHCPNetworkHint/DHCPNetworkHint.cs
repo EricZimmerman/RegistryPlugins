@@ -126,7 +126,7 @@ namespace RegistryPlugin.DHCPNetworkHint
                 bytes[i] = Convert.ToByte(currentHex, 16);
             }
 
-            hitValRev = new string(Encoding.GetEncoding(1252).GetString(bytes).ToCharArray().Reverse().ToArray());
+            hitValRev = new string(CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(bytes).ToCharArray().Reverse().ToArray());
 
             hint = hitValRev;
 

@@ -84,7 +84,7 @@ namespace RegistryPlugin.Taskband.ShellItems
             }
             else
             {
-                shortName = Encoding.GetEncoding(1252).GetString(tempBytes);
+                shortName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(tempBytes);
             }
 
             ShortName = shortName;

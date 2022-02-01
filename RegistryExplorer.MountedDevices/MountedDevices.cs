@@ -69,7 +69,7 @@ namespace RegistryPlugin.MountedDevices
                             break;
                             
                             default:
-                                vData = Encoding.GetEncoding(1252).GetString(keyValue.ValueDataRaw);
+                                vData = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(keyValue.ValueDataRaw);
                                 break;
 
                     }

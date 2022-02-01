@@ -145,7 +145,7 @@ namespace RegistryPlugin.RecentDocs
                     }
                     else
                     {
-                        lnkName = Encoding.GetEncoding(1252).GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
+                        lnkName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
                         index += lnkName.Length;
                     }
 
