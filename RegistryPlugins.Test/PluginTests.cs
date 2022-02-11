@@ -179,6 +179,7 @@ public class PluginTests
 
         //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
         var reg = new RegistryHive(@"D:\SynologyDrive\Registry\!Private\NTUSER_ERZ_Win10.DAT");
+        
         reg.ParseHive();
 
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$$windows.data.taskflow.shellactivities\Current");
@@ -212,9 +213,10 @@ public class PluginTests
         var r = new JumplistData();
 
         //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
-        var reg = new RegistryHive(@"/home/eric/Downloads/NTUSER.DAT");
+        var reg = new RegistryHive(@"D:\temp\NTUSER.DAT");
+        reg.RecoverDeleted = true;
         reg.ParseHive();
-
+ 
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Search\JumplistData");
 
         Check.That(key).IsNotNull();
@@ -223,7 +225,7 @@ public class PluginTests
 
         r.ProcessValues(key);
             
-        Check.That(r.Values.Count).IsEqualTo(2);
+        Check.That(r.Values.Count).IsEqualTo(3);
 
         var ff = (RegistryPlugin.JumplistData.ValuesOut) r.Values[0];
 
@@ -242,7 +244,8 @@ public class PluginTests
         var r = new Taskband();
 
         //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
-        var reg = new RegistryHive(@"C:\Temp\ntclean.dat");
+        var reg = new RegistryHive(@"D:\temp\NTUSER.DAT");
+        reg.RecoverDeleted = true;
         reg.ParseHive();
 
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband");
@@ -253,7 +256,7 @@ public class PluginTests
 
         r.ProcessValues(key);
 
-        Check.That(r.Values.Count).IsEqualTo(15);
+        Check.That(r.Values.Count).IsEqualTo(22);
 
         var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
 

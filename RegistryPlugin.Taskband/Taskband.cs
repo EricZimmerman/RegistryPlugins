@@ -198,7 +198,7 @@ namespace RegistryPlugin.Taskband
                 foreach (var shellBag in bags)
                 {
                     var exe = "(unknown)";
-                    var ed = shellBag.ExtensionBlocks.SingleOrDefault(t => t is ExtensionBlocks.Beef001d);
+                    var ed = shellBag.ExtensionBlocks.FirstOrDefault(t => t is ExtensionBlocks.Beef001d);
 
                     if (ed != null)
                     {

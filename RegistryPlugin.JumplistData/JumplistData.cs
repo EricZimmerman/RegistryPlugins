@@ -70,11 +70,21 @@ namespace RegistryPlugin.JumplistData
 
                 foreach (var keyValue in key.Values)
                 {
+                    ValuesOut ff;
+                    if (keyValue.ValueDataRaw.Length < 8)
+                    {
+                        ff = new ValuesOut(keyValue.ValueName,
+                            DateTimeOffset.MinValue
+                                .ToUniversalTime()) {BatchKeyPath = key.KeyPath, BatchValueName = keyValue.ValueName};
+                    }
+                    else
+                    {
+                        ff = new ValuesOut(keyValue.ValueName,
+                            DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 0))
+                                .ToUniversalTime()) {BatchKeyPath = key.KeyPath, BatchValueName = keyValue.ValueName};
+                    }
 
-
-                    var ff = new ValuesOut(keyValue.ValueName,
-                        DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 0))
-                            .ToUniversalTime()) {BatchKeyPath = key.KeyPath, BatchValueName = keyValue.ValueName};
+                    
 
                     l.Add(ff);
                 }
