@@ -9,6 +9,5 @@
     <PackageReference Include="RegistryPluginBase" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.ServiceProcess" />
   </ItemGroup>
 </Project>
