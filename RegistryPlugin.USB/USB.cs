@@ -79,12 +79,16 @@ namespace RegistryPlugin.USB
                     foreach (var subKey in registryKey.SubKeys)
                     {
                         string serialNumber = subKey.KeyName;
+                        string parentIdPrefix = subKey.Values.SingleOrDefault(t => t.ValueName == "ParentIdPrefix")?.ValueData;
+                        string service = subKey.Values.SingleOrDefault(t => t.ValueName == "Service")?.ValueData;
                         string deviceDesc = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
                         string friendlyName = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
                         string locationinformation = subKey.Values.SingleOrDefault(t => t.ValueName == "LocationInformation")?.ValueData;
+                        
+
                         DateTimeOffset? ts = subKey.LastWriteTime;
 
-                        var ff = new ValuesOut(keyName, serialNumber, deviceDesc, friendlyName, locationinformation, ts)
+                        var ff = new ValuesOut(keyName, serialNumber, parentIdPrefix, service, deviceDesc, friendlyName, locationinformation, ts)
                         {
                             BatchValueName = "Multiple",
                             BatchKeyPath = subKey.KeyPath

@@ -7,22 +7,22 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.USBSTOR
+namespace RegistryPlguin.SCSI
 {
-    public class USBSTOR : IRegistryPluginGrid
+    public class SCSI : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
-        public USBSTOR()
+        public SCSI()
         {
             _values = new BindingList<ValuesOut>();
 
             Errors = new List<string>();
         }
-        public string InternalGuid => "efcd3292-b6d7-4251-bd95-df6bdb34f0fe";
+        public string InternalGuid => "a80dee0c-d1a4-4c57-9c03-670045b8f1db";
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet00*\Enum\USBSTOR"
+            @"ControlSet00*\Enum\SCSI"
         });
 
         public string ValueName => null;
@@ -31,17 +31,17 @@ namespace RegistryPlugin.USBSTOR
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "USBSTOR";
+        public string PluginName => "SCSI";
 
         public string ShortDescription
-            => "USBSTOR Information";
+            => "SCSI Information";
 
         public string LongDescription => ShortDescription;
 
         public double Version => 0.1;
         public List<string> Errors { get; }
 
-        private readonly List<string> GUIDs = new List<string> { "{540b947e-8b40-45bc-a8a2-6a0b894cbda2}", "{83da6326-97a6-4088-9453-a1923f573b29}"};
+        private readonly List<string> GUIDs = new List<string> { "{540b947e-8b40-45bc-a8a2-6a0b894cbda2}", "{83da6326-97a6-4088-9453-a1923f573b29}" };
 
         private byte[] GetData(RegistryKey serialSubKey, string guidValue, string numValue)
         {
@@ -80,7 +80,6 @@ namespace RegistryPlugin.USBSTOR
         }
 
         public IBindingList Values => _values;
-
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
@@ -96,12 +95,11 @@ namespace RegistryPlugin.USBSTOR
                 {
                     var words = subKey.KeyName.Split('&');
 
-                    if (words.Length != 4)
+                    if (words.Length != 3)
                         continue;
 
                     var Manufacturer = words[1];
                     var Title = words[2];
-                    var Version = words[3];
 
                     foreach (var serialSubKey in subKey.SubKeys)
                     {
@@ -127,10 +125,12 @@ namespace RegistryPlugin.USBSTOR
                         var deviceParametersKey = subKey.SubKeys.First().SubKeys.SingleOrDefault(t => t.KeyName == "Device Parameters");
 
                         var diskId = "";
+                        DateTimeOffset? initialTimestamp = null;
 
                         if (deviceParametersKey != null)
                         {
                             var aaaa = deviceParametersKey.SubKeys.SingleOrDefault(t => t.KeyName == "Partmgr");
+                            var storportKey = deviceParametersKey.SubKeys.SingleOrDefault(t => t.KeyName == "Storport");
 
                             if (aaaa != null)
                             {
@@ -141,21 +141,29 @@ namespace RegistryPlugin.USBSTOR
                                     diskId = ddd.ValueData;
                                 }
                             }
-                        }
 
-                        var ff = new ValuesOut(ts, Manufacturer, Title, Version, serialNumber,
-                            deviceName, installed, firstInstalled, lastConnected, lastRemoved, diskId)
+                            if (storportKey != null)
+                            {
+                                var ddd = storportKey.Values.SingleOrDefault(t => t.ValueName == "InitialTimestamp");
+
+                                if (ddd != null)
+                                {
+                                    initialTimestamp = GetUTC(ddd.ValueDataRaw);
+                                }
+                            }
+                        }
+                        var ff = new ValuesOut(ts, Manufacturer, Title, serialNumber,
+                        deviceName, initialTimestamp, installed, firstInstalled, lastConnected, lastRemoved, diskId)
                         {
                             BatchValueName = "Multiple",
                             BatchKeyPath = subKey.KeyPath
                         };
                         l.Add(ff);
                     }
-
                 }
                 catch (Exception ex)
                 {
-                    Errors.Add($"Error processing USBSTOR key: {ex.Message}");
+                    Errors.Add($"Error processing SCSI key: {ex.Message}");
                 }
             }
 
