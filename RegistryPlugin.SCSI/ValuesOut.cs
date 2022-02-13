@@ -5,13 +5,13 @@ namespace RegistryPlguin.SCSI
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string manufacturer, string title, string serialNumber, DateTimeOffset? timestamp,
+        public ValuesOut(DateTimeOffset? timestamp, string manufacturer, string title, string serialNumber,
             string deviceName, DateTimeOffset? initialTimestamp, DateTimeOffset? installed, DateTimeOffset? firstinstalled, DateTimeOffset? lastconnected, DateTimeOffset? lastremoved, string diskId)
         {
+            Timestamp = timestamp;
             Manufacturer = manufacturer;
             Title = title;
             SerialNumber = serialNumber;
-            Timestamp = timestamp;
             DeviceName = deviceName;
             InitialTimestamp = initialTimestamp;
             Installed = installed;

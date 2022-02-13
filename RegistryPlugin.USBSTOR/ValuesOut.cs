@@ -5,14 +5,14 @@ namespace RegistryPlugin.USBSTOR
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string manufacturer, string title, string version, string serialNumber, DateTimeOffset? timestamp,
+        public ValuesOut(DateTimeOffset? timestamp, string manufacturer, string title, string version, string serialNumber,
             string deviceName, DateTimeOffset? installed, DateTimeOffset? firstinstalled, DateTimeOffset? lastconnected, DateTimeOffset? lastremoved, string diskId)
         {
+            Timestamp = timestamp;
             Manufacturer = manufacturer;
             Title = title;
             Version = version;
-            SerialNumber = serialNumber;
-            Timestamp = timestamp;
+            SerialNumber = serialNumber;      
             DeviceName = deviceName;
             Installed = installed;
             FirstInstalled = firstinstalled;

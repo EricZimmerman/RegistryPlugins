@@ -152,7 +152,7 @@ namespace RegistryPlguin.SCSI
                                 }
                             }
                         }
-                        var ff = new ValuesOut(Manufacturer, Title, serialNumber, ts,
+                        var ff = new ValuesOut(ts, Manufacturer, Title, serialNumber,
                         deviceName, initialTimestamp, installed, firstInstalled, lastConnected, lastRemoved, diskId)
                         {
                             BatchValueName = "Multiple",

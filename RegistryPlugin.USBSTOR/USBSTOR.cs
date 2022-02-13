@@ -143,7 +143,7 @@ namespace RegistryPlugin.USBSTOR
                             }
                         }
 
-                        var ff = new ValuesOut(Manufacturer, Title, Version, serialNumber, ts,
+                        var ff = new ValuesOut(ts, Manufacturer, Title, Version, serialNumber,
                             deviceName, installed, firstInstalled, lastConnected, lastRemoved, diskId)
                         {
                             BatchValueName = "Multiple",
