@@ -5,7 +5,7 @@ namespace RegistryPlugin.TaskCache
 {
     public class ValuesOut:IValueOut
     {
-        public ValuesOut(int version, string keyName, DateTimeOffset createdOn, DateTimeOffset? lastStart, DateTimeOffset? lastStop, int taskState, int lastActionResult, string source, string description, string author, string path)
+        public ValuesOut(int version, string keyName, DateTimeOffset createdOn, DateTimeOffset? lastStart, DateTimeOffset? lastStop, int taskState, int lastActionResult, string source, string description, string secdesc, string author, string path)
         {
             Version = version;
             KeyName = keyName;
@@ -16,6 +16,7 @@ namespace RegistryPlugin.TaskCache
             LastActionResult = lastActionResult;
             Source = source;
             Description = description;
+            SecurityDescriptor = secdesc;
             Author = author;
             Path = path;
         }
@@ -32,6 +33,7 @@ namespace RegistryPlugin.TaskCache
         public string Source { get; }
 
         public string Description { get; }
+        public string SecurityDescriptor { get; }
 
         public string Author { get; }
 
