@@ -64,6 +64,7 @@ namespace RegistryPlugin.TaskCache
                     var source = guidKey.Values.SingleOrDefault(t => t.ValueName == "Source");
                     var author = guidKey.Values.SingleOrDefault(t => t.ValueName == "Author");
                     var desc = guidKey.Values.SingleOrDefault(t => t.ValueName == "Description");
+                    var secdesc = guidKey.Values.SingleOrDefault(t => t.ValueName == "SecurityDescriptor");
                     var path = guidKey.Values.SingleOrDefault(t => t.ValueName == "Path");
 
                     var blob = guidKey.Values.SingleOrDefault(t => t.ValueName == "DynamicInfo");
@@ -99,7 +100,7 @@ namespace RegistryPlugin.TaskCache
                     lastActionResult = BitConverter.ToInt32(blob.ValueDataRaw, 0x18);
                     taskState = BitConverter.ToInt32(blob.ValueDataRaw, 0x14);
 
-                    var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, author?.ValueData,path?.ValueData);
+                    var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, secdesc?.ValueData, author?.ValueData, path?.ValueData);
 
                     _values.Add(v);
                 }
