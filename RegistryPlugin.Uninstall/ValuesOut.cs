@@ -31,7 +31,7 @@ namespace RegistryPlugin.Uninstall
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"KeyName: {KeyName} DisplayName: {DisplayName} DisplayVersion: {DisplayVersion} Publisher: {Publisher} InstallDate: {InstallDate}";
-        public string BatchValueData2 => $"InstallSource: {InstallSource} InstallLocation: {InstallLocation} UninstallString: {UninstallString}";
-        public string BatchValueData3 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"InstallSource: {InstallSource} InstallLocation: {InstallLocation} UninstallString: {UninstallString}";
     }
 }
