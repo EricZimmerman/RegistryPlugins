@@ -31,6 +31,6 @@ namespace RegistryPlugin.RecentDocs
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Lnk: {LnkName} Target: {TargetName}";
         public string BatchValueData2 => $"Opened on: {OpenedOn?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} Ext last open: {ExtensionLastOpened?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
-        public string BatchValueData3 => $"Mru: {MruPosition}";
+        public string BatchValueData3 => $"MRU: {MruPosition}";
     }
 }
