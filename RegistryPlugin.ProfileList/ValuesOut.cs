@@ -18,8 +18,8 @@ namespace RegistryPlugin.ProfileList
         public string ProfileImagePath { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"KeyName: {KeyName} ProfileImagePath: {ProfileImagePath}";
+        public string BatchValueData1 => $"KeyName: {KeyName}";
         public string BatchValueData2 => $"Timestamp: {Timestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
-        public string BatchValueData3 => string.Empty;
+        public string BatchValueData3 => $"ProfileImagePath: {ProfileImagePath}";
     }
 }
