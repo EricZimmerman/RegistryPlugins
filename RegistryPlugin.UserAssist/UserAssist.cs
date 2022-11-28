@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -24,6 +24,7 @@ namespace RegistryPlugin.UserAssist
 
         public List<string> KeyPaths => new List<string>(new[]
         {
+            @"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist",
             @"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count"
         });
 
@@ -47,7 +48,25 @@ namespace RegistryPlugin.UserAssist
         {
             _values.Clear();
             Errors.Clear();
+            if (key.KeyName == "UserAssist")
+            {
+                // block of code to be executed if the condition is True
 
+                foreach (var registryKey in key.SubKeys)
+                {
+                    foreach (var subregistryKey in registryKey.SubKeys)
+                    {
+                        ProcessKeys(subregistryKey);
+                    }
+                }
+            }
+            else
+            {
+                ProcessKeys(key);
+            }
+        }
+        public void ProcessKeys(RegistryKey key)
+        {
             foreach (var keyValue in key.Values)
             {
                 try
