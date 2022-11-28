@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -24,7 +24,7 @@ namespace RegistryPlugin.UserAssist
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist\*\Count"
+            @"Software\Microsoft\Windows\CurrentVersion\Explorer\UserAssist"
         });
 
         public string ValueName => null;
@@ -47,64 +47,69 @@ namespace RegistryPlugin.UserAssist
         {
             _values.Clear();
             Errors.Clear();
-
-            foreach (var keyValue in key.Values)
+            foreach (var registryKey in key.SubKeys)
             {
-                try
+                foreach (var subregistryKey in registryKey.SubKeys)
                 {
-                    var unrot = Helpers.Rot13Transform(keyValue.ValueName);
-                    var run = 0;
-
-                    string guid = null;
-                    try
+                    foreach (var keyValue in subregistryKey.Values)
                     {
-                        guid =
-                            Regex.Match(unrot, @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b",
-                                RegexOptions.IgnoreCase).Value;
-
-                        var foldername = Utils.GetFolderNameFromGuid(guid);
-
-                        unrot = unrot.Replace(guid, foldername);
-                    }
-                    catch (ArgumentException)
-                    {
-                        // Syntax error in the regular expression
-                    }
-
-
-                    DateTimeOffset? lastRun = null;
-                    int? focusCount = null;
-                    TimeSpan focusTime = new TimeSpan();
-
-                    if (keyValue.ValueDataRaw.Length >= 16)
-                    {
-                        run = BitConverter.ToInt32(keyValue.ValueDataRaw, 4);
-
-                        lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 8));
-
-                        // Windows 7 and up, new format
-                        if (keyValue.ValueDataRaw.Length >= 68)
+                        try
                         {
-                            focusCount = BitConverter.ToInt32(keyValue.ValueDataRaw, 8);
-                            focusTime = TimeSpan.FromMilliseconds(BitConverter.ToInt32(keyValue.ValueDataRaw, 12));
-                            lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 60));
+                            var unrot = Helpers.Rot13Transform(keyValue.ValueName);
+                            var run = 0;
+
+                            string guid = null;
+                            try
+                            {
+                                guid =
+                                    Regex.Match(unrot, @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b",
+                                        RegexOptions.IgnoreCase).Value;
+
+                                var foldername = Utils.GetFolderNameFromGuid(guid);
+
+                                unrot = unrot.Replace(guid, foldername);
+                            }
+                            catch (ArgumentException)
+                            {
+                                // Syntax error in the regular expression
+                            }
+
+
+                            DateTimeOffset? lastRun = null;
+                            int? focusCount = null;
+                            TimeSpan focusTime = new TimeSpan();
+
+                            if (keyValue.ValueDataRaw.Length >= 16)
+                            {
+                                run = BitConverter.ToInt32(keyValue.ValueDataRaw, 4);
+
+                                lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 8));
+
+                                // Windows 7 and up, new format
+                                if (keyValue.ValueDataRaw.Length >= 68)
+                                {
+                                    focusCount = BitConverter.ToInt32(keyValue.ValueDataRaw, 8);
+                                    focusTime = TimeSpan.FromMilliseconds(BitConverter.ToInt32(keyValue.ValueDataRaw, 12));
+                                    lastRun = DateTimeOffset.FromFileTime(BitConverter.ToInt64(keyValue.ValueDataRaw, 60));
+                                }
+                            }
+
+                            if (lastRun?.Year < 1970)
+                            {
+                                lastRun = null;
+                            }
+
+                            var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusTime.ToString(@"d'd, 'h'h, 'mm'm, 'ss's'"));
+                            vo.BatchKeyPath = key.KeyPath;
+                            vo.BatchValueName = keyValue.ValueName;
+
+                            _values.Add(vo);
+                        }
+                        catch (Exception ex)
+                        {
+                            Errors.Add($"Value name: {keyValue.ValueName}, message: {ex.Message}");
                         }
                     }
-
-                    if (lastRun?.Year < 1970)
-                    {
-                        lastRun = null;
-                    }
-
-                    var vo = new ValuesOut(keyValue.ValueName, unrot, run, lastRun, focusCount, focusTime.ToString(@"d'd, 'h'h, 'mm'm, 'ss's'"));
-                    vo.BatchKeyPath = key.KeyPath;
-                    vo.BatchValueName = keyValue.ValueName;
-
-                    _values.Add(vo);
-                }
-                catch (Exception ex)
-                {
-                    Errors.Add($"Value name: {keyValue.ValueName}, message: {ex.Message}");
                 }
             }
         }
