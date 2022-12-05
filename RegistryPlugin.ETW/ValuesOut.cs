@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.ETW
@@ -21,8 +21,8 @@ namespace RegistryPlugin.ETW
         public string EnabledProperty { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => string.Empty;
-        public string BatchValueData2 => string.Empty;
-        public string BatchValueData3 => string.Empty;
+        public string BatchValueData1 => Provider;
+        public string BatchValueData2 => Enabled;
+        public string BatchValueData3 => EnabledProperty;
     }
 }
