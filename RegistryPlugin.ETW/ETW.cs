@@ -1,10 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -59,37 +57,26 @@ namespace RegistryPlugin.ETW
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
-            using (var reader = new StreamReader(@".\Settings\ETW.csv"))
+            foreach (var subkey in key.SubKeys)
             {
-                StringDictionary Providers_GUID = new StringDictionary();
-                while (!reader.EndOfStream)
+                try
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
-                    
-                    Providers_GUID.Add(values[0], values[1]);
+                    var Enabled_value = subkey.GetValue("Enabled").ToString();
+                    var Enableproperty_value = subkey.GetValue("EnableProperty").ToString();
+                    var ff = new ValuesOut(subkey.LastWriteTime.ToString(),
+                                         subkey.KeyName,
+                                         GuidMapping.GuidMapping.GetDescriptionFromGuid(subkey.KeyName),
+                                         Enabled_value,
+                                         Enableproperty_value)
+                    {
+                        BatchValueName = "Provider",
+                        BatchKeyPath = subkey.KeyPath
+                    };
+                    l.Add(ff);
                 }
-                foreach (var subkey in key.SubKeys)
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        var Enabled_value = subkey.GetValue("Enabled").ToString();
-                        var Enableproperty_value = subkey.GetValue("EnableProperty").ToString();
-                        var ff = new ValuesOut(subkey.LastWriteTime.ToString(),
-                                             subkey.KeyName,
-                                             Providers_GUID[subkey.KeyName.Trim()],
-                                             Enabled_value,
-                                             Enableproperty_value)
-                        {
-                            BatchValueName = "Provider",
-                            BatchKeyPath = subkey.KeyPath
-                        };
-                        l.Add(ff);
-                    }
-                    catch (Exception ex)
-                    {
-                        Errors.Add(ex.Message);
-                    }
+                    Errors.Add(ex.Message);
                 }
             }
 
