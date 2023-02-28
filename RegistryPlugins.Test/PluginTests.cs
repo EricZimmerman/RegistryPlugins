@@ -9,33 +9,33 @@ using Registry;
 using RegistryPlugin.Adobe;
 using RegistryPlugin.AppCompatCache;
 using RegistryPlugin.AppCompatFlags;
+using RegistryPlugin.BamDam;
 using RegistryPlugin.CIDSizeMRU;
 using RegistryPlugin.DHCPNetworkHint;
 using RegistryPlugin.FirstFolder;
+using RegistryPlugin.JumplistData;
 using RegistryPlugin.KnownNetworks;
 using RegistryPlugin.LastVisitedMRU;
 using RegistryPlugin.LastVisitedPidlMRU;
+using RegistryPlugin.MountedDevices;
+using RegistryPlugin.OfficeMRU;
 using RegistryPlugin.OpenSaveMRU;
 using RegistryPlugin.OpenSavePidlMRU;
+using RegistryPlugin.RecentApps;
 using RegistryPlugin.RecentDocs;
 using RegistryPlugin.RunMRU;
 using RegistryPlugin.SAM;
 using RegistryPlugin.Services;
-using RegistryPlugin.TerminalServerClient;
-using RegistryPlugin.TypedURLs;
-using RegistryPlugin.WordWheelQuery;
-using RegistryPlugin.UserAssist;
-using ValuesOut = RegistryPlugin.AppCompatCache.ValuesOut;
-using RegistryPlugin.RecentApps;
-using RegistryPlugin.BamDam;
-using RegistryPlugin.JumplistData;
-using RegistryPlugin.MountedDevices;
-using RegistryPlugin.OfficeMRU;
 using RegistryPlugin.SyscacheObjectTable;
 using RegistryPlugin.Taskband;
 using RegistryPlugin.TaskCache;
 using RegistryPlugin.TaskFlowShellActivities;
+using RegistryPlugin.TerminalServerClient;
+using RegistryPlugin.TypedURLs;
 using RegistryPlugin.USBSTOR;
+using RegistryPlugin.UserAssist;
+using RegistryPlugin.WordWheelQuery;
+using ValuesOut = RegistryPlugin.USBSTOR.ValuesOut;
 
 namespace RegistryPlugins.Test;
 
@@ -47,8 +47,6 @@ public class PluginTests
     {
         var r = new TaskCache();
 
-            
-       
 
         var reg = new RegistryHive(@"D:\OneDrive\Registry\SOFTWARE_dblake");
 
@@ -56,7 +54,7 @@ public class PluginTests
         // var l = new List<string>();
         // l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG1");
         // l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG2");
-                
+
 
         //      reg.ProcessTransactionLogs(l, true);
 
@@ -79,17 +77,7 @@ public class PluginTests
         {
             Debug.WriteLine(rValue);
         }
-
-
-
-
-
-
-
-
     }
-
-
 
 
     [Test]
@@ -97,8 +85,6 @@ public class PluginTests
     {
         var r = new OfficeMRU();
 
-            
-       
 
         var reg = new RegistryHive(@"C:\Temp\tout\G\Users\fredr\NTUSER.DAT");
 
@@ -106,7 +92,7 @@ public class PluginTests
         var l = new List<string>();
         l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG1");
         l.Add(@"C:\Temp\tout\G\Users\fredr\ntuser.dat.LOG2");
-                
+
 
         reg.ProcessTransactionLogs(l, true);
 
@@ -123,20 +109,9 @@ public class PluginTests
 
 
         Debug.WriteLine(r.Values.Count);
-
-
-
-
-
-
-
-
-
-
-
     }
 
-        
+
     [Test]
     public void UsbStor()
     {
@@ -154,11 +129,10 @@ public class PluginTests
 
         r.ProcessValues(key);
 
-          
 
         Check.That(r.Values.Count).IsEqualTo(4);
 
-        var ff = (RegistryPlugin.USBSTOR.ValuesOut) r.Values[0];
+        var ff = (ValuesOut)r.Values[0];
 
         Check.That(ff.DiskId).IsNotEmpty();
         Check.That(ff.DiskId).Contains("Timestamp");
@@ -171,7 +145,7 @@ public class PluginTests
         }
     }
 
-        
+
     [Test]
     public void TaskShellitem()
     {
@@ -179,7 +153,7 @@ public class PluginTests
 
         //  var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_RecentAppsERZ.DAT");
         var reg = new RegistryHive(@"D:\SynologyDrive\Registry\!Private\NTUSER_ERZ_Win10.DAT");
-        
+
         reg.ParseHive();
 
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount\$$windows.data.taskflow.shellactivities\Current");
@@ -190,11 +164,10 @@ public class PluginTests
 
         r.ProcessValues(key);
 
-          
 
         Check.That(r.Values.Count).IsEqualTo(545);
 
-        var ff = (RegistryPlugin.TaskFlowShellActivities.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.TaskFlowShellActivities.ValuesOut)r.Values[0];
 
         Check.That(ff.Other).IsNotEmpty();
         Check.That(ff.Other).Contains("Timestamp");
@@ -216,7 +189,7 @@ public class PluginTests
         var reg = new RegistryHive(@"D:\temp\NTUSER.DAT");
         reg.RecoverDeleted = true;
         reg.ParseHive();
- 
+
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Search\JumplistData");
 
         Check.That(key).IsNotNull();
@@ -224,10 +197,10 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(0);
 
         r.ProcessValues(key);
-            
+
         Check.That(r.Values.Count).IsEqualTo(3);
 
-        var ff = (RegistryPlugin.JumplistData.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.JumplistData.ValuesOut)r.Values[0];
 
         Check.That(ff.JumpListName).IsNotEmpty();
         Check.That(ff.ExecutedOn).IsNotEqualTo(null);
@@ -258,7 +231,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(22);
 
-        var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.Taskband.ValuesOut)r.Values[0];
 
         //   Check.That(ff.Other).IsNotEmpty();
         //  Check.That(ff.Other).Contains("Timestamp");
@@ -291,7 +264,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(17);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.Taskband.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.Taskband.ValuesOut)r.Values[0];
 
         //   Check.That(ff.Other).IsNotEmpty();
         //  Check.That(ff.Other).Contains("Timestamp");
@@ -303,7 +276,6 @@ public class PluginTests
             Debug.WriteLine(rValue);
         }
     }
-
 
 
     [Test]
@@ -387,7 +359,7 @@ public class PluginTests
         var r = new Adobe();
 
         var reg = new RegistryHive(@"D:\Temp\Adobe_cRecentFiles_NTUSER.DAT");
-            
+
         reg.ParseHive();
 
         var key = reg.GetKey(@"Software\Adobe");
@@ -398,7 +370,6 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(114);
         Check.That(r.Errors.Count).IsEqualTo(0);
-
     }
 
     [Test]
@@ -418,13 +389,13 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(37);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.AppCompatFlags.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.AppCompatFlags.ValuesOut)r.Values[0];
 
         Check.That(ff.ValueName).IsEqualTo("746E9C8C08A390000004EC55A1F64D10");
         Check.That(ff.Executable).Contains("\\DEVICE");
     }
 
-          
+
     [Test]
     public void Syscache()
     {
@@ -442,7 +413,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(1585);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.SyscacheObjectTable.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.SyscacheObjectTable.ValuesOut)r.Values[0];
 
         Check.That(ff.Sha1).IsEqualTo("f34bbe523cf4b187b2c27da2bcd267412301745d");
         Check.That(ff.MftEntryNumber).IsEqualTo(26442);
@@ -466,7 +437,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(325);
 
-        var ff = (ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.AppCompatCache.ValuesOut)r.Values[0];
 
         Check.That(ff.CacheEntryPosition).IsEqualTo(0);
         Check.That(ff.ProgramName).Contains("Logon");
@@ -488,7 +459,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(112);
 
-        var ff = (RegistryPlugin.BamDam.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.BamDam.ValuesOut)r.Values[0];
 
         Check.That(ff.ExecutionTime.Year).IsEqualTo(2017);
         Check.That(ff.ExecutionTime.Month).IsEqualTo(3);
@@ -506,16 +477,13 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(4);
 
-        ff = (RegistryPlugin.BamDam.ValuesOut) r.Values[0];
+        ff = (RegistryPlugin.BamDam.ValuesOut)r.Values[0];
 
         Check.That(ff.ExecutionTime.Year).IsEqualTo(2017);
         Check.That(ff.ExecutionTime.Month).IsEqualTo(3);
         Check.That(ff.ExecutionTime.Day).IsEqualTo(18);
         Check.That(ff.Program).Contains("Start10");
-
-
     }
-
 
 
     [Test]
@@ -534,7 +502,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(1024);
 
-        var ff = (ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.AppCompatCache.ValuesOut)r.Values[0];
 
         Check.That(ff.CacheEntryPosition).IsEqualTo(0);
         Check.That(ff.ProgramName).Contains("java");
@@ -556,7 +524,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(506);
 
-        var ff = (ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.AppCompatCache.ValuesOut)r.Values[0];
 
         Check.That(ff.CacheEntryPosition).IsEqualTo(0);
         Check.That(ff.ProgramName).Contains("nvstreg.exe");
@@ -580,7 +548,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(27);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (KnownNetwork) r.Values[0];
+        var ff = (KnownNetwork)r.Values[0];
 
         Check.That(ff.NetworkName).IsEqualTo(@"gogoinflight");
         Check.That(ff.DNSSuffix).IsEqualTo(@"<none>");
@@ -594,7 +562,7 @@ public class PluginTests
     {
         var r = new OpenSavePidlMRU();
 
-        var reg = new RegistryHive(@"D:\SynologyDrive\Registry\NTUSER_dblake.DAT");
+        var reg = new RegistryHive(@"C:\temp\NTUSER.DAT_clean");
         reg.ParseHive();
 
         var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
@@ -606,7 +574,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(57);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.OpenSavePidlMRU.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.OpenSavePidlMRU.ValuesOut)r.Values[0];
 
         Check.That(ff.AbsolutePath)
             .IsEqualTo(
@@ -631,7 +599,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(192);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RecentDoc) r.Values[0];
+        var ff = (RecentDoc)r.Values[0];
 
         Check.That(ff.ValueName).IsEqualTo("83");
         Check.That(ff.Extension).Contains("RecentDocs");
@@ -654,19 +622,19 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(553);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (Service) r.Values[0];
+        var ff = (Service)r.Values[0];
 
         Check.That(ff.Name).IsEqualTo(".NET CLR Data");
         Check.That(ff.Description).IsEqualTo("");
         Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
 
-        ff = (Service) r.Values[8];
+        ff = (Service)r.Values[8];
 
         Check.That(ff.Name).IsEqualTo("3ware");
         Check.That(ff.Description).IsEqualTo("");
         Check.That(ff.NameKeyLastWrite.Year).IsEqualTo(2013);
 
-        ff = (Service) r.Values[263];
+        ff = (Service)r.Values[263];
 
         Check.That(ff.Name).IsEqualTo("napagent");
         Check.That(ff.Description).IsEqualTo(@"@%SystemRoot%\system32\qagentrt.dll,-7");
@@ -693,12 +661,12 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(18);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (TypedURL) r.Values[0];
+        var ff = (TypedURL)r.Values[0];
 
         Check.That(ff.Url).IsEqualTo("http://dropbox.com/");
         Check.That(ff.Timestamp.Value.Year).IsEqualTo(2013);
 
-        ff = (TypedURL) r.Values[5];
+        ff = (TypedURL)r.Values[5];
 
         Check.That(ff.Url).IsEqualTo("https://asgardventurecapital-my.sharepoint.com/");
         Check.That(ff.Timestamp.Value.Day).IsEqualTo(23);
@@ -721,17 +689,17 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(6);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[0];
 
         Check.That(ff.MruPosition).IsEqualTo(0);
         Check.That(ff.SearchTerm).Contains("defrag");
 
-        ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[1];
+        ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[1];
 
         Check.That(ff.MruPosition).IsEqualTo(0);
         Check.That(ff.SearchTerm).Contains("cc");
 
-        ff = (RegistryPlugin.WordWheelQuery.ValuesOut) r.Values[2];
+        ff = (RegistryPlugin.WordWheelQuery.ValuesOut)r.Values[2];
 
         Check.That(ff.MruPosition).IsEqualTo(1);
         Check.That(ff.SearchTerm).Contains("jboone");
@@ -760,8 +728,6 @@ public class PluginTests
         Check.That(ff.ProgramName).IsEqualTo("Microsoft.Windows.Explorer");
         Check.That(ff.FocusCount).IsEqualTo(619);
         Check.That(ff.FocusTime).IsEqualTo("0d, 3h, 46m, 24s");
-
-
     }
 
     [Test]
@@ -780,7 +746,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(8);
 
-        var ff = (CIDSizeInfo) r.Values[0];
+        var ff = (CIDSizeInfo)r.Values[0];
 
         Check.That(ff.MRUPosition).IsEqualTo(0);
         Check.That(ff.Executable).Contains("AcroRd32.exe");
@@ -802,7 +768,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(6);
 
-        var ff = (RegistryPlugin.DHCPNetworkHint.ValuesOut) r.Values[1];
+        var ff = (RegistryPlugin.DHCPNetworkHint.ValuesOut)r.Values[1];
 
         Check.That(ff.DHCPServer).IsEqualTo("10.17.0.7");
         Check.That(ff.DHCPAddress).Contains("10.17.14.218");
@@ -849,7 +815,7 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(3);
 
-        var ff = (FolderInfo) r.Values[0];
+        var ff = (FolderInfo)r.Values[0];
 
         Check.That(ff.MRUPosition).IsEqualTo(0);
         Check.That(ff.Executable).Contains(@"C:\Program Files (x86)\Canon\MP Navigator EX 2.0\mpnex20.exe");
@@ -1004,7 +970,7 @@ public class PluginTests
         Check.That(r.Errors.Count).IsEqualTo(0);
 
 
-        var users = (BindingList<UserOut>) r.Values;
+        var users = (BindingList<UserOut>)r.Values;
 
         var user = users.Single(t => t.UserId == 1001);
 
@@ -1049,7 +1015,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var u = (UserOut) r.Values[2];
+        var u = (UserOut)r.Values[2];
 
         Check.That(u.PasswordHint).Equals("G");
     }
@@ -1097,7 +1063,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
         Check.That(r.Values.Count).IsEqualTo(4);
 
-        var users = (BindingList<UserOut>) r.Values;
+        var users = (BindingList<UserOut>)r.Values;
 
         var user = users.Single(t => t.UserId == 1000);
 
@@ -1146,7 +1112,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(6);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        var ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[0];
+        var ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
 
         Check.That(ff.MRUPosition).IsEqualTo(1);
         Check.That(ff.HostName).Contains("GOON");
@@ -1165,7 +1131,7 @@ public class PluginTests
         Check.That(r.Values.Count).IsEqualTo(7);
         Check.That(r.Errors.Count).IsEqualTo(0);
 
-        ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[0];
+        ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[0];
 
         Check.That(ff.MRUPosition).IsEqualTo(-1);
         Check.That(ff.HostName).Contains("GOON");
@@ -1173,9 +1139,9 @@ public class PluginTests
         Check.That(ff.LastModified.Minute).IsEqualTo(32);
         Check.That(ff.LastModified.Second).IsEqualTo(8);
         Check.That(ff.LastModified.Day).IsEqualTo(28);
-            
 
-        ff = (RegistryPlugin.TerminalServerClient.ValuesOut) r.Values[3];
+
+        ff = (RegistryPlugin.TerminalServerClient.ValuesOut)r.Values[3];
 
         Check.That(ff.MRUPosition).IsEqualTo(-1);
         Check.That(ff.HostName).Contains("SVR01");
@@ -1193,7 +1159,5 @@ public class PluginTests
 
         Check.That(r.Values.Count).IsEqualTo(0);
         Check.That(r.Errors.Count).IsEqualTo(0);
-
-          
     }
 }
