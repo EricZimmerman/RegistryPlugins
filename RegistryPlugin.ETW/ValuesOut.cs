@@ -21,8 +21,8 @@ namespace RegistryPlugin.ETW
         public string EnabledProperty { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => Provider;
-        public string BatchValueData2 => Enabled;
-        public string BatchValueData3 => EnabledProperty;
+        public string BatchValueData1 => $"Provider: {Provider}";
+        public string BatchValueData2 => $"Enabled: {Enabled}";
+        public string BatchValueData3 => $"EnabledProperty: {EnabledProperty}";
     }
 }
