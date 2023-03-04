@@ -17,8 +17,8 @@ namespace RegistryPlugins.RADAR
         public DateTimeOffset? LastDectectionTime { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"KeyName: {KeyName} Filename: {Filename}";
-        public string BatchValueData2 => $"LastDectectionTime: {LastDectectionTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
-        public string BatchValueData3 => string.Empty;
+        public string BatchValueData1 => $"Filename: {Filename}";
+        public string BatchValueData2 => $"LastDetectionTime: {LastDectectionTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"KeyName: {KeyName}";
     }
 }
