@@ -5,11 +5,11 @@ namespace RegistryPlugins.RADAR
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string keyname, string filename, DateTimeOffset? lastdectectiontime)
+        public ValuesOut(string keyname, string filename, DateTimeOffset? lastdetectiontime)
         {
             KeyName = keyname;
             Filename = filename;
-            LastDectectionTime = lastdectectiontime;
+            LastDetectionTime = lastdetectiontime;
         }
 
         public string KeyName { get; }
