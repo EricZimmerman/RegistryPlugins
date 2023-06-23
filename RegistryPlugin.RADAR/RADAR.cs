@@ -72,9 +72,9 @@ namespace RegistryPlugins.RADAR
             {
                 try
                 {
-                    var lastdectectiontime = GetDateTimeOffset(subKey.Values.SingleOrDefault(t => t.ValueName == "LastDetectionTime")?.ValueData);
+                    var lastdetectiontime = GetDateTimeOffset(subKey.Values.SingleOrDefault(t => t.ValueName == "LastDetectionTime")?.ValueData);
 
-                    var ff = new ValuesOut("DiagnosedApplications", subKey.KeyName, lastdectectiontime)
+                    var ff = new ValuesOut("DiagnosedApplications", subKey.KeyName, lastdetectiontime)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
