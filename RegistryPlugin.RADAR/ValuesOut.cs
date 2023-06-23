@@ -18,7 +18,7 @@ namespace RegistryPlugins.RADAR
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Filename: {Filename}";
-        public string BatchValueData2 => $"LastDetectionTime: {LastDectectionTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData2 => $"LastDetectionTime: {LastDetectionTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData3 => $"KeyName: {KeyName}";
     }
 }
