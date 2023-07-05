@@ -14,7 +14,7 @@ namespace RegistryPlugins.RADAR
 
         public string KeyName { get; }
         public string Filename { get; }
-        public DateTimeOffset? LastDectectionTime { get; }
+        public DateTimeOffset? LastDetectionTime { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Filename: {Filename}";
