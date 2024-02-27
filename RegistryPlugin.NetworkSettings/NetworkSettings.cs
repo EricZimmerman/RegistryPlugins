@@ -68,9 +68,25 @@ namespace RegistryPlugin.NetworkSettings
                     string dhcpnameserver = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpNameServer")?.ValueData;
                     string dhcpipaddress = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpIPAddress")?.ValueData;
                     string dhcpdefaultgateway = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpDefaultGateway")?.ValueData;
+                    
+                    var leaseobtained = subKey.Values.SingleOrDefault(t => t.ValueName == "LeaseObtainedTime");
+                    var leaseterminates = subKey.Values.SingleOrDefault(t => t.ValueName == "LeaseTerminatesTime");
+
+                    DateTimeOffset? leaseobtainedtime = null;
+                    if (leaseobtained != null)
+                    {
+                        leaseobtainedtime = DateTimeOffset.FromUnixTimeSeconds(BitConverter.ToUInt32(leaseobtained.ValueDataRaw, 0));
+                    }
+                    
+                    DateTimeOffset? leaseterminatestime = null;
+                    if (leaseterminates != null)
+                    {
+                        leaseterminatestime = DateTimeOffset.FromUnixTimeSeconds(BitConverter.ToUInt32(leaseterminates.ValueDataRaw, 0));
+                    }
+
                     bool enabledhcp = subKey.Values.SingleOrDefault(t => t.ValueName == "EnableDHCP")?.ValueData == "1";
 
-                    var ff = new ValuesOut(ipaddress, subnetmask, dhcpsubnetmask, dhcpserver, dhcpnameserver, dhcpipaddress, dhcpdefaultgateway, enabledhcp)
+                    var ff = new ValuesOut(ipaddress, subnetmask, dhcpsubnetmask, dhcpserver, dhcpnameserver, dhcpipaddress, dhcpdefaultgateway, leaseobtainedtime, leaseterminatestime, enabledhcp)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath

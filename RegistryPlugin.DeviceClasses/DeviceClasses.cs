@@ -41,7 +41,7 @@ namespace RegistryPlugin.DeviceClasses
         public double Version => 0.1;
         public List<string> Errors { get; }
 
-        private readonly List<string> GUIDs = new List<string> { "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}"};
+        private readonly List<string> GUIDs = new List<string> { "{10497B1B-BA51-44E5-8318-A65C837B6661}", "{53F5630D-B6BF-11D0-94F2-00A0C91EFB8B}", "{53F56307-B6BF-11D0-94F2-00A0C91EFB8B}", "{6AC27878-A6FA-4155-BA85-F98F491D4F33}", "{A5DCBF10-6530-11D2-901F-00C04FB951ED}"};
 
         public void ProcessValues(RegistryKey key)
         {
