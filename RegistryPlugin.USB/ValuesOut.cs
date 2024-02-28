@@ -5,7 +5,7 @@ namespace RegistryPlugin.USB
 {
     public class ValuesOut : IValueOut
     {
-        public ValuesOut(string keyName, string serialNumber, string parentIdPrefix, string service, string deviceDesc, string friendlyName, string deviceName, string locationinformation, DateTimeOffset? installed, DateTimeOffset? firstinstalled, DateTimeOffset? lastconnected)
+        public ValuesOut(string keyName, string serialNumber, string parentIdPrefix, string service, string deviceDesc, string friendlyName, string deviceName, string locationinformation, DateTimeOffset? installed, DateTimeOffset? firstinstalled, DateTimeOffset? lastconnected, DateTimeOffset? lastremoved)
         {
             KeyName = keyName;
             SerialNumber = serialNumber;
@@ -18,6 +18,7 @@ namespace RegistryPlugin.USB
             Installed = installed;
             FirstInstalled = firstinstalled;
             LastConnected = lastconnected;
+            LastRemoved = lastremoved;
         }
 
         public string KeyName { get; }
@@ -31,10 +32,11 @@ namespace RegistryPlugin.USB
         public DateTimeOffset? Installed { get; }
         public DateTimeOffset? FirstInstalled { get; }
         public DateTimeOffset? LastConnected { get; }
+        public DateTimeOffset? LastRemoved { get; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"KeyName: {KeyName} SerialNumber: {SerialNumber} ParentIdPrefix: {ParentidPrefix} Service: {Service}";
         public string BatchValueData2 => $"DeviceDesc: {DeviceDesc} FriendlyName: {FriendlyName} DeviceName: {DeviceName} Location Information: {LocationInformation}";
-        public string BatchValueData3 => $"Installed: {Installed?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} FirstInstalled: {FirstInstalled?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} LastConnected: {LastConnected?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"Installed: {Installed?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} FirstInstalled: {FirstInstalled?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} LastConnected: {LastConnected?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff} LastRemoved: {LastRemoved?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

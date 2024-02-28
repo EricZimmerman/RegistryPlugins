@@ -130,8 +130,11 @@ namespace RegistryPlugin.USB
                         var lastConnected = GetUTC(
                              GetData(subKey, GUIDs[1], "0066")
                          );
+                        var lastRemoved = GetUTC(
+                            GetData(subKey, GUIDs[1], "0067")
+                        );
 
-                        var ff = new ValuesOut(keyName, serialNumber, parentIdPrefix, service, deviceDesc, friendlyName, deviceName, locationinformation, installed, firstInstalled, lastConnected)
+                        var ff = new ValuesOut(keyName, serialNumber, parentIdPrefix, service, deviceDesc, friendlyName, deviceName, locationinformation, installed, firstInstalled, lastConnected, lastRemoved)
                         {
                             BatchValueName = "Multiple",
                             BatchKeyPath = subKey.KeyPath
