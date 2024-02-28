@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -39,6 +40,33 @@ namespace RegistryPlugin.USB
 
         public double Version => 0.1;
         public List<string> Errors { get; }
+
+        private readonly List<string> GUIDs = new List<string> { "{540b947e-8b40-45bc-a8a2-6a0b894cbda2}", "{83da6326-97a6-4088-9453-a1923f573b29}" };
+
+        private byte[] GetData(RegistryKey serialSubKey, string guidValue, string numValue)
+        {
+            var properties = serialSubKey.SubKeys.SingleOrDefault(t => t.KeyName == "Properties");
+            if (properties == null)
+                return null;
+
+            var GUID = properties.SubKeys.SingleOrDefault(t => t.KeyName == guidValue);
+            if (GUID == null)
+                return null;
+
+            var subKey = GUID.SubKeys.SingleOrDefault(t => t.KeyName == numValue);
+            if (subKey == null)
+                return null;
+
+            return subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
+        }
+
+        private DateTimeOffset? GetUTC(byte[] data)
+        {
+            if (data == null || data.Length != 8)
+                return null;
+
+            return DateTimeOffset.FromFileTime(BitConverter.ToInt64(data, 0)).ToUniversalTime();
+        }
 
         public void ProcessValues(RegistryKey key)
         {
@@ -84,11 +112,26 @@ namespace RegistryPlugin.USB
                         string deviceDesc = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
                         string friendlyName = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
                         string locationinformation = subKey.Values.SingleOrDefault(t => t.ValueName == "LocationInformation")?.ValueData;
-                        
 
-                        DateTimeOffset? ts = subKey.LastWriteTime;
+                        var deviceNameValue = GetData(subKey, GUIDs[0], "0004");
+                        string deviceName = null;
 
-                        var ff = new ValuesOut(keyName, serialNumber, parentIdPrefix, service, deviceDesc, friendlyName, locationinformation, ts)
+                        if (deviceNameValue != null)
+                        {
+                            deviceName = Encoding.Unicode.GetString(deviceNameValue);
+                        }
+
+                        var installed = GetUTC(
+                            GetData(subKey, GUIDs[1], "0064")
+                        );
+                        var firstInstalled = GetUTC(
+                            GetData(subKey, GUIDs[1], "0065")
+                        );
+                        var lastConnected = GetUTC(
+                             GetData(subKey, GUIDs[1], "0066")
+                         );
+
+                        var ff = new ValuesOut(keyName, serialNumber, parentIdPrefix, service, deviceDesc, friendlyName, deviceName, locationinformation, installed, firstInstalled, lastConnected)
                         {
                             BatchValueName = "Multiple",
                             BatchKeyPath = subKey.KeyPath
