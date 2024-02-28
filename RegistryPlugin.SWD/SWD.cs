@@ -102,6 +102,7 @@ namespace RegistryPlugin.SWD
                     foreach (var subKey in registryKey.SubKeys)
                     {
                         string keyName = subKey.KeyName;
+                        string service = subKey.Values.SingleOrDefault(t => t.ValueName == "Service")?.ValueData;
                         string deviceDesc = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
                         string friendlyName = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
 
@@ -118,7 +119,7 @@ namespace RegistryPlugin.SWD
                             GetData(subKey, GUIDs[1], "0067")
                         );
 
-                        var ff = new ValuesOut(type, keyName, deviceDesc, friendlyName, installed, firstInstalled, lastConnected, lastRemoved)
+                        var ff = new ValuesOut(type, keyName, service, deviceDesc, friendlyName, installed, firstInstalled, lastConnected, lastRemoved)
                         {
                             BatchValueName = "Multiple",
                             BatchKeyPath = subKey.KeyPath
