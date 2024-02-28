@@ -31,7 +31,7 @@ namespace RegistryPlugin.SWD
         public string PluginName => "SWD";
         public string ShortDescription => "SWD Information";
         
-        public string LongDescription => "https://www.binary-zone.com/2020/04/04/investigating-usb-drives-using-mount-points-not-drive-letters/, https://maj3sty.tistory.com/1008";
+        public string LongDescription => "https://www.binary-zone.com/2020/04/04/investigating-usb-drives-using-mount-points-not-drive-letters/, https://systemcenterdiary.wordpress.com/2020/09/17/clean-up-the-wsd-and-upnp-device-list/";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
