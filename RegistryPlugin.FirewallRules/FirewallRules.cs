@@ -19,7 +19,9 @@ namespace RegistryPlugin.FirewallRules
         public string InternalGuid => "a2e377a8-9c38-49e3-871a-b6b7057b624a";
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"ControlSet00*\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules"
+            @"ControlSet00*\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules",
+            @"ControlSet00*\Services\SharedAccess\Parameters\FirewallPolicy\RestrictedServices\AppIso\FirewallRules",
+            @"ControlSet00*\Services\SharedAccess\Parameters\FirewallPolicy\Mdm\FirewallRules"
         });
 
         public string ValueName => null;
