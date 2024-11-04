@@ -149,8 +149,12 @@ namespace RegistryPlugin.RecentDocs
                         index += lnkName.Length;
                     }
 
-                    while (chunks[0][index] != 4)
+                    while (index <= chunks[0].Length - 4)
                     {
+                        if (BitConverter.ToUInt32(chunks[0], index) == 0xbeef0004)
+                        {
+                            break;
+                        }
                         index += 1; //move until our signature
                     }
 
