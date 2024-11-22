@@ -52,6 +52,16 @@ namespace RegistryPlugin.ProfileList
         }
 
         public IBindingList Values => _values;
+
+        public DateTimeOffset? GetDateTime(string high, string low)
+        {
+            if (high == null || low == null) return null;
+            string hexString = Convert.ToInt64(high).ToString("X") + Convert.ToInt64(low).ToString("X");
+            var timestampInt = Convert.ToInt64(hexString, 16);
+            var dt1 = DateTime.FromFileTime(timestampInt);
+            return new DateTimeOffset(dt1);
+        }
+
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
@@ -62,9 +72,16 @@ namespace RegistryPlugin.ProfileList
                 {
                     string keyName = subKey.KeyName;
                     string profileImagePath = subKey.Values.SingleOrDefault(t => t.ValueName == "ProfileImagePath")?.ValueData;
+                    string loadTimeHigh = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileLoadTimeHigh")?.ValueData;
+                    string loadTimeLow = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileLoadTimeLow")?.ValueData;
+                    string unloadTimeHigh = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileUnloadTimeHigh")?.ValueData;
+                    string unloadTimeLow = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileUnloadTimeLow")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
-                    var ff = new ValuesOut(keyName, profileImagePath, ts)
+                    DateTimeOffset? loadTime = GetDateTime(loadTimeHigh, loadTimeLow);
+                    DateTimeOffset? unloadTime = GetDateTime(unloadTimeHigh, unloadTimeLow);
+
+                    var ff = new ValuesOut(keyName, profileImagePath, ts, loadTime, unloadTime)
                     {
                         BatchValueName = "Multiple",
                         BatchKeyPath = subKey.KeyPath
