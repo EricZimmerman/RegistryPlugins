@@ -1,7 +1,7 @@
 ﻿using System;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin.Mare
+namespace RegistryPlugin.Amcache_Mare
 {
     public class ValuesOut : IValueOut
     {

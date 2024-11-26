@@ -138,7 +138,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SCSI", "Regi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SWD", "RegistryPlugin.SWD\RegistryPlugin.SWD.csproj", "{DCDB0E8E-9D02-4A95-9935-056C93F2A920}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Mare", "RegistryPlugin.Mare\RegistryPlugin.Mare.csproj", "{928913E2-FA96-4FD5-91AD-5F3B3AB76035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-Mare", "RegistryPlugin.Amcache-Mare\RegistryPlugin.Amcache-Mare.csproj", "{928913E2-FA96-4FD5-91AD-5F3B3AB76035}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

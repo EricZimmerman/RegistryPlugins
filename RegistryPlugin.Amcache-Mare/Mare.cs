@@ -7,7 +7,7 @@ using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
 
-namespace RegistryPlugin.Mare
+namespace RegistryPlugin.Amcache_Mare
 {
     public class Mare : IRegistryPluginGrid
     {
@@ -31,12 +31,12 @@ namespace RegistryPlugin.Mare
         public string Author => "Hyun Yi @hyuunnn";
         public string Email => "";
         public string Phone => "000-0000-0000";
-        public string PluginName => "Mare";
+        public string PluginName => "Amcache-Mare";
 
         public string ShortDescription
-           => "Mare";
+           => "Amcache-Mare";
 
-        public string LongDescription => ShortDescription;
+        public string LongDescription => "";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
