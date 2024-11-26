@@ -36,7 +36,7 @@ namespace RegistryPlugin.Amcache_Mare
         public string ShortDescription
            => "Amcache-Mare";
 
-        public string LongDescription => "";
+        public string LongDescription => "This is a key called Mare that exists in Amcache. The path can be used to infer the installed file.";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
