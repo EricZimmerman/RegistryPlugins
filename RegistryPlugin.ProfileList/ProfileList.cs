@@ -35,7 +35,7 @@ namespace RegistryPlugin.ProfileList
         public string ShortDescription
             => "ProfileList Information";
 
-        public string LongDescription => ShortDescription;
+        public string LongDescription => "https://learn.microsoft.com/en-us/troubleshoot/windows-server/support-tools/scripts-to-retrieve-profile-age";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
