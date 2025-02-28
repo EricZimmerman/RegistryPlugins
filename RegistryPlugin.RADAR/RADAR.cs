@@ -57,8 +57,7 @@ namespace RegistryPlugins.RADAR
         public DateTimeOffset GetDateTimeOffset(string timestamp)
         {
             var timestampInt = Convert.ToInt64(timestamp);
-            var dt1 = DateTime.FromFileTime(timestampInt);
-            return new DateTimeOffset(dt1);
+            return DateTime.FromFileTime(timestampInt).ToUniversalTime();
         }
 
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
