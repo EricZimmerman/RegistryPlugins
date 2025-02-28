@@ -21,7 +21,8 @@ namespace RegistryPlugins.RADAR
 
         public List<string> KeyPaths => new List<string>(new[]
         {
-            @"Microsoft\RADAR\HeapLeakDetection"
+            @"Microsoft\RADAR\HeapLeakDetection",
+            @"WOW6432Node\Microsoft\RADAR\HeapLeakDetection"
         });
 
         public string ValueName => null;
@@ -36,7 +37,7 @@ namespace RegistryPlugins.RADAR
             => "RADAR - HeapLeakDetection";
 
         public string LongDescription =>
-            "http://windowsir.blogspot.com/2011/09/registry-stuff.html";
+            "http://windowsir.blogspot.com/2011/09/registry-stuff.html https://youtu.be/edJa_SLVqOo";
 
         public double Version => 0.1;
         public List<string> Errors { get; }
