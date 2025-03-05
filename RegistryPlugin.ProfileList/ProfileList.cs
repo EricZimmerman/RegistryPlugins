@@ -58,8 +58,7 @@ namespace RegistryPlugin.ProfileList
             if (high == null || low == null) return null;
             string hexString = Convert.ToInt64(high).ToString("X") + Convert.ToInt64(low).ToString("X");
             var timestampInt = Convert.ToInt64(hexString, 16);
-            var dt1 = DateTime.FromFileTime(timestampInt);
-            return new DateTimeOffset(dt1);
+            return DateTime.FromFileTime(timestampInt).ToUniversalTime();
         }
 
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
