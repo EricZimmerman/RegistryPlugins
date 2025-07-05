@@ -82,7 +82,15 @@ namespace RegistryPlugin.OpenSavePidlMRU.ShellItems
 
             index += len;
 
-            var shortName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(tempBytes);
+            String shortName = string.Empty;
+            if (rawBytes[2] == 0x32) // ascii
+            {
+                shortName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(tempBytes);
+            }
+            else if (rawBytes[2] == 0x36) // unicode
+            {
+                shortName = Encoding.Unicode.GetString(tempBytes);
+            }
 
             ShortName = shortName;
 
