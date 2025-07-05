@@ -164,11 +164,11 @@ namespace RegistryPlugin.OpenSavePidlMRU
                                     case 0xb1:
                                     case 0x31:
                                     case 0x35:
-                                    case 0x36:
                                         bag = new ShellBag0X31(bytese);
 
                                         break;
-                                    case 0x32:
+                                    case 0x32: // ascii
+                                    case 0x36: // unicode
                                         bag = new ShellBag0X32(bytese);
 
                                         break;

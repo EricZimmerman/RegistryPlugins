@@ -62,9 +62,19 @@ namespace RegistryPlugin.OpenSavePidlMRU.ShellItems
 
             var len = 0;
 
-            while (rawBytes[index + len] != 0x0)
+            if (rawBytes[2] == 0x32) // ascii
             {
-                len += 1;
+                while (rawBytes[index + len] != 0x0)
+                {
+                    len += 1;
+                }
+            }
+            else if (rawBytes[2] == 0x36) // unicode
+            {
+                while (!(rawBytes[index + len] == 0x0 && rawBytes[index + len + 1] == 0x0))
+                {
+                    len += 2;
+                }
             }
 
             tempBytes = new byte[len];
