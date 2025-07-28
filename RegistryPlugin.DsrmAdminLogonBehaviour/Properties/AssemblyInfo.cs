@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("RegistryPlugin.DsrmAdminLogonBehaviour")]
-[assembly: AssemblyDescription("Detects DsrmAdminLogonBehaviour value which is normally a sign of presistence")]
+[assembly: AssemblyDescription("Detects DsrmAdminLogonBehaviour value which is normally a sign of persistence")]
 [assembly: AssemblyCompany("Abdul Mhanni")]
 [assembly: AssemblyProduct("RegistryPlugin.DsrmAdminLogonBehaviour")]
 [assembly: AssemblyCopyright("Copyright © 2024")]
