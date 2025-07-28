@@ -110,7 +110,6 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
 
  
         /// Gets the binding list of output values, which is displayed in the Registry Explorer UI.
-    
         public IBindingList Values => _values;
     }
 }
