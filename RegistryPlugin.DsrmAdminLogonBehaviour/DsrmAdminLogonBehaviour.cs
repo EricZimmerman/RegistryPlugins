@@ -45,7 +45,7 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
         public string PluginName => "DsrmAdminLogonBehaviour Value";
 
     
-        public string ShortDescription => "Detects DsrmAdminLogonBehaviour subkey as it is non exsistent or without an entry by default. Its a break glass account and thus if its a value of 1 or 2, then that idicates presistence";
+        public string ShortDescription => "Detects DsrmAdminLogonBehaviour subkey as it is non existent or without an entry by default. It's a break glass account and thus if it's a value of 1 or 2, then that indicates persistence";
 
         public string LongDescription => ShortDescription;
 
