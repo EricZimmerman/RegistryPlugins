@@ -9,7 +9,7 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
 {
     /// <summary>
     /// Registry Explorer plugin to check the 'DsrmAdminLogonBehaviour' registry value
-    /// As if the key value is set to any value really or exists then thats a sign of manual setting. This account on the DC can lead to presistent access as it wont show up on the AD schema
+    /// As if the key value is set to any value really or exists then thats a sign of manual setting. This account on the DC can lead to persistent access as it wont show up on the AD schema
     /// and would also allow an actor to preform a DC sync attack to regain access to the KRBTGT, set a delegation attack since the account is also a local admin; among others
     public class DsrmAdminLogonBehaviour : IRegistryPluginGrid
     {
