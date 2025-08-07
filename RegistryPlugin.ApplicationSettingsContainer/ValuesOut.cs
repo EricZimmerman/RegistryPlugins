@@ -22,7 +22,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"ValueType: {ValueType}";
-        public string BatchValueData2 => $"";
-        public string BatchValueData3 => $"";
+        public string BatchValueData2 => "";
+        public string BatchValueData3 => "";
     }
 }
