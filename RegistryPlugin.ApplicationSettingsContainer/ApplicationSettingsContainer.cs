@@ -20,7 +20,9 @@ namespace RegistryPlugin.ApplicationSettingsContainer
         public List<string> KeyPaths => new List<string>(new[]
         {
             @"LocalState",
-            @"RoamingState"
+            @"RoamingState",
+            @"LocalState\*",
+            @"RoamingState\*"
         });
 
         public string ValueName => null;
@@ -45,10 +47,8 @@ namespace RegistryPlugin.ApplicationSettingsContainer
             _values.Clear();
             Errors.Clear();
 
-            if (key.KeyName == "LocalState" || key.KeyName == "RoamingState")
-            {
-                ProcessKeys(key);
-            }
+            ProcessKeys(key);
+
         }
 
         public void ProcessKeys(RegistryKey key)
