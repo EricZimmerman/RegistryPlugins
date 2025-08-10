@@ -37,7 +37,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
             => "Application Settings/Data stored in settings.dat for Packaged Applications"; 
 
         public string LongDescription
-            => "Can contain settings and other data that are associated with specific applications. https://ogmini.github.io/tags.html#Registryhive"; //TODO: Add documentation/writeup link
+            => "Can contain settings and other data that are associated with specific applications. RegUwpCompositeValue have not been fully decipered yet. It is possible to manually parse and read them. RegUwpDateTimeOffset are an Int64 that could be representing a Windows FILETIME or DateTime.Ticks. https://ogmini.github.io/tags.html#Registryhive"; //TODO: Add better documentation/writeup link
 
         public double Version => 0.1;
         public List<string> Errors { get; }
@@ -125,11 +125,14 @@ namespace RegistryPlugin.ApplicationSettingsContainer
 
                             val = string.Format("[{0}]", string.Join(", ", valComposite.Select(b => $"0x{b:X2}")));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpCompositeValue", val, 
-                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs))));
+                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs)),
+                                "Composite Value has not been fully decipered. This is a collection of other RegUwp keys."));
                             break;
                         case 270: //RegUwpDateTimeOffset
-                            _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpDateTimeOffset", DateTimeOffset.FromFileTime(BitConverter.ToInt64(k.ValueDataRaw, 0)).ToString(), 
-                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, 8))));
+                            _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpDateTimeOffset",
+                                (BitConverter.ToInt64(k.ValueDataRaw, 0)).ToString(),
+                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, 8)),
+                                "This Int64 value has been observered to be representing Windows FILETIME or DateTime.Ticks."));
                             break;
                         case 271: //RegUwpTimeSpan
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpTimeSpan", new TimeSpan(BitConverter.ToInt64(k.ValueDataRaw, 0)).ToString(), 
@@ -309,15 +312,16 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             break;
                         case 288: //RegUwpArrayDateTimeOffset
                             numRecs = (int)(k.VkRecord.DataLength - 8) / 8;
-                            DateTimeOffset[] valDateTimeOffset = new DateTimeOffset[numRecs];
+                            Int64[] valDateTimeOffset = new Int64[numRecs];
 
                             for (int i = 0; i < numRecs; i++)
                             {
-                                valDateTimeOffset[i] = DateTimeOffset.FromFileTime(BitConverter.ToInt64(k.ValueDataRaw, i * 8));
+                                valDateTimeOffset[i] = BitConverter.ToInt64(k.ValueDataRaw, i * 8);
                             }
                             val = string.Format("[{0}]", string.Join(",", valDateTimeOffset));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpArrayDateTimeOffset", val, 
-                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs * 8))));
+                                DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs * 8)),
+                                "These Int64 values have been observered to be representing Windows FILETIME or DateTime.Ticks."));
                             break;
                         case 289: //RegUwpArrayTimeSpan 
                             numRecs = (int)(k.VkRecord.DataLength - 8) / 8;
