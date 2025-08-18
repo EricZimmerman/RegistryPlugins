@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace RegistryPlugin.ApplicationSettingsContainer
 {
@@ -125,7 +126,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             byte[] valComposite = new byte[numRecs];
                             Array.Copy(k.ValueDataRaw, 0, valComposite, 0, numRecs);
 
-                            val = $"[{string.Join(", ", Array.ConvertAll(valComposite, b => $"0x{b:X2}"))}]";
+                            val = string.Format("[{0}]", string.Join(", ", valComposite.Select(b => $"0x{b:X2}")));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpCompositeValue", val, 
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs)),
                                 "Composite Value has not been fully decipered. This is a collection of other RegUwp keys."));
@@ -173,7 +174,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             byte[] valBytes = new byte[numRecs];
                             Array.Copy(k.ValueDataRaw, 0, valBytes, 0, numRecs);
 
-                            val = $"[{string.Join(", ", Array.ConvertAll(valBytes, b => $"0x{b:X2}"))}]";
+                            val = string.Format("[{0}]", string.Join(", ", valBytes.Select(b => $"0x{b:X2}")));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpArrayByte", val, 
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs))));
                             break;
