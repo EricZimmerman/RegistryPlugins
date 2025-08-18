@@ -1,6 +1,6 @@
 # RegistryPlugins
 
-This repo that contains all the Registry Plugins used by Eric Zimmerman's Registry Explorer and [RECmd](https://github.com/EricZimmerman/RECmd). You can download both tools [here](https://f001.backblazeb2.com/file/EricZimmermanTools/RegistryExplorer_RECmd.zip). 
+This repo that contains all the Registry Plugins used by Eric Zimmerman's Registry Explorer and [RECmd](https://github.com/EricZimmerman/RECmd). You can download both tools [here](https://ericzimmerman.github.io). 
 
 ## Ongoing Projects
 
@@ -24,4 +24,4 @@ You will know that a Plugin is being used within your RECmd CSV output if the `V
 
 ![test](https://github.com/rathbuna/RegistryPlugins/blob/master/RECmdPluginExampleOutput.jpg)
 
-[RECmd Batch Files](https://github.com/EricZimmerman/RECmd/tree/master/BatchExamples) help make CSV output useful and efficient while reducing the noise. The [Kroll Batch File](https://github.com/EricZimmerman/RECmd/blob/master/BatchExamples/Kroll_Batch.reb) is currently taking advantage of most, if not all, of the Registry Plugins within this repo. It is strongly recommended to use that Batch File when parsing the Windows Registry with RECmd. 
+[RECmd Batch Files](https://github.com/EricZimmerman/RECmd/tree/master/BatchExamples) help make CSV output useful and efficient while reducing the noise. The [DFIR Batch File](https://github.com/EricZimmerman/RECmd/blob/master/BatchExamples/DFIRBatch.reb) is currently taking advantage of most, if not all, of the Registry Plugins within this repo. It is strongly recommended to use that Batch File when parsing the Windows Registry with RECmd. 
