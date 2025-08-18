@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Detects DsrmAdminLogonBehaviour value which is normally a sign of persistence")]
 [assembly: AssemblyCompany("Abdul Mhanni")]
 [assembly: AssemblyProduct("RegistryPlugin.DsrmAdminLogonBehaviour")]
-[assembly: AssemblyCopyright("Copyright © 2024")]
+[assembly: AssemblyCopyright("Copyright © 2025")]
 
 
 [assembly: ComVisible(false)]
