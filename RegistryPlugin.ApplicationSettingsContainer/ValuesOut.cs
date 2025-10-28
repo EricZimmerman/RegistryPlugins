@@ -23,8 +23,8 @@ namespace RegistryPlugin.ApplicationSettingsContainer
         public DateTime UTCTimestamp { get; set; }
         public string BatchKeyPath { get; set; }
         public string BatchValueName { get; set; }
-        public string BatchValueData1 => $"ValueType: {ValueType}";
-        public string BatchValueData2 => "";
-        public string BatchValueData3 => "";
+        public string BatchValueData1 => $"{Value}";
+        public string BatchValueData2 => $"{ValueType}";
+        public string BatchValueData3 => $"{UTCTimestamp}";
     }
 }

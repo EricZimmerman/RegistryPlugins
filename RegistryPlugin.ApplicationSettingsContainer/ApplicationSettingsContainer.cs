@@ -40,7 +40,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
             => "Application Settings/Data stored in settings.dat for Packaged Applications"; 
 
         public string LongDescription
-            => "Can contain settings and other data that are associated with specific applications. RegUwpCompositeValue have not been fully decipered yet. It is possible to manually parse and read them. RegUwpDateTimeOffset are an Int64 that could be representing a Windows FILETIME or DateTime.Ticks. https://ogmini.github.io/tags.html#Registryhive"; //TODO: Add better documentation/writeup link
+            => "Can contain settings and other data that are associated with specific applications. RegUwpCompositeValue has not been fully deciphered yet. It is possible to manually parse and read them. RegUwpDateTimeOffset are an Int64 that could represent a Windows FILETIME or DateTime.Ticks. https://ogmini.github.io/tags.html#Registryhive"; //TODO: Add better documentation/writeup link
 
         public double Version => 0.1;
         public List<string> Errors { get; }
@@ -121,7 +121,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             val = Encoding.Unicode.GetString(k.ValueDataRaw, 0, end);
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpString", val, DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, end + 2))));
                             break;
-                        case 269: //RegUwpCompositeValue //TODO: Decipher this. For now we just output the raw bytes
+                        case 269: //RegUwpCompositeValue //TODO: Decipher this if possible. For now we just output the raw bytes
                             numRecs = (int)(k.VkRecord.DataLength - 8) / 1;
                             byte[] valComposite = new byte[numRecs];
                             Array.Copy(k.ValueDataRaw, 0, valComposite, 0, numRecs);
@@ -129,13 +129,13 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             val = string.Format("[{0}]", string.Join(", ", valComposite.Select(b => $"0x{b:X2}")));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpCompositeValue", val, 
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs)),
-                                "Composite Value has not been fully decipered. This is a collection of other RegUwp keys."));
+                                "Composite Value cannot be deciphered at the moment. This is a collection of other RegUwp keys."));
                             break;
                         case 270: //RegUwpDateTimeOffset
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpDateTimeOffset",
                                 (BitConverter.ToInt64(k.ValueDataRaw, 0)).ToString(),
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, 8)),
-                                "This Int64 value has been observered to be representing Windows FILETIME or DateTime.Ticks."));
+                                "This Int64 value has been observed to represent Windows FILETIME or DateTime.Ticks."));
                             break;
                         case 271: //RegUwpTimeSpan
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpTimeSpan", new TimeSpan(BitConverter.ToInt64(k.ValueDataRaw, 0)).ToString(), 
@@ -324,7 +324,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                             val = string.Format("[{0}]", string.Join(",", valDateTimeOffset));
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpArrayDateTimeOffset", val, 
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, numRecs * 8)),
-                                "These Int64 values have been observered to be representing Windows FILETIME or DateTime.Ticks."));
+                                "These Int64 values have been observed to represent Windows FILETIME or DateTime.Ticks."));
                             break;
                         case 289: //RegUwpArrayTimeSpan 
                             numRecs = (int)(k.VkRecord.DataLength - 8) / 8;
