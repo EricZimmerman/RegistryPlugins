@@ -40,7 +40,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
             => "Application Settings/Data stored in settings.dat for Packaged Applications"; 
 
         public string LongDescription
-            => "Can contain settings and other data that are associated with specific applications. RegUwpCompositeValue has not been fully deciphered yet. It is possible to manually parse and read them. RegUwpDateTimeOffset are an Int64 that could represent a Windows FILETIME or DateTime.Ticks. https://ogmini.github.io/tags.html#Registryhive"; //TODO: Add better documentation/writeup link
+            => "Can contain settings and other data that are associated with specific applications. RegUwpCompositeValue has not been fully deciphered yet. It is possible to manually parse and read them. RegUwpDateTimeOffset are an Int64 that could represent a Windows FILETIME or DateTime.Ticks. https://ogmini.github.io/tags.html#Registryhive"; 
 
         public double Version => 0.1;
         public List<string> Errors { get; }
@@ -149,7 +149,7 @@ namespace RegistryPlugin.ApplicationSettingsContainer
                                 new Guid(guidBytes).ToString(), 
                                 DateTime.FromFileTimeUtc(BitConverter.ToInt64(k.ValueDataRaw, 16))));
                             break;
-                        case 273: //RegUwpPoinp
+                        case 273: //RegUwpPoint
                             _values.Add(new ValuesOut(k.ValueName, key.KeyPath, "RegUwpPoint", 
                                 new Point((int)BitConverter.ToSingle(k.ValueDataRaw, 0), 
                                 (int)BitConverter.ToSingle(k.ValueDataRaw, 4)).ToString(), 
