@@ -93,11 +93,12 @@ namespace RegistryPlugin.LastVisitedPidlMRU.ShellItems
                 Value = Encoding.Unicode.GetString(rawBytes, 8, rawBytes.Length - 8).Split('\0').First();
             }
 
-            dataSize = BitConverter.ToUInt16(rawBytes, index);
-            index += 2;
+            // https://github.com/EricZimmerman/RegistryPlugins/issues/66
+            // dataSize = BitConverter.ToUInt16(rawBytes, index);
+            // index += 2;
 
 
-            Trace.Assert(dataSize == 0, "extra data in ftp case");
+            // Trace.Assert(dataSize == 0, "extra data in ftp case");
         }
 
         public DateTimeOffset? FileTime1 { get; }
