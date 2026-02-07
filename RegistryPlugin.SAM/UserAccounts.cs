@@ -108,7 +108,10 @@ namespace RegistryPlugin.SAM
                 {
                     continue;
                 }
-                nameMap.Add((int) registryKey.Values.First().VkRecord.DataTypeRaw, registryKey.LastWriteTime.Value);
+                
+                var rid = (int) BitConverter.ToUInt32(registryKey.Values.First().VkRecord.RawBytes, 0x10);
+                
+                nameMap.Add(rid, registryKey.LastWriteTime.Value);
             }
 
             foreach (var key1 in key.SubKeys)

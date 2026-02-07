@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Authors>Eric Zimmerman</Authors>
     <Company>Eric Zimmerman</Company>
     <Product>RegistryPlugins.Test</Product>

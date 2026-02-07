@@ -996,6 +996,25 @@ public class PluginTests
         Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
         Check.That(r.Errors.Count).IsEqualTo(0);
     }
+    
+    [Test]
+    public void SamPluginManyUsers()
+    {
+        var r = new UserAccounts();
+
+        var reg = new RegistryHive(@"D:\Temp\SAM_ManyUsers");
+        reg.RecoverDeleted = true;
+        reg.ParseHive();
+
+        var key = reg.GetKey(@"SAM\Domains\Account\Users");
+
+        Check.That(r.Values.Count).IsEqualTo(0);
+
+        r.ProcessValues(key);
+
+        Check.That(r.Values.Count).IsStrictlyGreaterThan(0);
+        Check.That(r.Errors.Count).IsEqualTo(0);
+    }
 
     [Test]
     public void SamPluginPWHint()
