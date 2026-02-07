@@ -140,7 +140,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistryPlugin.SWD", "Regis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.Amcache-Mare", "RegistryPlugin.Amcache-Mare\RegistryPlugin.Amcache-Mare.csproj", "{928913E2-FA96-4FD5-91AD-5F3B3AB76035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.ApplicationSettingsContainer", "RegistryPlugin.ApplicationSettingsContainer\RegistryPlugin.ApplicationSettingsContainer.csproj", "{9DBAC7E9-0369-4249-AC98-4E36CE80EB55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryPlugin.DsrmAdminLogonBehaviour", "RegistryPlugin.DsrmAdminLogonBehaviour\RegistryPlugin.DsrmAdminLogonBehaviour.csproj", "{AFBE76FC-D04E-4D1F-8BD4-4DF49B32E7C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -412,10 +412,10 @@ Global
 		{928913E2-FA96-4FD5-91AD-5F3B3AB76035}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{928913E2-FA96-4FD5-91AD-5F3B3AB76035}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{928913E2-FA96-4FD5-91AD-5F3B3AB76035}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DBAC7E9-0369-4249-AC98-4E36CE80EB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DBAC7E9-0369-4249-AC98-4E36CE80EB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DBAC7E9-0369-4249-AC98-4E36CE80EB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DBAC7E9-0369-4249-AC98-4E36CE80EB55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFBE76FC-D04E-4D1F-8BD4-4DF49B32E7C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFBE76FC-D04E-4D1F-8BD4-4DF49B32E7C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFBE76FC-D04E-4D1F-8BD4-4DF49B32E7C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFBE76FC-D04E-4D1F-8BD4-4DF49B32E7C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
