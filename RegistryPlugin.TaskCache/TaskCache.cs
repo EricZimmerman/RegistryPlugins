@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -67,7 +67,10 @@ namespace RegistryPlugin.TaskCache
                     var secdesc = guidKey.Values.SingleOrDefault(t => t.ValueName == "SecurityDescriptor");
                     var path = guidKey.Values.SingleOrDefault(t => t.ValueName == "Path");
 
-                    var blob = guidKey.Values.SingleOrDefault(t => t.ValueName == "DynamicInfo");
+                    var blobA = guidKey.Values.SingleOrDefault(t => t.ValueName == "Actions");
+                    var blobDI = guidKey.Values.SingleOrDefault(t => t.ValueName == "DynamicInfo");
+                    // adding this for possible future use, but not parsing it at this time
+                    // var blobT = guidKey.Values.SingleOrDefault(t => t.ValueName == "Triggers");
 
                     var ver = -1;
                     DateTimeOffset created;
@@ -76,31 +79,77 @@ namespace RegistryPlugin.TaskCache
                     var taskState = -1;
                     var lastActionResult = -1;
 
-                    if (blob == null)
+                    if (blobDI == null)
                     {
                         continue;
                     }
-                 
-                    ver = BitConverter.ToInt32(blob.ValueDataRaw, 0);
-                    var createdRaw = BitConverter.ToInt64(blob.ValueDataRaw, 4);
+
+                    // Parse DynamicInfo
+                    ver = BitConverter.ToInt32(blobDI.ValueDataRaw, 0);
+                    var createdRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 4);
                     created = DateTimeOffset.FromFileTime(createdRaw).ToUniversalTime();
 
-                    var lastStartRaw = BitConverter.ToInt64(blob.ValueDataRaw, 0xc);
+                    var lastStartRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 0xc);
                     if (lastStartRaw > 0)
                     {
                         lastStart = DateTimeOffset.FromFileTime(lastStartRaw).ToUniversalTime();
                     }
 
-                    var lastStopRaw = BitConverter.ToInt64(blob.ValueDataRaw, 0x1c);
+                    var lastStopRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 0x1c);
                     if (lastStopRaw > 0)
                     {
                         lastStop = DateTimeOffset.FromFileTime(lastStopRaw).ToUniversalTime();
                     }
 
-                    lastActionResult = BitConverter.ToInt32(blob.ValueDataRaw, 0x18);
-                    taskState = BitConverter.ToInt32(blob.ValueDataRaw, 0x14);
+                    lastActionResult = BitConverter.ToInt32(blobDI.ValueDataRaw, 0x18);
+                    taskState = BitConverter.ToInt32(blobDI.ValueDataRaw, 0x14);
 
-                    var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, secdesc?.ValueData, author?.ValueData, path?.ValueData);
+                    // Parse Actions
+                    var command = string.Empty;
+                    var arguments = string.Empty;
+
+                    if (blobA != null && blobA.ValueDataRaw != null && blobA.ValueDataRaw.Length >= 4)
+                    {
+                        try
+                        {
+                            var rawA = blobA.ValueDataRaw;
+                            var contextLen = BitConverter.ToInt32(rawA, 2);
+                            var magicOffset = 6 + contextLen;
+
+                            if (magicOffset + 2 <= rawA.Length)
+                            {
+                                var magic = BitConverter.ToInt16(rawA, magicOffset);
+
+                                // 0x6666 indicates an Execution Action
+                                if (magic == 0x6666)
+                                {
+                                    var cmdLenOffset = magicOffset + 6;
+                                    var cmdLen = BitConverter.ToInt32(rawA, cmdLenOffset);
+                                    var cmdOffset = cmdLenOffset + 4;
+
+                                    if (cmdLen > 0 && cmdOffset + cmdLen <= rawA.Length)
+                                    {
+                                        command = System.Text.Encoding.Unicode.GetString(rawA, cmdOffset, cmdLen).TrimEnd('\0');
+                                    }
+
+                                    var argLenOffset = cmdOffset + cmdLen;
+                                    var argLen = BitConverter.ToInt32(rawA, argLenOffset);
+                                    var argOffset = argLenOffset + 4;
+
+                                    if (argLen > 0 && argOffset + argLen <= rawA.Length)
+                                    {
+                                        arguments = System.Text.Encoding.Unicode.GetString(rawA, argOffset, argLen).TrimEnd('\0');
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            command = "Error parsing Actions binary";
+                        }
+                    }
+
+                    var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, secdesc?.ValueData, author?.ValueData, path?.ValueData, command, arguments);
 
                     _values.Add(v);
                 }

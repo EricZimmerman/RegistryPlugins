@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using RegistryPluginBase.Interfaces;
 
 namespace RegistryPlugin.TaskCache
 {
     public class ValuesOut:IValueOut
     {
-        public ValuesOut(int version, string keyName, DateTimeOffset createdOn, DateTimeOffset? lastStart, DateTimeOffset? lastStop, int taskState, int lastActionResult, string source, string description, string secdesc, string author, string path)
+        public ValuesOut(int version, string keyName, DateTimeOffset createdOn, DateTimeOffset? lastStart, DateTimeOffset? lastStop, int taskState, int lastActionResult, string source, string description, string secdesc, string author, string path, string command, string arguments)
         {
             Version = version;
             KeyName = keyName;
@@ -19,6 +19,8 @@ namespace RegistryPlugin.TaskCache
             SecurityDescriptor = secdesc;
             Author = author;
             Path = path;
+            Command = command;
+            Arguments = arguments;
         }
 
         public int Version { get; }
@@ -33,6 +35,9 @@ namespace RegistryPlugin.TaskCache
         public string Source { get; }
 
         public string Description { get; }
+        public string Command { get; }
+        public string Arguments { get; }
+
         public string SecurityDescriptor { get; }
 
         public string Author { get; }
@@ -43,7 +48,7 @@ namespace RegistryPlugin.TaskCache
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Created on: {CreatedOn.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
         public string BatchValueData2 => $"Last start: {LastStart?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}, Last stop: {LastStop?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
-        public string BatchValueData3 => $"Path: {Path}";
+        public string BatchValueData3 => $"Path: {Path}, Command: {Command}, Arguments: {Arguments}";
 
         public override string ToString()
         {
