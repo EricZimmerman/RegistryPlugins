@@ -581,6 +581,31 @@ public class PluginTests
                 @"Web sites\https://asgardventurecapital.sharepoint.com\Shared Documents\Confidential Analysis Data\NETFLIX_10-K_20130201.xlsx");
         Check.That(ff.ValueName).IsEqualTo("17");
     }
+    
+    [Test]
+    public void BlakeOpenSavePidlMRUDay6()
+    {
+        var r = new OpenSavePidlMRU();
+
+        var reg = new RegistryHive(@"C:\temp\NTUSER\NTUSER.DAT");
+        reg.ParseHive();
+
+        var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU");
+
+        Check.That(r.Values.Count).IsEqualTo(0);
+
+        r.ProcessValues(key);
+
+        Check.That(r.Values.Count).IsEqualTo(36);
+        Check.That(r.Errors.Count).IsEqualTo(0);
+
+        var ff = (RegistryPlugin.OpenSavePidlMRU.ValuesOut)r.Values[0];
+
+        Check.That(ff.AbsolutePath)
+            .IsEqualTo(
+                @"Web sites\https://asgardventurecapital.sharepoint.com\Shared Documents\Confidential Analysis Data\NETFLIX_10-K_20130201.xlsx");
+        Check.That(ff.ValueName).IsEqualTo("17");
+    }
 
     [Test]
     public void BlakeRecentDocs()
