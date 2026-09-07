@@ -57,23 +57,45 @@ namespace RegistryPlugin.MountedDevices
                 foreach (var keyValue in key.Values)
                 {
                     var vData = string.Empty;
+                    byte[] rawData = keyValue.ValueDataRaw;
 
+                    bool dmioId = false;
 
-                    switch (keyValue.ValueDataRaw[0])
+                    if (rawData != null && rawData.Length > 0)
                     {
-                        case 0x7b: // {
-                        case 0x5c: // \
-                        case 0x5f: //_
-                            
-                            vData = Encoding.Unicode.GetString(keyValue.ValueDataRaw);
-                            break;
-                            
+                        string searchBuffer = Encoding.ASCII.GetString(rawData);
+                        if (searchBuffer.StartsWith("DMIO:ID"))
+                        {
+                            dmioId = true;
+                        }
+                    }
+
+                    if (dmioId && rawData.Length >= 16)
+                    {
+                        byte[] last16Bytes = new byte[16];
+                        int startIndex = rawData.Length - 16;
+                        Array.Copy(rawData, startIndex, last16Bytes, 0, 16);
+
+                        vData = "Partition: GPT DMIO:ID: " + BitConverter.ToString(last16Bytes);
+
+                    }
+                    else
+                    {
+                        switch (keyValue.ValueDataRaw[0])
+                        {
+                            case 0x7b: // {
+                            case 0x5c: // \
+                            case 0x5f: //_
+
+                                vData = Encoding.Unicode.GetString(keyValue.ValueDataRaw);
+                                break;
+
                             default:
                                 vData = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(keyValue.ValueDataRaw);
                                 break;
 
+                        }
                     }
-
                     currVal = keyValue.ValueName;
 
                     
