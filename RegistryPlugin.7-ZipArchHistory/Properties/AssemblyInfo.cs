@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("RegistryPlugin.7-ZipHistory")]
+[assembly: AssemblyTitle("RegistryPlugin.7-ZipArchHistory")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RegistryPlugin.7-ZipHistory")]
+[assembly: AssemblyProduct("RegistryPlugin.7-ZipArchHistory")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

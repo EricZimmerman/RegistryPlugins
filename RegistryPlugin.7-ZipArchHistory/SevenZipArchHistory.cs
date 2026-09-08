@@ -7,13 +7,13 @@ using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
-namespace RegistryPlugin._7_ZipHistory
+namespace RegistryPlugin._7_ZipArchHistory
 {
-    public class SevenZip : IRegistryPluginGrid
+    public class SevenZipArchHistory : IRegistryPluginGrid
     {
         private readonly BindingList<ValuesOut> _values;
 
-        public SevenZip()
+        public SevenZipArchHistory()
         {
             _values = new BindingList<ValuesOut>();
 
@@ -55,6 +55,8 @@ namespace RegistryPlugin._7_ZipHistory
                 if (arcHist != null)
                 {
                     var arcs = Encoding.Unicode.GetString(arcHist.ValueDataRaw).Split('\0');
+                    // TODO: More testing is required before presenting history order.
+                    // var order = 1;
 
                     foreach (var arc in arcs)
                     {
@@ -62,6 +64,7 @@ namespace RegistryPlugin._7_ZipHistory
                         {
                             continue;
                         }
+                        // var v = new ValuesOut(arc, order++);
                         var v = new ValuesOut(arc);
                         v.BatchKeyPath = key.KeyPath;
                         v.BatchValueName = arcHist.ValueName;
