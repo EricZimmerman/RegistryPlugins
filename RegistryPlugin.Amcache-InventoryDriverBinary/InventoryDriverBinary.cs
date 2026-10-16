@@ -59,13 +59,13 @@ namespace RegistryPlugin.Amcache_InventoryDriverBinary
                 try
                 {
                     string path = subKey.KeyName;
-                    string driverlastwritetime = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverLastWriteTime")?.ValueData;
-                    string drivercompany = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverCompany")?.ValueData;
-                    string drivername = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverName")?.ValueData;
-                    string driverversion = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverVersion")?.ValueData;
-                    string product = subKey.Values.SingleOrDefault(t => t.ValueName == "Product")?.ValueData;
-                    string productversion = subKey.Values.SingleOrDefault(t => t.ValueName == "ProductVersion")?.ValueData;
-                    string sha1 = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverId")?.ValueData.Replace("0000", "");
+                    string driverlastwritetime = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverLastWriteTime")?.ValueData;
+                    string drivercompany = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverCompany")?.ValueData;
+                    string drivername = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverName")?.ValueData;
+                    string driverversion = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverVersion")?.ValueData;
+                    string product = subKey.Values.FirstOrDefault(t => t.ValueName == "Product")?.ValueData;
+                    string productversion = subKey.Values.FirstOrDefault(t => t.ValueName == "ProductVersion")?.ValueData;
+                    string sha1 = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverId")?.ValueData.Replace("0000", "");
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(driverlastwritetime, drivercompany, drivername, driverversion, product, productversion, path, sha1, ts)
                     {

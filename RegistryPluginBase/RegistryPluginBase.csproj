@@ -1,22 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>10</LangVersion>
+    <IsPackable>true</IsPackable>
     <Authors>Eric Zimmerman</Authors>
     <Company>Eric Zimmerman</Company>
     <Product>RegistryPluginBase</Product>
-    <Description>RegistryPluginBase. Use this to create your own Registry Explorer plugins!</Description>
+    <Description>RegistryPluginBase. Use this to create your own Registry Explorer and RECmd plugins!</Description>
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/RegistryPlugins</PackageProjectUrl>
     <RepositoryUrl>https://github.com/EricZimmerman/RegistryPlugins</RepositoryUrl>
-    <Version>2026.5.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>registry, plugins, recmd, registry explorer</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
-    <PackageReference Include="ExtensionBlocks" Version="2026.5.0" />
-    <PackageReference Include="GuidMapping" Version="2026.5.0" />
-    <PackageReference Include="Registry" Version="2026.5.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
+    <PackageReference Include="ExtensionBlocks" Version="2026.10.0" />
+    <PackageReference Include="GuidMapping" Version="2026.10.1" />
+    <PackageReference Include="Registry" Version="2026.10.0" />
+    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="../icon.png" Pack="true" PackagePath="" />
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
+  <!--
+    MinVer would make the assembly version 2026.0.0.0, but 2026.5.0 shipped as 2026.5.0.0 (its version was set by
+    hand), and plugins built against it would not load next to a lower version. So the assembly version keeps the minor
+    version too: 2026.10.0.0 for 2026.10.x
+  -->
+  <Target Name="AssemblyVersionWithMinor" AfterTargets="MinVer">
+    <PropertyGroup>
+      <AssemblyVersion>$(MinVerMajor).$(MinVerMinor).0.0</AssemblyVersion>
+    </PropertyGroup>
+  </Target>
 </Project>

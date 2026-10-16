@@ -6,19 +6,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="DiscUtils.Ntfs" Version="0.16.13" />
-    <PackageReference Include="DiscUtils.Streams" Version="0.16.13" />
-    <PackageReference Include="Fody" Version="6.9.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="RegistryPluginBase" Version="2026.5.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
+    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
   </ItemGroup>
 </Project>

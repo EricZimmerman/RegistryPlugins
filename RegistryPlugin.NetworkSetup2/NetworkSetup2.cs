@@ -53,22 +53,22 @@ namespace RegistryPlugin.NetworkSetup2
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
-            var interfaces = key.SubKeys.SingleOrDefault(t => t.KeyName == "Interfaces");
+            var interfaces = key.SubKeys.FirstOrDefault(t => t.KeyName == "Interfaces");
             if (interfaces != null) {
                 foreach (var i in interfaces.SubKeys)
                 {
                     try
                     {
-                        var kernel = i.SubKeys.SingleOrDefault(t => t.KeyName == "Kernel");
+                        var kernel = i.SubKeys.FirstOrDefault(t => t.KeyName == "Kernel");
                         if (kernel == null)
                             continue;
 
-                        var protocollist = kernel.Values.SingleOrDefault(t => t.ValueName == "ProtocolList")?.ValueData;
-                        var ifalias = kernel.Values.SingleOrDefault(t => t.ValueName == "IfAlias")?.ValueData;
-                        var ifdescr = kernel.Values.SingleOrDefault(t => t.ValueName == "IfDescr")?.ValueData;
-                        var iftype = kernel.Values.SingleOrDefault(t => t.ValueName == "IfType")?.ValueData;
-                        var permanentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "PermanentAddress")?.ValueData;
-                        var currentaddress = kernel.Values.SingleOrDefault(t => t.ValueName == "CurrentAddress")?.ValueData;
+                        var protocollist = kernel.Values.FirstOrDefault(t => t.ValueName == "ProtocolList")?.ValueData;
+                        var ifalias = kernel.Values.FirstOrDefault(t => t.ValueName == "IfAlias")?.ValueData;
+                        var ifdescr = kernel.Values.FirstOrDefault(t => t.ValueName == "IfDescr")?.ValueData;
+                        var iftype = kernel.Values.FirstOrDefault(t => t.ValueName == "IfType")?.ValueData;
+                        var permanentaddress = kernel.Values.FirstOrDefault(t => t.ValueName == "PermanentAddress")?.ValueData;
+                        var currentaddress = kernel.Values.FirstOrDefault(t => t.ValueName == "CurrentAddress")?.ValueData;
 
                         var ff = new ValuesOut(protocollist, ifalias, ifdescr, iftype, permanentaddress, currentaddress)
                         {

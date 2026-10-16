@@ -40,19 +40,19 @@ namespace RegistryPlugin.SWD
 
         private byte[] GetData(RegistryKey serialSubKey, string guidValue, string numValue)
         {
-            var properties = serialSubKey.SubKeys.SingleOrDefault(t => t.KeyName == "Properties");
+            var properties = serialSubKey.SubKeys.FirstOrDefault(t => t.KeyName == "Properties");
             if (properties == null)
                 return null;
 
-            var GUID = properties.SubKeys.SingleOrDefault(t => t.KeyName == guidValue);
+            var GUID = properties.SubKeys.FirstOrDefault(t => t.KeyName == guidValue);
             if (GUID == null)
                 return null;
 
-            var subKey = GUID.SubKeys.SingleOrDefault(t => t.KeyName == numValue);
+            var subKey = GUID.SubKeys.FirstOrDefault(t => t.KeyName == numValue);
             if (subKey == null)
                 return null;
 
-            return subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
+            return subKey.Values.FirstOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
         }
 
         private DateTimeOffset? GetUTC(byte[] data)
@@ -102,9 +102,9 @@ namespace RegistryPlugin.SWD
                     foreach (var subKey in registryKey.SubKeys)
                     {
                         string keyName = subKey.KeyName;
-                        string service = subKey.Values.SingleOrDefault(t => t.ValueName == "Service")?.ValueData;
-                        string deviceDesc = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
-                        string friendlyName = SplitData(subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
+                        string service = subKey.Values.FirstOrDefault(t => t.ValueName == "Service")?.ValueData;
+                        string deviceDesc = SplitData(subKey.Values.FirstOrDefault(t => t.ValueName == "DeviceDesc")?.ValueData);
+                        string friendlyName = SplitData(subKey.Values.FirstOrDefault(t => t.ValueName == "FriendlyName")?.ValueData);
 
                         var installed = GetUTC(
                             GetData(subKey, GUIDs[1], "0064")

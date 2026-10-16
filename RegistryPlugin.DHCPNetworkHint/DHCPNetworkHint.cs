@@ -108,7 +108,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
         private ValuesOut ProcessVals(RegistryKey ssKey, string originKey)
         {
-            var dhcpHintVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpNetworkHint");
+            var dhcpHintVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "DhcpNetworkHint");
 
             if (dhcpHintVal == null)
             {
@@ -133,7 +133,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
             var gateway = string.Empty;
 
-            var gatewayVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpDefaultGateway");
+            var gatewayVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "DhcpDefaultGateway");
 
             if (gatewayVal != null)
             {
@@ -143,7 +143,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
             var dhcpAddress = string.Empty;
 
-            var dhcpAddressVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpIPAddress");
+            var dhcpAddressVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "DhcpIPAddress");
 
             if (dhcpAddressVal != null)
             {
@@ -152,7 +152,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
 
             var dhcpServer = string.Empty;
-            var dhcpServerVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpServer");
+            var dhcpServerVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "DhcpServer");
 
             if (dhcpServerVal != null)
             {
@@ -161,7 +161,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
 
             var obt = DateTimeOffset.Now;
-            var obtVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "LeaseObtainedTime");
+            var obtVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "LeaseObtainedTime");
 
             if (obtVal != null)
             {
@@ -172,7 +172,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
 
             var exp = DateTimeOffset.Now;
-            var expVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "LeaseTerminatesTime");
+            var expVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "LeaseTerminatesTime");
 
             if (expVal != null)
             {
@@ -183,7 +183,7 @@ namespace RegistryPlugin.DHCPNetworkHint
 
             var dhcpDomain = string.Empty;
 
-            var dhcpDomainVal = ssKey.Values.SingleOrDefault(t => t.ValueName == "DhcpDomain");
+            var dhcpDomainVal = ssKey.Values.FirstOrDefault(t => t.ValueName == "DhcpDomain");
 
             if (dhcpDomainVal != null)
             {

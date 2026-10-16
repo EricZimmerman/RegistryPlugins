@@ -62,7 +62,7 @@ namespace RegistryPlugin.Amcache_Mare
             {
                 try
                 {
-                    var restore = subKey.Values.SingleOrDefault(t => t.ValueName == "restore")?.ValueData;
+                    var restore = subKey.Values.FirstOrDefault(t => t.ValueName == "restore")?.ValueData;
                     if (restore != null)
                     {
                         var lastIndex = restore.LastIndexOf('|');

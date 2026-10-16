@@ -64,7 +64,7 @@ namespace RegistryPlugin.Taskband
 
             try
             {
-                var fav = key.Values.SingleOrDefault(t => t.ValueName == "Favorites");
+                var fav = key.Values.FirstOrDefault(t => t.ValueName == "Favorites");
 
                 if (fav == null)
                 {
@@ -205,7 +205,7 @@ namespace RegistryPlugin.Taskband
                         exe = ((Beef001d) ed).Executable;
                     }
 
-                    var pp = shellBag.ExtensionBlocks.SingleOrDefault(t => t is Beef001e);
+                    var pp = shellBag.ExtensionBlocks.FirstOrDefault(t => t is Beef001e);
 
                     var pt = "(unknown)";
                     if (pp != null)

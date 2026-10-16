@@ -43,7 +43,7 @@ namespace RegistryPlugin.AppCompatCache
             =>
                 "Useful to show evidence of execution";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -51,20 +51,21 @@ namespace RegistryPlugin.AppCompatCache
             _values.Clear();
             Errors.Clear();
 
-            var appcompatValue = key.Values.Single(t => t.ValueName == ValueName);
+            var appcompatValue = key.Values.First(t => t.ValueName == ValueName);
 
-            var ctl = key.KeyPath.Split('\\').SingleOrDefault(t => t.Contains("ControlSet"));
+            var ctl = key.KeyPath.Split('\\').FirstOrDefault(t => t.Contains("ControlSet"));
 
             var num = -1;
 
-            if (ctl != null)
+            //ControlSet001: 1 (the last character used to be taken as a number, which made it 49)
+            if (ctl != null && int.TryParse(new string(ctl.Where(char.IsDigit).ToArray()), out var controlSet))
             {
-                num = ctl.ToCharArray().Last();
+                num = controlSet;
             }
 
-            var env = key.Parent.SubKeys.Single(t => t.KeyName == "Environment");
+            var env = key.Parent?.SubKeys.FirstOrDefault(t => string.Equals(t.KeyName, "Environment", StringComparison.OrdinalIgnoreCase));
 
-            var val = env?.Values.SingleOrDefault(c => c.ValueName == "PROCESSOR_ARCHITECTURE");
+            var val = env?.Values.FirstOrDefault(c => c.ValueName == "PROCESSOR_ARCHITECTURE");
 
 
             var is32bit = false;
@@ -80,12 +81,18 @@ namespace RegistryPlugin.AppCompatCache
 
                 foreach (var c in cache.Caches)
                 {
-                    foreach (var cacheEntry in c.Entries)
+                    foreach (var error in c.ParseErrors)
+                    {
+                        Errors.Add(error);
+                    }
+
+                    //entries in the cache, then ones recovered from the slack of its value that are no longer in it
+                    foreach (var cacheEntry in c.Entries.Concat(c.SlackEntries))
                     {
                         try
                         {
                             var vo = new ValuesOut(cacheEntry.CacheEntryPosition, cacheEntry.Path,
-                                cacheEntry.LastModifiedTimeUTC);
+                                cacheEntry.LastModifiedTimeUTC, cacheEntry.Executed.ToString(), cacheEntry.FromSlack);
 
                             vo.BatchKeyPath = key.KeyPath;
                             vo.BatchValueName = ValueName;

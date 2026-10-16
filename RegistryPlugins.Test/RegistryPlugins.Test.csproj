@@ -1,64 +1,94 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Authors>Eric Zimmerman</Authors>
-    <Company>Eric Zimmerman</Company>
-    <Product>RegistryPlugins.Test</Product>
-    <Description>RegistryPlugins.Test</Description>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>10</LangVersion>
-    <Copyright>Eric Zimmerman</Copyright>
-    <PackageProjectUrl>https://github.com/EricZimmerman/RegistryPlugins</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/EricZimmerman/RegistryPlugins</RepositoryUrl>
-    <Version>1.0.0.0</Version>
+    <IsPackable>false</IsPackable>
+    <!-- the plugins are separate assemblies with their own copies of some types (ShellItems) -->
+    <NoWarn>$(NoWarn);CS0436</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    
-    <PackageReference Include="GuidMapping" Version="2026.5.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
-    <PackageReference Include="NFluent" Version="3.1.0" />
-    <PackageReference Include="NUnit" Version="4.5.1" />
-    <PackageReference Include="Registry" Version="2026.5.0" />
-    <PackageReference Include="RegistryPluginBase" Version="2026.5.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
+    <PackageReference Include="FluentAssertions" Version="[7.2.2,8.0.0)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+    <PackageReference Include="NUnit" Version="5.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj" />
     <ProjectReference Include="..\RegistryExplorer.MountedDevices\RegistryPlugin.MountedDevices.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.7-ZipCopyHistory\RegistryPlugin.7-ZipCopyHistory.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.7-ZipFolderHistory\RegistryPlugin.7-ZipFolderHistory.csproj" />
     <ProjectReference Include="..\RegistryPlugin.7-ZipHistory\RegistryPlugin.7-ZipHistory.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.7-ZipPathHistory\RegistryPlugin.7-ZipPathHistory.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Adobe.TrustManager-Websites\RegistryPlugin.Adobe.TrustManger-Websites.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Adobe\RegistryPlugin.Adobe.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryApplication\RegistryPlugin.Amcache-InventoryApplication.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryApplicationFile\RegistryPlugin.Amcache-InventoryApplicationFile.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryApplicationShortcut\RegistryPlugin.Amcache-InventoryApplicationShortcut.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryDeviceContainer\RegistryPlugin.Amcache-InventoryDeviceContainer.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryDevicePnp\RegistryPlugin.Amcache-InventoryDevicePnp.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-InventoryDriverBinary\RegistryPlugin.Amcache-InventoryDriverBinary.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Amcache-Mare\RegistryPlugin.Amcache-Mare.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatCache\RegistryPlugin.AppCompatCache.csproj" />
     <ProjectReference Include="..\RegistryPlugin.AppCompatFlags\RegistryPlugin.AppCompatFlags.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.AppCompatFlags2\RegistryPlugin.AppCompatFlags2.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.AppPaths\RegistryPlugin.AppPaths.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.ApplicationSettingsContainer\RegistryPlugin.ApplicationSettingsContainer.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Ares\RegistryPlugin.Ares.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Bam\RegistryPlugin.BamDam.csproj" />
     <ProjectReference Include="..\RegistryPlugin.BluetoothServicesBthPort\RegistryPlugin.BluetoothServicesBthPort.csproj" />
     <ProjectReference Include="..\RegistryPlugin.CIDSizeMRU\RegistryPlugin.CIDSizeMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.DHCPNetworkHint\RegistryPlugin.DHCPNetworkHint.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.DeviceClasses\RegistryPlugin.DeviceClasses.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.DsrmAdminLogonBehaviour\RegistryPlugin.DsrmAdminLogonBehaviour.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.ETW\RegistryPlugin.ETW.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.FeatureUsage\RegistryPlugin.FeatureUsage.csproj" />
     <ProjectReference Include="..\RegistryPlugin.FileExts\RegistryPlugin.FileExts.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.FirewallRules\RegistryPlugin.FirewallRules.csproj" />
     <ProjectReference Include="..\RegistryPlugin.FirstFolder\RegistryPlugin.FirstFolder.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.IconLayouts\RegistryPlugin.IconLayouts.csproj" />
     <ProjectReference Include="..\RegistryPlugin.JumplistData\RegistryPlugin.JumplistData.csproj" />
     <ProjectReference Include="..\RegistryPlugin.KnownNetworks\RegistryPlugin.KnownNetworks.csproj" />
     <ProjectReference Include="..\RegistryPlugin.LastVisitedMRU\RegistryPlugin.LastVisitedMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.LastVisitedPidlMRU\RegistryPlugin.LastVisitedPidlMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.NetworkAdapters\RegistryPlugin.NetworkAdapters.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.NetworkSettings\RegistryPlugin.NetworkSettings.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.NetworkSetup2\RegistryPlugin.NetworkSetup2.csproj" />
     <ProjectReference Include="..\RegistryPlugin.OfficeMRU\RegistryPlugin.OfficeMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.OpenSaveMRU\RegistryPlugin.OpenSaveMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.OpenSavePidlMRU\RegistryPlugin.OpenSavePidlMRU.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Products\RegistryPlugin.Products.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.ProfileList\RegistryPlugin.ProfileList.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.RADAR\RegistryPlugin.RADAR.csproj" />
     <ProjectReference Include="..\RegistryPlugin.RecentApps\RegistryPlugin.RecentApps.csproj" />
     <ProjectReference Include="..\RegistryPlugin.RecentDocs\RegistryPlugin.RecentDocs.csproj" />
     <ProjectReference Include="..\RegistryPlugin.RunMRU\RegistryPlugin.RunMRU.csproj" />
     <ProjectReference Include="..\RegistryPlugin.SAM\RegistryPlugin.SAM.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.SAMBuiltin\RegistryPlugin.SAMBuiltin.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.SCSI\RegistryPlugin.SCSI.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.SWD\RegistryPlugin.SWD.csproj" />
     <ProjectReference Include="..\RegistryPlugin.Services\RegistryPlugin.Services.csproj" />
     <ProjectReference Include="..\RegistryPlugin.SyscacheObjectTable\RegistryPlugin.SyscacheObjectTable.csproj" />
-    <ProjectReference Include="..\RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TaskCache\RegistryPlugin.TaskCache.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TaskFlowShellActivities\RegistryPlugin.TaskFlowShellActivities.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Taskband\RegistryPlugin.Taskband.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TerminalServerClient\RegistryPlugin.TerminalServerClient.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TimeZoneInformation\RegistryPlugin.TimeZoneInformation.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TrustedDocuments\RegistryPlugin.TrustedDocuments.csproj" />
     <ProjectReference Include="..\RegistryPlugin.TypedURLs\RegistryPlugin.TypedURLs.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.USB\RegistryPlugin.USB.csproj" />
     <ProjectReference Include="..\RegistryPlugin.USBSTOR\RegistryPlugin.USBSTOR.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.Uninstall\RegistryPlugin.Uninstall.csproj" />
     <ProjectReference Include="..\RegistryPlugin.UserAssist\RegistryPlugin.UserAssist.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.VolumeInfoCache\RegistryPlugin.VolumeInfoCache.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.WinRAR\RegistryPlugin.WinRAR.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.WindowsApp\RegistryPlugin.WindowsApp.csproj" />
+    <ProjectReference Include="..\RegistryPlugin.WindowsPortableDevices\RegistryPlugin.WindowsPortableDevices.csproj" />
     <ProjectReference Include="..\RegistryPlugin.WordWheelQuery\RegistryPlugin.WordWheelQuery.csproj" />
   </ItemGroup>
   <ItemGroup>
-    
+    <Content Include="Hives\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

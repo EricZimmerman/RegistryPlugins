@@ -67,7 +67,7 @@ namespace RegistryPlugin.RecentDocs
 
             try
             {
-                var mruList = key.Values.SingleOrDefault(t => t.ValueName == "MRUListEx");
+                var mruList = key.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                 var mruPositions = new Dictionary<uint, int>();
 
@@ -181,8 +181,8 @@ namespace RegistryPlugin.RecentDocs
                     if (ext.Length == 0)
                     {
                         //folder
-                        var sk1 = key.SubKeys.SingleOrDefault(t => t.KeyName == "Folder");
-                        var skmru = sk1?.Values.SingleOrDefault(t => t.ValueName == "MRUListEx");
+                        var sk1 = key.SubKeys.FirstOrDefault(t => t.KeyName == "Folder");
+                        var skmru = sk1?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                         if (skmru != null)
                         {
@@ -190,7 +190,7 @@ namespace RegistryPlugin.RecentDocs
                             var mruPosf = BitConverter.ToInt32(skmru.ValueDataRaw, 0);
 
                             //pull folder name from the value
-                            var val1 = sk1.Values.SingleOrDefault(t => t.ValueName == mruPosf.ToString());
+                            var val1 = sk1.Values.FirstOrDefault(t => t.ValueName == mruPosf.ToString());
 
                             targetName1 = Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
                         }
@@ -202,8 +202,8 @@ namespace RegistryPlugin.RecentDocs
                     }
                     else
                     {
-                        var sk2 = key.SubKeys.SingleOrDefault(t => t.KeyName.ToLowerInvariant() == ext);
-                        var skmruf = sk2?.Values.SingleOrDefault(t => t.ValueName == "MRUListEx");
+                        var sk2 = key.SubKeys.FirstOrDefault(t => t.KeyName.ToLowerInvariant() == ext);
+                        var skmruf = sk2?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                         if (skmruf != null)
                         {
@@ -211,7 +211,7 @@ namespace RegistryPlugin.RecentDocs
                             var mruPosff = BitConverter.ToInt32(skmruf.ValueDataRaw, 0);
 
                             //pull folder name from the value
-                            var val1 = sk2.Values.SingleOrDefault(t => t.ValueName == mruPosff.ToString());
+                            var val1 = sk2.Values.FirstOrDefault(t => t.ValueName == mruPosff.ToString());
 
                             targetName1 = Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
                         }

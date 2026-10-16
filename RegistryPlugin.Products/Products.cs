@@ -64,17 +64,17 @@ namespace RegistryPlugin.Products
                 {
                     try
                     {
-                        var productName = subKey.Values.SingleOrDefault(t => t.ValueName == "ProductName")?.ValueData;
-                        var language = subKey.Values.SingleOrDefault(t => t.ValueName == "Language")?.ValueData;
+                        var productName = subKey.Values.FirstOrDefault(t => t.ValueName == "ProductName")?.ValueData;
+                        var language = subKey.Values.FirstOrDefault(t => t.ValueName == "Language")?.ValueData;
 
-                        var sourceList = subKey.SubKeys.SingleOrDefault(t => t.KeyName == "SourceList");
+                        var sourceList = subKey.SubKeys.FirstOrDefault(t => t.KeyName == "SourceList");
                         string packageName = null;
                         string lastUsedSource = null;
 
                         if (sourceList != null)
                         {
-                            packageName = sourceList.Values.SingleOrDefault(t => t.ValueName == "PackageName")?.ValueData;
-                            lastUsedSource = sourceList.Values.SingleOrDefault(t => t.ValueName == "LastUsedSource")?.ValueData;
+                            packageName = sourceList.Values.FirstOrDefault(t => t.ValueName == "PackageName")?.ValueData;
+                            lastUsedSource = sourceList.Values.FirstOrDefault(t => t.ValueName == "LastUsedSource")?.ValueData;
                         }
                         DateTimeOffset? ts = subKey.LastWriteTime;
 
@@ -97,18 +97,18 @@ namespace RegistryPlugin.Products
                 {
                     try
                     {
-                        var properties = subKey.SubKeys.SingleOrDefault(t => t.KeyName == "InstallProperties");
+                        var properties = subKey.SubKeys.FirstOrDefault(t => t.KeyName == "InstallProperties");
                         if (properties == null)
                             continue;
 
-                        var displayName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                        var packageName = properties.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
-                        var installDate = properties.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                        var publisher = properties.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                        var language = properties.Values.SingleOrDefault(t => t.ValueName == "Language")?.ValueData;
-                        var installLocation = properties.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
-                        var installSource = properties.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
-                        var comments = properties.Values.SingleOrDefault(t => t.ValueName == "Comments")?.ValueData;
+                        var displayName = properties.Values.FirstOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                        var packageName = properties.Values.FirstOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
+                        var installDate = properties.Values.FirstOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
+                        var publisher = properties.Values.FirstOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                        var language = properties.Values.FirstOrDefault(t => t.ValueName == "Language")?.ValueData;
+                        var installLocation = properties.Values.FirstOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
+                        var installSource = properties.Values.FirstOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
+                        var comments = properties.Values.FirstOrDefault(t => t.ValueName == "Comments")?.ValueData;
                         DateTimeOffset? ts = properties.LastWriteTime;
 
                         var ff = new ValuesOut(displayName, packageName, installDate, publisher, language, installLocation, installSource, comments, ts)

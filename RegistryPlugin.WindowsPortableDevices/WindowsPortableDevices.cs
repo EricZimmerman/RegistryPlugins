@@ -59,7 +59,7 @@ namespace RegistryPlugin.WindowsPortableDevices
         {
             var l = new List<ValuesOut>();
 
-            var devices = key.SubKeys.SingleOrDefault(t => t.KeyName == "Devices");
+            var devices = key.SubKeys.FirstOrDefault(t => t.KeyName == "Devices");
 
             if (devices != null)
             {
@@ -72,7 +72,7 @@ namespace RegistryPlugin.WindowsPortableDevices
                         string device = null;
                         string serialNumber = null;
                         string guid = null;
-                        string friendlyName = subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData;
+                        string friendlyName = subKey.Values.FirstOrDefault(t => t.ValueName == "FriendlyName")?.ValueData;
 
                         // https://github.com/keydet89/RegRipper3.0/blob/master/plugins/portdev.pl
                         if (new Regex(@"\#\#").IsMatch(keyName))

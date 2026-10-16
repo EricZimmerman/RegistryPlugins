@@ -39,12 +39,13 @@ namespace RegistryPlugin.ETW
 
         public string LongDescription => ShortDescription;
 
-        public double Version => 0.1;
+        public double Version => 0.2;
         public List<string> Errors { get; }
         public void ProcessValues(RegistryKey key)
         {
             _values.Clear();
             Errors.Clear();
+            AlertMessage = null;
 
             foreach (var rd in ProcessKey(key))
             {
@@ -61,8 +62,9 @@ namespace RegistryPlugin.ETW
             {
                 try
                 {
-                    var Enabled_value = subkey.GetValue("Enabled").ToString();
-                    var Enableproperty_value = subkey.GetValue("EnableProperty").ToString();
+                    //either can be missing
+                    var Enabled_value = subkey.GetValue("Enabled")?.ToString() ?? string.Empty;
+                    var Enableproperty_value = subkey.GetValue("EnableProperty")?.ToString() ?? string.Empty;
                     var ff = new ValuesOut(subkey.LastWriteTime.ToString(),
                                          subkey.KeyName,
                                          GuidMapping.GuidMapping.GetDescriptionFromGuid(subkey.KeyName),

@@ -64,13 +64,13 @@ namespace RegistryPlugin.Uninstall
                 try
                 {
                     string keyName = subKey.KeyName;
-                    string displayName = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                    string displayVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
-                    string Publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                    string installDate = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                    string installSource = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
-                    string installLocation = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
-                    string uninstallString = subKey.Values.SingleOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
+                    string displayName = subKey.Values.FirstOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                    string displayVersion = subKey.Values.FirstOrDefault(t => t.ValueName == "DisplayVersion")?.ValueData;
+                    string Publisher = subKey.Values.FirstOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                    string installDate = subKey.Values.FirstOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
+                    string installSource = subKey.Values.FirstOrDefault(t => t.ValueName == "InstallSource")?.ValueData;
+                    string installLocation = subKey.Values.FirstOrDefault(t => t.ValueName == "InstallLocation")?.ValueData;
+                    string uninstallString = subKey.Values.FirstOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
                     var ff = new ValuesOut(keyName, displayName, displayVersion, Publisher, installDate, installSource, installLocation, uninstallString, ts)

@@ -58,7 +58,7 @@ namespace RegistryPlugin.Amcache_InventoryApplicationShortcut
             {
                 try
                 {
-                    string shortcutPath = subKey.Values.SingleOrDefault(t => t.ValueName == "ShortcutPath")?.ValueData;
+                    string shortcutPath = subKey.Values.FirstOrDefault(t => t.ValueName == "ShortcutPath")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(shortcutPath, ts)
                     {

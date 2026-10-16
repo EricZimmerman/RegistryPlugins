@@ -61,16 +61,16 @@ namespace RegistryPlugin.NetworkSettings
             {
                 try
                 {
-                    string ipaddress = subKey.Values.SingleOrDefault(t => t.ValueName == "IPAddress")?.ValueData;
-                    string subnetmask = subKey.Values.SingleOrDefault(t => t.ValueName == "SubnetMask")?.ValueData;
-                    string dhcpsubnetmask = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpSubnetMask")?.ValueData;
-                    string dhcpserver = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpServer")?.ValueData;
-                    string dhcpnameserver = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpNameServer")?.ValueData;
-                    string dhcpipaddress = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpIPAddress")?.ValueData;
-                    string dhcpdefaultgateway = subKey.Values.SingleOrDefault(t => t.ValueName == "DhcpDefaultGateway")?.ValueData;
+                    string ipaddress = subKey.Values.FirstOrDefault(t => t.ValueName == "IPAddress")?.ValueData;
+                    string subnetmask = subKey.Values.FirstOrDefault(t => t.ValueName == "SubnetMask")?.ValueData;
+                    string dhcpsubnetmask = subKey.Values.FirstOrDefault(t => t.ValueName == "DhcpSubnetMask")?.ValueData;
+                    string dhcpserver = subKey.Values.FirstOrDefault(t => t.ValueName == "DhcpServer")?.ValueData;
+                    string dhcpnameserver = subKey.Values.FirstOrDefault(t => t.ValueName == "DhcpNameServer")?.ValueData;
+                    string dhcpipaddress = subKey.Values.FirstOrDefault(t => t.ValueName == "DhcpIPAddress")?.ValueData;
+                    string dhcpdefaultgateway = subKey.Values.FirstOrDefault(t => t.ValueName == "DhcpDefaultGateway")?.ValueData;
                     
-                    var leaseobtained = subKey.Values.SingleOrDefault(t => t.ValueName == "LeaseObtainedTime");
-                    var leaseterminates = subKey.Values.SingleOrDefault(t => t.ValueName == "LeaseTerminatesTime");
+                    var leaseobtained = subKey.Values.FirstOrDefault(t => t.ValueName == "LeaseObtainedTime");
+                    var leaseterminates = subKey.Values.FirstOrDefault(t => t.ValueName == "LeaseTerminatesTime");
 
                     DateTimeOffset? leaseobtainedtime = null;
                     if (leaseobtained != null)
@@ -84,7 +84,7 @@ namespace RegistryPlugin.NetworkSettings
                         leaseterminatestime = DateTimeOffset.FromUnixTimeSeconds(BitConverter.ToUInt32(leaseterminates.ValueDataRaw, 0));
                     }
 
-                    bool enabledhcp = subKey.Values.SingleOrDefault(t => t.ValueName == "EnableDHCP")?.ValueData == "1";
+                    bool enabledhcp = subKey.Values.FirstOrDefault(t => t.ValueName == "EnableDHCP")?.ValueData == "1";
 
                     var ff = new ValuesOut(ipaddress, subnetmask, dhcpsubnetmask, dhcpserver, dhcpnameserver, dhcpipaddress, dhcpdefaultgateway, leaseobtainedtime, leaseterminatestime, enabledhcp)
                     {

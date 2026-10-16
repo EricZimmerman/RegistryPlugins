@@ -63,7 +63,7 @@ namespace RegistryPlugin.TerminalServerClient
 
             try
             {
-                var defaultKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Default");
+                var defaultKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Default");
 
                 if (defaultKey == null)
                 {
@@ -81,7 +81,7 @@ namespace RegistryPlugin.TerminalServerClient
                 }
 
 
-                var serversKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Servers");
+                var serversKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Servers");
 
                 if (serversKey == null)
                 {
@@ -98,7 +98,7 @@ namespace RegistryPlugin.TerminalServerClient
                         mru = mruOrder[host];
                     }
 
-                    var hintVal = serverKey.Values.SingleOrDefault(t => t.ValueName == "UsernameHint");
+                    var hintVal = serverKey.Values.FirstOrDefault(t => t.ValueName == "UsernameHint");
 
                     var hint = "<None>";
 

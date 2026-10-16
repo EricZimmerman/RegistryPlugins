@@ -58,12 +58,12 @@ namespace RegistryPlugin.Amcache_InventoryApplicationFile
             {
                 try
                 {
-                    string lowerCaseLongPath = subKey.Values.SingleOrDefault(t => t.ValueName == "LowerCaseLongPath")?.ValueData;
-                    string name = subKey.Values.SingleOrDefault(t => t.ValueName == "Name")?.ValueData;
-                    string productName = subKey.Values.SingleOrDefault(t => t.ValueName == "ProductName")?.ValueData;
-                    string publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                    string version = subKey.Values.SingleOrDefault(t => t.ValueName == "Version")?.ValueData;
-                    string sha1 = subKey.Values.SingleOrDefault(t => t.ValueName == "FileId")?.ValueData.Replace("0000", "");
+                    string lowerCaseLongPath = subKey.Values.FirstOrDefault(t => t.ValueName == "LowerCaseLongPath")?.ValueData;
+                    string name = subKey.Values.FirstOrDefault(t => t.ValueName == "Name")?.ValueData;
+                    string productName = subKey.Values.FirstOrDefault(t => t.ValueName == "ProductName")?.ValueData;
+                    string publisher = subKey.Values.FirstOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                    string version = subKey.Values.FirstOrDefault(t => t.ValueName == "Version")?.ValueData;
+                    string sha1 = subKey.Values.FirstOrDefault(t => t.ValueName == "FileId")?.ValueData.Replace("0000", "");
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(lowerCaseLongPath, name, productName, publisher, version, sha1, ts)
                     {

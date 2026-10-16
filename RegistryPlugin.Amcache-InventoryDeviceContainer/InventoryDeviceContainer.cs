@@ -58,12 +58,12 @@ namespace RegistryPlugin.Amcache_InventoryDeviceContainer
             {
                 try
                 {
-                    string modelName = subKey.Values.SingleOrDefault(t => t.ValueName == "ModelName")?.ValueData;
-                    string firendlyName = subKey.Values.SingleOrDefault(t => t.ValueName == "FriendlyName")?.ValueData;
-                    string modelNumber = subKey.Values.SingleOrDefault(t => t.ValueName == "ModelNumber")?.ValueData;
-                    string manufacturer = subKey.Values.SingleOrDefault(t => t.ValueName == "Manufacturer")?.ValueData;
-                    string primaryCategory = subKey.Values.SingleOrDefault(t => t.ValueName == "PrimaryCategory")?.ValueData;
-                    string modelid = subKey.Values.SingleOrDefault(t => t.ValueName == "ModelId")?.ValueData;
+                    string modelName = subKey.Values.FirstOrDefault(t => t.ValueName == "ModelName")?.ValueData;
+                    string firendlyName = subKey.Values.FirstOrDefault(t => t.ValueName == "FriendlyName")?.ValueData;
+                    string modelNumber = subKey.Values.FirstOrDefault(t => t.ValueName == "ModelNumber")?.ValueData;
+                    string manufacturer = subKey.Values.FirstOrDefault(t => t.ValueName == "Manufacturer")?.ValueData;
+                    string primaryCategory = subKey.Values.FirstOrDefault(t => t.ValueName == "PrimaryCategory")?.ValueData;
+                    string modelid = subKey.Values.FirstOrDefault(t => t.ValueName == "ModelId")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(modelName, firendlyName, modelNumber, manufacturer, primaryCategory, modelid, ts)
                     {

@@ -50,7 +50,7 @@ namespace RegistryPlugin._7_ZipHistory
 
             try
             {
-                var arcHist = key.Values.SingleOrDefault(t => t.ValueName == "ArcHistory");
+                var arcHist = key.Values.FirstOrDefault(t => t.ValueName == "ArcHistory");
 
                 if (arcHist != null)
                 {

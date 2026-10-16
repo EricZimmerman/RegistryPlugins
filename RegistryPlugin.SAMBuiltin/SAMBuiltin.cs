@@ -122,7 +122,7 @@ namespace RegistryPlugin.SAMBuiltin
             {
                 try
                 {
-                    var cVal = registryKey.Values.SingleOrDefault(t => t.ValueName == "C");
+                    var cVal = registryKey.Values.FirstOrDefault(t => t.ValueName == "C");
                     if (cVal != null)
                     {
                         var cValRaw = cVal.ValueDataRaw;

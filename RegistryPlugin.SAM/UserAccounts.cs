@@ -54,6 +54,9 @@ namespace RegistryPlugin.SAM
 
         private List<GroupInfo> Groups { get; }
 
+        //S-1-5-21-x-y-z, from Domains\Account; null when it can't be read
+        private string _computerSid;
+
         public string InternalGuid => "8702e82b-e2fb-4c6c-b392-bd524e41c6c7";
 
         public List<string> KeyPaths => new List<string>(new[]
@@ -78,7 +81,7 @@ namespace RegistryPlugin.SAM
             "https://windowsir.blogspot.com/2009/07/user-account-analysis.html further explains the 'Password not required' flag,"
         );
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -87,7 +90,7 @@ namespace RegistryPlugin.SAM
             Errors.Clear();
             Groups.Clear();
 
-            var namesKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Names");
+            var namesKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Names");
 
             var nameMap = new Dictionary<int, DateTimeOffset>();
 
@@ -97,6 +100,7 @@ namespace RegistryPlugin.SAM
             }
 
             GetGroups(key);
+            _computerSid = GetComputerSid(key.Parent);
 
             foreach (var registryKey in namesKey.SubKeys)
             {
@@ -104,13 +108,13 @@ namespace RegistryPlugin.SAM
                 {
                     continue;
                 }
-                if (nameMap.ContainsKey((int) registryKey.Values.First().VkRecord.DataTypeRaw))
+                //the RID is the type of the default value
+                var rid = (int) registryKey.Values.First().VkRecord.DataTypeRaw;
+                if (nameMap.ContainsKey(rid) || registryKey.LastWriteTime == null)
                 {
                     continue;
                 }
-                
-                var rid = (int) BitConverter.ToUInt32(registryKey.Values.First().VkRecord.RawBytes, 0x10);
-                
+
                 nameMap.Add(rid, registryKey.LastWriteTime.Value);
             }
 
@@ -123,8 +127,8 @@ namespace RegistryPlugin.SAM
 
                 try
                 {
-                    var fVal = key1.Values.SingleOrDefault(t => t.ValueName == "F");
-                    var internetUserNameVal = key1.Values.SingleOrDefault(t => t.ValueName == "InternetUserName");
+                    var fVal = key1.Values.FirstOrDefault(t => t.ValueName == "F");
+                    var internetUserNameVal = key1.Values.FirstOrDefault(t => t.ValueName == "InternetUserName");
 
                     var internetUserName = string.Empty;
                     if (internetUserNameVal != null)
@@ -132,7 +136,7 @@ namespace RegistryPlugin.SAM
                         internetUserName = Encoding.Unicode.GetString(internetUserNameVal.ValueDataRaw);
                     }
 
-                    var resetDataVal = key1.Values.SingleOrDefault(t => t.ValueName == "ResetData");
+                    var resetDataVal = key1.Values.FirstOrDefault(t => t.ValueName == "ResetData");
                     var resetData = string.Empty;
                     if (resetDataVal != null)
                     {
@@ -199,7 +203,7 @@ namespace RegistryPlugin.SAM
                         
                     }
 
-                    var vVal = key1.Values.SingleOrDefault(t => t.ValueName == "V");
+                    var vVal = key1.Values.FirstOrDefault(t => t.ValueName == "V");
 
                     if (vVal != null)
                     {
@@ -230,7 +234,7 @@ namespace RegistryPlugin.SAM
 
                         var hint = string.Empty;
 
-                        var hintVal = key1.Values.SingleOrDefault(t => t.ValueName == "UserPasswordHint");
+                        var hintVal = key1.Values.FirstOrDefault(t => t.ValueName == "UserPasswordHint");
 
                         if (hintVal != null)
                         {
@@ -266,77 +270,100 @@ namespace RegistryPlugin.SAM
 
         private void GetGroups(RegistryKey baseKey)
         {
-            var btKey = baseKey.Parent.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "Builtin");
-            var aliasesKey = btKey.SubKeys.SingleOrDefault(t => t.KeyName == "Aliases");
+            //the built in groups (Domains\Builtin\Aliases), then the ones created on the computer (Domains\Account\Aliases)
+            var btKey = baseKey.Parent?.Parent?.SubKeys.FirstOrDefault(t => t.KeyName == "Builtin");
+            var aliasKeys = new[]
+                {
+                    btKey?.SubKeys.FirstOrDefault(t => t.KeyName == "Aliases"),
+                    baseKey.Parent?.SubKeys.FirstOrDefault(t => t.KeyName == "Aliases")
+                }
+                .Where(t => t != null);
 
-            foreach (var aliasesKeySubKey in aliasesKey.SubKeys)
+            foreach (var aliasesKeySubKey in aliasKeys.SelectMany(t => t.SubKeys))
             {
-                var cVal = aliasesKeySubKey.Values.SingleOrDefault(t => t.ValueName == "C");
+                var cVal = aliasesKeySubKey.Values.FirstOrDefault(t => t.ValueName == "C");
 
                 if (cVal == null)
                 {
                     continue;
                 }
 
-                var offsetToGroupName = BitConverter.ToInt32(cVal.ValueDataRaw, 0x10) + 0x34; //add header len
-                var nameLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x14);
-
-
-                var offsetToGroupDesc = BitConverter.ToInt32(cVal.ValueDataRaw, 0x1C) + 0x34; //add header len
-                var descLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x20);
-
-                var offsetToUsers = BitConverter.ToInt32(cVal.ValueDataRaw, 0x28) + 0x34; //add header len
-                var userLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x2C);
-                var userCount = BitConverter.ToInt32(cVal.ValueDataRaw, 0x30);
-
-                if (userCount == 0)
+                try
                 {
-                    continue;
+                    GetGroup(cVal);
                 }
-
-                var groupName = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupName, nameLen);
-                var desc = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupDesc, descLen);
-
-                var index = offsetToUsers;
-
-                var newg = new GroupInfo(groupName, desc, userCount);
-
-
-                for (var i = 0; i < userCount; i++)
+                catch (Exception ex)
                 {
-                    var sidType = BitConverter.ToInt16(cVal.ValueDataRaw, index);
-
-                    byte[] buff = null;
-                    var sid = string.Empty;
-
-                    switch (sidType)
-                    {
-                        case 0x501:
-                            buff = new byte[0x1c];
-                            Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0x1c);
-
-                            sid = ConvertHexStringToSidString(buff);
-
-
-                            index += 0x1c;
-                            break;
-
-                        case 0x101:
-                            buff = new byte[0xc];
-                            Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0xc);
-
-                            sid = ConvertHexStringToSidString(buff);
-
-                            index += 0xc;
-                            break;
-                    }
-
-                    newg.Sids.Add(sid);
+                    Errors.Add($"Error processing group '{aliasesKeySubKey.KeyName}': {ex.Message}");
                 }
-
-
-                Groups.Add(newg);
             }
+        }
+
+        private void GetGroup(Registry.Abstractions.KeyValue cVal)
+        {
+            var offsetToGroupName = BitConverter.ToInt32(cVal.ValueDataRaw, 0x10) + 0x34; //add header len
+            var nameLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x14);
+
+
+            var offsetToGroupDesc = BitConverter.ToInt32(cVal.ValueDataRaw, 0x1C) + 0x34; //add header len
+            var descLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x20);
+
+            var offsetToUsers = BitConverter.ToInt32(cVal.ValueDataRaw, 0x28) + 0x34; //add header len
+            var userLen = BitConverter.ToInt32(cVal.ValueDataRaw, 0x2C);
+            var userCount = BitConverter.ToInt32(cVal.ValueDataRaw, 0x30);
+
+            if (userCount == 0)
+            {
+                return;
+            }
+
+            var groupName = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupName, nameLen);
+            var desc = Encoding.Unicode.GetString(cVal.ValueDataRaw, offsetToGroupDesc, descLen);
+
+            var index = offsetToUsers;
+
+            var newg = new GroupInfo(groupName, desc, userCount);
+
+
+            for (var i = 0; i < userCount; i++)
+            {
+                var sidType = BitConverter.ToInt16(cVal.ValueDataRaw, index);
+
+                byte[] buff = null;
+                var sid = string.Empty;
+
+                switch (sidType)
+                {
+                    case 0x501:
+                        buff = new byte[0x1c];
+                        Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0x1c);
+
+                        sid = ConvertHexStringToSidString(buff);
+
+
+                        index += 0x1c;
+                        break;
+
+                    case 0x101:
+                        buff = new byte[0xc];
+                        Buffer.BlockCopy(cVal.ValueDataRaw, index, buff, 0, 0xc);
+
+                        sid = ConvertHexStringToSidString(buff);
+
+                        index += 0xc;
+                        break;
+
+                    default:
+                        //not a SID this knows the size of, so the rest can't be found
+                        i = userCount;
+                        continue;
+                }
+
+                newg.Sids.Add(sid);
+            }
+
+
+            Groups.Add(newg);
         }
 
         public string ConvertHexStringToSidString(byte[] hex)
@@ -366,18 +393,39 @@ namespace RegistryPlugin.SAM
             return sid;
         }
 
+        /// <summary>The computer's SID: the last 24 bytes of the V value of Domains\Account</summary>
+        private string GetComputerSid(RegistryKey accountKey)
+        {
+            var v = accountKey?.Values.FirstOrDefault(t => t.ValueName == "V")?.ValueDataRaw;
+            if (v == null || v.Length < 24)
+            {
+                return null;
+            }
+
+            var raw = new byte[24];
+            Buffer.BlockCopy(v, v.Length - 24, raw, 0, 24);
+
+            //revision 1, 4 sub authorities, NT authority, 21
+            if (raw[0] != 1 || raw[1] != 4 || raw[7] != 5 || BitConverter.ToUInt32(raw, 8) != 21)
+            {
+                return null;
+            }
+
+            return ConvertHexStringToSidString(raw);
+        }
+
         private string GetGroupsForUser(int userId)
         {
             var groups = new List<string>();
 
+            //members are SIDs; without the computer's SID, the RID is all there is to go on
+            var userSid = _computerSid == null ? null : $"{_computerSid}-{userId}";
+
             foreach (var groupInfo in Groups)
             {
-                foreach (var groupInfoSid in groupInfo.Sids)
+                if (groupInfo.Sids.Any(t => userSid != null ? t == userSid : t.EndsWith($"-{userId}")))
                 {
-                    if (groupInfoSid.EndsWith(userId.ToString()))
-                    {
-                        groups.Add(groupInfo.Name);
-                    }
+                    groups.Add(groupInfo.Name);
                 }
             }
 

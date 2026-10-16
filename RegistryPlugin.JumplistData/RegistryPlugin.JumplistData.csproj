@@ -6,9 +6,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GuidMapping" Version="2026.5.0" />
-    <PackageReference Include="Registry" Version="2026.5.0" />
-    <PackageReference Include="RegistryPluginBase" Version="2026.5.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
+    <PackageReference Include="GuidMapping" Version="2026.10.1" />
+    <PackageReference Include="Registry" Version="2026.10.0" />
+    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
   </ItemGroup>
 </Project>

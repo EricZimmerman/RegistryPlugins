@@ -64,8 +64,8 @@ namespace RegistryPlugin.WindowsApp
         {
             var l = new List<ValuesOut>();
 
-            var familiesKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Families");
-            var packagesKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Packages");
+            var familiesKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Families");
+            var packagesKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Packages");
 
             if (familiesKey != null && packagesKey != null)
             {
@@ -75,15 +75,15 @@ namespace RegistryPlugin.WindowsApp
                     {
                         try
                         {
-                            var installTime = GetDateTimeOffset(AppPath.Values.SingleOrDefault(t => t.ValueName == "InstallTime")?.ValueData);
-                            var packagesPath = packagesKey.SubKeys.SingleOrDefault(t => t.KeyName == AppPath.KeyName);
+                            var installTime = GetDateTimeOffset(AppPath.Values.FirstOrDefault(t => t.ValueName == "InstallTime")?.ValueData);
+                            var packagesPath = packagesKey.SubKeys.FirstOrDefault(t => t.KeyName == AppPath.KeyName);
                             string displayName = null;
                             string packageRootFolder = null;
 
                             if (packagesPath != null)
                             {
-                                displayName = packagesPath.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                                packageRootFolder = packagesPath.Values.SingleOrDefault(t => t.ValueName == "PackageRootFolder")?.ValueData;
+                                displayName = packagesPath.Values.FirstOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                                packageRootFolder = packagesPath.Values.FirstOrDefault(t => t.ValueName == "PackageRootFolder")?.ValueData;
                             }
                             var ff = new ValuesOut(AppPath.KeyName, displayName, installTime, packageRootFolder)
                             {

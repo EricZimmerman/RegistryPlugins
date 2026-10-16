@@ -109,13 +109,13 @@ namespace RegistryPlugin.BluetoothServicesBthPort
 
         private ValuesOut ProcessVals(RegistryKey ssKey, string originKey)
         {
-            var btname = ssKey.Values.SingleOrDefault(t => t.ValueName == "Name");
+            var btname = ssKey.Values.FirstOrDefault(t => t.ValueName == "Name");
             if (btname == null)
             {
                 return null;
             }
 
-            var lastSeen = ssKey.Values.SingleOrDefault(t => t.ValueName == "LastSeen");
+            var lastSeen = ssKey.Values.FirstOrDefault(t => t.ValueName == "LastSeen");
 
             DateTimeOffset? lastSeenDate = null;
 

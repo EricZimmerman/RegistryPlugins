@@ -66,11 +66,11 @@ namespace RegistryPlugin.NetworkAdapters
                     if (!regex.IsMatch(subKey.KeyName))
                         continue;
 
-                    string driverDesc = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverDesc")?.ValueData;
-                    string driverDate = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverDate")?.ValueData;
-                    string driverVersion = subKey.Values.SingleOrDefault(t => t.ValueName == "DriverVersion")?.ValueData;
-                    string deviceInstanceID = subKey.Values.SingleOrDefault(t => t.ValueName == "DeviceInstanceID")?.ValueData;
-                    string providerName = subKey.Values.SingleOrDefault(t => t.ValueName == "ProviderName")?.ValueData;
+                    string driverDesc = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverDesc")?.ValueData;
+                    string driverDate = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverDate")?.ValueData;
+                    string driverVersion = subKey.Values.FirstOrDefault(t => t.ValueName == "DriverVersion")?.ValueData;
+                    string deviceInstanceID = subKey.Values.FirstOrDefault(t => t.ValueName == "DeviceInstanceID")?.ValueData;
+                    string providerName = subKey.Values.FirstOrDefault(t => t.ValueName == "ProviderName")?.ValueData;
 
                     DateTimeOffset? ts = subKey.LastWriteTime;
 

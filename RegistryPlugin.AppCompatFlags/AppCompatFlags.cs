@@ -6,8 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DiscUtils.Compression;
-using DiscUtils.Ntfs;
 using Registry.Abstractions;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
@@ -49,67 +47,63 @@ namespace RegistryPlugin.AppCompatFlags
             =>
                 "Possibly useful to show evidence of execution";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
-
-        private static object CreateInstance<T>(string name)
-        {
-
-            return typeof(T).Assembly.CreateInstance(name);
-
-        }
 
         public void ProcessValues(RegistryKey key)
         {
             _values.Clear();
             Errors.Clear();
 
-            try
+            foreach (var keyValue in key.Values)
             {
+                try
+                {
+                    var raw = keyValue.ValueDataRaw;
+                    if (raw == null || raw.Length < 8)
+                    {
+                        continue;
+                    }
 
-                var instance = CreateInstance<NtfsFileSystem>("DiscUtils.Ntfs.LZNT1");
-                var compressor = (BlockCompressor)instance;
+                    //compressed size, decompressed size, LZNT1 data
+                    var compSize = BitConverter.ToInt32(raw, 0);
+                    var decompSize = BitConverter.ToInt32(raw, 4);
+                    if (compSize <= 0 || decompSize <= 0 || decompSize > 0x1000000)
+                    {
+                        continue;
+                    }
 
-               foreach (var keyValue in key.Values)
-               {
-                   var compSize = BitConverter.ToInt32(keyValue.ValueDataRaw, 0);
-                   var decompSize = BitConverter.ToInt32(keyValue.ValueDataRaw, 4);
+                    var decompressed = new byte[decompSize];
+                    var numDecompressed = Lznt1.Decompress(raw, 8, compSize, decompressed);
 
-                   byte[] decompressed = new byte[decompSize];
-                   var numDecompressed = compressor.Decompress(keyValue.ValueDataRaw, 8, compSize, decompressed, 0);
+                    var uni = Encoding.Unicode.GetString(decompressed, 0, numDecompressed & ~1);
 
-                  // File.WriteAllBytes($"C:\\temp\\{keyValue.BatchValueName}_{Guid.NewGuid()}.bin",decompressed);
+                    var indexStart = uni.IndexOf("\\DEV", StringComparison.Ordinal);
+                    if (indexStart < 0)
+                    {
+                        continue;
+                    }
 
-                  var uni = Encoding.Unicode.GetString(decompressed);
+                    foreach (var str in uni.Substring(indexStart).Split('\0'))
+                    {
+                        if (str.Length < 8)
+                        {
+                            continue;
+                        }
 
-                  var indexStart = uni.IndexOf("\\DEV");
+                        var vo = new ValuesOut(str, keyValue.ValueName)
+                        {
+                            BatchKeyPath = key.KeyPath,
+                            ValueName = keyValue.ValueName
+                        };
 
-                  uni = uni.Substring(indexStart);
-
-                  var strs = uni.Split('\0');
-                  foreach (var str in strs)
-                  {
-                      if (str.Length < 8)
-                      {
-                          continue;
-                      }
-                      var vo = new ValuesOut(str,keyValue.ValueName);
-
-                      vo.BatchKeyPath = key.KeyPath;
-                      vo.ValueName = keyValue.ValueName;
-
-                      _values.Add(vo);
-                  }
-
-                  
-
-
-               }
-
-            }
-            catch (Exception ex)
-            {
-                Errors.Add($"Error processing AppCompatCache: {ex.Message}");
+                        _values.Add(vo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Errors.Add($"Error processing AppCompatFlags value '{keyValue.ValueName}': {ex.Message}");
+                }
             }
 
             if (Errors.Count > 0)

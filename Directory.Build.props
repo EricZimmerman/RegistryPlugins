@@ -1,0 +1,6 @@
+<Project>
+  <!-- only RegistryPluginBase is a package; the plugins are copied to RECmd's and Registry Explorer's Plugins folders -->
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

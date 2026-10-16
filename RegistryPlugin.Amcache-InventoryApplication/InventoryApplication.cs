@@ -58,12 +58,12 @@ namespace RegistryPlugin.Amcache_InventoryApplication
             {
                 try
                 {
-                    string name = subKey.Values.SingleOrDefault(t => t.ValueName == "Name")?.ValueData;
-                    string version = subKey.Values.SingleOrDefault(t => t.ValueName == "Version")?.ValueData;
-                    string publisher = subKey.Values.SingleOrDefault(t => t.ValueName == "Publisher")?.ValueData;
-                    string source = subKey.Values.SingleOrDefault(t => t.ValueName == "Source")?.ValueData;
-                    string rootDirPath = subKey.Values.SingleOrDefault(t => t.ValueName == "RootDirPath")?.ValueData;
-                    string uninstallString = subKey.Values.SingleOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
+                    string name = subKey.Values.FirstOrDefault(t => t.ValueName == "Name")?.ValueData;
+                    string version = subKey.Values.FirstOrDefault(t => t.ValueName == "Version")?.ValueData;
+                    string publisher = subKey.Values.FirstOrDefault(t => t.ValueName == "Publisher")?.ValueData;
+                    string source = subKey.Values.FirstOrDefault(t => t.ValueName == "Source")?.ValueData;
+                    string rootDirPath = subKey.Values.FirstOrDefault(t => t.ValueName == "RootDirPath")?.ValueData;
+                    string uninstallString = subKey.Values.FirstOrDefault(t => t.ValueName == "UninstallString")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(name, version, publisher, source, rootDirPath, uninstallString, ts)
                     {

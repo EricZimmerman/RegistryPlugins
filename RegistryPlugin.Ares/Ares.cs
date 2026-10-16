@@ -52,7 +52,7 @@ namespace RegistryPlugin.Ares
 
             try
             {
-                var networkDHTID = key.Values.SingleOrDefault(t => t.ValueName == "Network.DHTID");
+                var networkDHTID = key.Values.FirstOrDefault(t => t.ValueName == "Network.DHTID");
                 if (networkDHTID != null)
                 {
                     var dh = networkDHTID.ValueData.Replace("-", "");
@@ -63,7 +63,7 @@ namespace RegistryPlugin.Ares
                     _values.Add(v);
                 }
 
-                var dlFolderVal = key.Values.SingleOrDefault(t => t.ValueName == "Download.Folder");
+                var dlFolderVal = key.Values.FirstOrDefault(t => t.ValueName == "Download.Folder");
                 if (dlFolderVal != null)
                 {
                     var dlf = DecodeHexToAscii(dlFolderVal.ValueData);
@@ -74,7 +74,7 @@ namespace RegistryPlugin.Ares
                     _values.Add(v);
                 }
 
-                var customMshVal = key.Values.SingleOrDefault(t => t.ValueName == "Personal.CustomMessage");
+                var customMshVal = key.Values.FirstOrDefault(t => t.ValueName == "Personal.CustomMessage");
                 if (customMshVal != null)
                 {
                     var customMsg = customMshVal.ValueData;
@@ -85,7 +85,7 @@ namespace RegistryPlugin.Ares
                     _values.Add(v);
                 }
 
-                var nickVal = key.Values.SingleOrDefault(t => t.ValueName == "Personal.Nickname");
+                var nickVal = key.Values.FirstOrDefault(t => t.ValueName == "Personal.Nickname");
                 if (nickVal != null)
                 {
                     var customMsg = DecodeHexToAscii(nickVal.ValueData);
@@ -96,7 +96,7 @@ namespace RegistryPlugin.Ares
                     _values.Add(v);
                 }
 
-                var awayMsgVal = key.Values.SingleOrDefault(t => t.ValueName == "PrivateMessage.AwayMessage");
+                var awayMsgVal = key.Values.FirstOrDefault(t => t.ValueName == "PrivateMessage.AwayMessage");
                 if (awayMsgVal != null)
                 {
                     if (
@@ -118,7 +118,7 @@ namespace RegistryPlugin.Ares
                 }
 
 
-                var lastConnectedVal = key.Values.SingleOrDefault(t => t.ValueName == "Stats.LstConnect");
+                var lastConnectedVal = key.Values.FirstOrDefault(t => t.ValueName == "Stats.LstConnect");
                 if (lastConnectedVal != null)
                 {
                     var lastConnect = DateTimeOffset.FromUnixTimeSeconds(int.Parse(lastConnectedVal.ValueData));
@@ -132,7 +132,7 @@ namespace RegistryPlugin.Ares
                 }
 
 
-                var portVal = key.Values.SingleOrDefault(t => t.ValueName == "Transfer.ServerPort");
+                var portVal = key.Values.FirstOrDefault(t => t.ValueName == "Transfer.ServerPort");
 
                 if (portVal != null)
                 {
@@ -149,7 +149,7 @@ namespace RegistryPlugin.Ares
                     }
                 }
 
-                var guidVal = key.Values.SingleOrDefault(t => t.ValueName == "Personal.GUID");
+                var guidVal = key.Values.FirstOrDefault(t => t.ValueName == "Personal.GUID");
 
                 if (guidVal != null)
                 {
@@ -161,7 +161,7 @@ namespace RegistryPlugin.Ares
                     _values.Add(v);
                 }
 
-                var searchKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Search.History");
+                var searchKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Search.History");
 
                 if (searchKey != null)
                 {

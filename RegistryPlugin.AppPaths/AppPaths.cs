@@ -63,8 +63,8 @@ namespace RegistryPlugin.AppPaths
                 try
                 {
                     string fileName = subKey.KeyName;
-                    string path1 = subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueData;
-                    string path2 = subKey.Values.SingleOrDefault(t => t.ValueName == "Path")?.ValueData;
+                    string path1 = subKey.Values.FirstOrDefault(t => t.ValueName == "(default)")?.ValueData;
+                    string path2 = subKey.Values.FirstOrDefault(t => t.ValueName == "Path")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
                     var ff = new ValuesOut(fileName, path1, path2, ts)

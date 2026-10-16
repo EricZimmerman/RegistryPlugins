@@ -58,12 +58,12 @@ namespace RegistryPlugin.Amcache_InventoryDevicePnp
             {
                 try
                 {
-                    string model = subKey.Values.SingleOrDefault(t => t.ValueName == "Model")?.ValueData;
-                    string manufacturer = subKey.Values.SingleOrDefault(t => t.ValueName == "Manufacturer")?.ValueData;
-                    string description = subKey.Values.SingleOrDefault(t => t.ValueName == "Description")?.ValueData;
-                    string installDate = subKey.Values.SingleOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
-                    string parentId = subKey.Values.SingleOrDefault(t => t.ValueName == "ParentId")?.ValueData;
-                    string matchingID = subKey.Values.SingleOrDefault(t => t.ValueName == "MatchingID")?.ValueData;
+                    string model = subKey.Values.FirstOrDefault(t => t.ValueName == "Model")?.ValueData;
+                    string manufacturer = subKey.Values.FirstOrDefault(t => t.ValueName == "Manufacturer")?.ValueData;
+                    string description = subKey.Values.FirstOrDefault(t => t.ValueName == "Description")?.ValueData;
+                    string installDate = subKey.Values.FirstOrDefault(t => t.ValueName == "InstallDate")?.ValueData;
+                    string parentId = subKey.Values.FirstOrDefault(t => t.ValueName == "ParentId")?.ValueData;
+                    string matchingID = subKey.Values.FirstOrDefault(t => t.ValueName == "MatchingID")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
                     var ff = new ValuesOut(model, manufacturer, description, installDate, parentId, matchingID, ts)
                     {

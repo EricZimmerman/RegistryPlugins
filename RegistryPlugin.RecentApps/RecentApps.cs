@@ -58,24 +58,24 @@ namespace RegistryPlugin.RecentApps
             {
                 foreach (var registryKey in key.SubKeys)
                 {
-                    var appId = registryKey.Values.SingleOrDefault(t => t.ValueName == "AppId")?.ValueData;
-                    var appPath = registryKey.Values.SingleOrDefault(t => t.ValueName == "AppPath")?.ValueData;
-                    var lAccess = registryKey.Values.SingleOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
-                    var lc = registryKey.Values.SingleOrDefault(t => t.ValueName == "LaunchCount")?.ValueData;
+                    var appId = registryKey.Values.FirstOrDefault(t => t.ValueName == "AppId")?.ValueData;
+                    var appPath = registryKey.Values.FirstOrDefault(t => t.ValueName == "AppPath")?.ValueData;
+                    var lAccess = registryKey.Values.FirstOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
+                    var lc = registryKey.Values.FirstOrDefault(t => t.ValueName == "LaunchCount")?.ValueData;
 
                         var vo = new ValuesOut(registryKey.KeyName,appId,appPath,DateTimeOffset.FromFileTime(long.Parse(lAccess)).ToUniversalTime(),int.Parse(lc));
                         vo.BatchValueName = "Multiple";
                         vo.BatchKeyPath = registryKey.KeyPath;
 
-                    var recentItems = registryKey.SubKeys.SingleOrDefault(t => t.KeyName == "RecentItems");
+                    var recentItems = registryKey.SubKeys.FirstOrDefault(t => t.KeyName == "RecentItems");
 
                     if (recentItems != null)
                     {
                         foreach (var recentItemsSubKey in recentItems.SubKeys)
                         {
-                            var displayName = recentItemsSubKey.Values.SingleOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
-                            var lAccess2 = recentItemsSubKey.Values.SingleOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
-                            var appPath2 = recentItemsSubKey.Values.SingleOrDefault(t => t.ValueName == "Path")?.ValueData;
+                            var displayName = recentItemsSubKey.Values.FirstOrDefault(t => t.ValueName == "DisplayName")?.ValueData;
+                            var lAccess2 = recentItemsSubKey.Values.FirstOrDefault(t => t.ValueName == "LastAccessedTime")?.ValueData;
+                            var appPath2 = recentItemsSubKey.Values.FirstOrDefault(t => t.ValueName == "Path")?.ValueData;
 
                             vo.RecentItems.Add(new RecentItem(recentItemsSubKey.KeyName,displayName,DateTimeOffset.FromFileTime(long.Parse(lAccess2)).ToUniversalTime(),appPath2));
                             

@@ -62,7 +62,7 @@ namespace RegistryPlugin.WordWheelQuery
             var l = new List<ValuesOut>();
             try
             {
-                var mruList = key.Values.Single(t => t.ValueName == "MRUListEx");
+                var mruList = key.Values.First(t => t.ValueName == "MRUListEx");
 
                 var mruPositions = new Dictionary<uint, int>();
 

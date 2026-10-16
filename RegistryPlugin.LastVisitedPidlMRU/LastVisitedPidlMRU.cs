@@ -67,7 +67,7 @@ namespace RegistryPlugin.LastVisitedPidlMRU
 
                 //get MRU key and read it in
 
-                var mruVal = key.Values.SingleOrDefault(t => t.ValueName == "MRUListEx");
+                var mruVal = key.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                 var mruListOrder = new ArrayList();
 

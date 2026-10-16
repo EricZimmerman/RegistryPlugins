@@ -65,14 +65,14 @@ namespace RegistryPlugins.RADAR
         {
             var l = new List<ValuesOut>();
 
-            var diagnosedApplicationsKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "DiagnosedApplications");
-            var reflectionApplicationsKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "ReflectionApplications");
+            var diagnosedApplicationsKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "DiagnosedApplications");
+            var reflectionApplicationsKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "ReflectionApplications");
 
             foreach (var subKey in diagnosedApplicationsKey.SubKeys)
             {
                 try
                 {
-                    var lastdetectiontime = GetDateTimeOffset(subKey.Values.SingleOrDefault(t => t.ValueName == "LastDetectionTime")?.ValueData);
+                    var lastdetectiontime = GetDateTimeOffset(subKey.Values.FirstOrDefault(t => t.ValueName == "LastDetectionTime")?.ValueData);
 
                     var ff = new ValuesOut("DiagnosedApplications", subKey.KeyName, lastdetectiontime)
                     {

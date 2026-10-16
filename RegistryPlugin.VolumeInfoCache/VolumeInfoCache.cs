@@ -88,8 +88,8 @@ namespace RegistryPlugin.VolumeInfoCache
                 try
                 {
                     string driveName = subKey.KeyName;
-                    string volumeLabel = subKey.Values.SingleOrDefault(t => t.ValueName == "VolumeLabel")?.ValueData;
-                    string drivetype = SetDriveType(subKey.Values.SingleOrDefault(t => t.ValueName == "DriveType")?.ValueData);
+                    string volumeLabel = subKey.Values.FirstOrDefault(t => t.ValueName == "VolumeLabel")?.ValueData;
+                    string drivetype = SetDriveType(subKey.Values.FirstOrDefault(t => t.ValueName == "DriveType")?.ValueData);
 
                     DateTimeOffset? ts = subKey.LastWriteTime;
 

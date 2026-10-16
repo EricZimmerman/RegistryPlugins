@@ -61,16 +61,16 @@ namespace RegistryPlugin.TaskCache
                 {
                     gkn = guidKey.KeyName;
 
-                    var source = guidKey.Values.SingleOrDefault(t => t.ValueName == "Source");
-                    var author = guidKey.Values.SingleOrDefault(t => t.ValueName == "Author");
-                    var desc = guidKey.Values.SingleOrDefault(t => t.ValueName == "Description");
-                    var secdesc = guidKey.Values.SingleOrDefault(t => t.ValueName == "SecurityDescriptor");
-                    var path = guidKey.Values.SingleOrDefault(t => t.ValueName == "Path");
+                    var source = guidKey.Values.FirstOrDefault(t => t.ValueName == "Source");
+                    var author = guidKey.Values.FirstOrDefault(t => t.ValueName == "Author");
+                    var desc = guidKey.Values.FirstOrDefault(t => t.ValueName == "Description");
+                    var secdesc = guidKey.Values.FirstOrDefault(t => t.ValueName == "SecurityDescriptor");
+                    var path = guidKey.Values.FirstOrDefault(t => t.ValueName == "Path");
 
-                    var blobA = guidKey.Values.SingleOrDefault(t => t.ValueName == "Actions");
-                    var blobDI = guidKey.Values.SingleOrDefault(t => t.ValueName == "DynamicInfo");
+                    var blobA = guidKey.Values.FirstOrDefault(t => t.ValueName == "Actions");
+                    var blobDI = guidKey.Values.FirstOrDefault(t => t.ValueName == "DynamicInfo");
                     // adding this for possible future use, but not parsing it at this time
-                    // var blobT = guidKey.Values.SingleOrDefault(t => t.ValueName == "Triggers");
+                    // var blobT = guidKey.Values.FirstOrDefault(t => t.ValueName == "Triggers");
 
                     var ver = -1;
                     DateTimeOffset created;

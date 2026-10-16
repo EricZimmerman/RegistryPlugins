@@ -25,3 +25,17 @@ You will know that a Plugin is being used within your RECmd CSV output if the `V
 ![test](https://github.com/rathbuna/RegistryPlugins/blob/master/RECmdPluginExampleOutput.jpg)
 
 [RECmd Batch Files](https://github.com/EricZimmerman/RECmd/tree/master/BatchExamples) help make CSV output useful and efficient while reducing the noise. The [DFIR Batch File](https://github.com/EricZimmerman/RECmd/blob/master/BatchExamples/DFIRBatch.reb) is currently taking advantage of most, if not all, of the Registry Plugins within this repo. It is strongly recommended to use that Batch File when parsing the Windows Registry with RECmd. 
+
+## Building and installing the plugins
+
+```powershell
+dotnet build -c Release
+.\CopyPlugins.ps1 -Out C:\Tools\RECmd\Plugins          # or Registry Explorer's Plugins folder; -Build builds first
+```
+
+`CopyPlugins.ps1` copies each plugin's own `RegistryPlugin.*.dll` from its `bin\Release\netstandard2.0` folder. The tools already have `RegistryPluginBase` and its dependencies.
+
+## Writing a plugin
+
+Plugins implement `IRegistryPluginGrid` from the [RegistryPluginBase](https://www.nuget.org/packages/RegistryPluginBase) package (in `RegistryPluginBase`). See [the plugin development notes](https://github.com/EricZimmerman/RegistryPlugins/blob/master/.skills/registry-plugin-development/SKILL.md) and a similar existing plugin.
+

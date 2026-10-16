@@ -68,7 +68,7 @@ namespace RegistryPlugin.OpenSavePidlMRU
 
                     //get MRU key and read it in
 
-                    var mruVal = registryKey.Values.SingleOrDefault(t => t.ValueName == "MRUListEx");
+                    var mruVal = registryKey.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                     var mruListOrder = new ArrayList();
 

@@ -51,7 +51,7 @@ namespace RegistryPlugin.TaskFlowShellActivities
 
             try
             {
-                var dataVal = key.Values.SingleOrDefault(t => t.ValueName == "Data");
+                var dataVal = key.Values.FirstOrDefault(t => t.ValueName == "Data");
 
                 if (dataVal != null)
                 {

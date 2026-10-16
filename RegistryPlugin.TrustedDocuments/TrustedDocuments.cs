@@ -88,11 +88,11 @@ namespace RegistryPlugin.TrustedDocuments
                         EventType = "Unknown value";
                     }
                     // to read the username of the current NTUSER.DAT hive, go up a few levels and list the value Software\Microsoft\Internet Explorer\Suggested Sites\LocalLogFolder
-                    var internetExplorerKey = key.Parent.Parent.Parent.Parent.Parent.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "Internet Explorer");
+                    var internetExplorerKey = key.Parent.Parent.Parent.Parent.Parent.Parent.SubKeys.FirstOrDefault(t => t.KeyName == "Internet Explorer");
                     string username = "";
                     foreach (var registryKey in internetExplorerKey.SubKeys)
                     {
-                        var suggestedSitesKey = internetExplorerKey.SubKeys.SingleOrDefault(t => t.KeyName == "Suggested Sites");
+                        var suggestedSitesKey = internetExplorerKey.SubKeys.FirstOrDefault(t => t.KeyName == "Suggested Sites");
                         foreach (var value in suggestedSitesKey.Values)
                         {
                             if (value.ValueName == "LogFileFolder")

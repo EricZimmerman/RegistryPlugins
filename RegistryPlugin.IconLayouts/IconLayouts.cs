@@ -36,13 +36,14 @@ namespace RegistryPlugin.IconLayouts
 
         public string LongDescription => ShortDescription;
 
-        public double Version => 0.1;
+        public double Version => 0.2;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
         {
             _values.Clear();
             Errors.Clear();
+            AlertMessage = null;
 
             foreach (var rd in ProcessKey(key))
             {
@@ -55,29 +56,40 @@ namespace RegistryPlugin.IconLayouts
         private IEnumerable<ValuesOut> ProcessKey(RegistryKey key)
         {
             var l = new List<ValuesOut>();
-            var iconlayouts = key.Values.SingleOrDefault(t => t.ValueName == "IconLayouts").ValueDataRaw;
+            var iconlayouts = key.Values.FirstOrDefault(t => t.ValueName == "IconLayouts")?.ValueDataRaw;
             if (iconlayouts != null)
             {
-                var br = new BinaryReader(new MemoryStream(iconlayouts));
-                br.BaseStream.Position = 0x18;
-
-                byte[] countBytes = br.ReadBytes(2);
-                var count = BitConverter.ToInt16(countBytes, 0);
-                br.BaseStream.Position += 0x6;
-
-                for (var i = 0; i < count; i++)
+                try
                 {
-                    byte[] lengthBytes = br.ReadBytes(2);
-                    var length = BitConverter.ToInt16(lengthBytes, 0);
-                    br.BaseStream.Position += 0x6;
-                    var name = Encoding.Unicode.GetString(br.ReadBytes(length * 2));
+                    var br = new BinaryReader(new MemoryStream(iconlayouts));
+                    br.BaseStream.Position = 0x18;
 
-                    var ff = new ValuesOut(name)
+                    var count = br.ReadInt16();
+                    br.BaseStream.Position += 0x6;
+
+                    for (var i = 0; i < count; i++)
                     {
-                        BatchValueName = "Multiple",
-                        BatchKeyPath = key.KeyPath
-                    };
-                    l.Add(ff);
+                        var length = br.ReadInt16();
+                        br.BaseStream.Position += 0x6;
+                        if (length < 0 || br.BaseStream.Position + length * 2 > br.BaseStream.Length)
+                        {
+                            Errors.Add($"Entry {i}: name length {length} is past the end of the value");
+                            break;
+                        }
+
+                        var name = Encoding.Unicode.GetString(br.ReadBytes(length * 2));
+
+                        var ff = new ValuesOut(name)
+                        {
+                            BatchValueName = "Multiple",
+                            BatchKeyPath = key.KeyPath
+                        };
+                        l.Add(ff);
+                    }
+                }
+                catch (EndOfStreamException)
+                {
+                    Errors.Add("The IconLayouts value is truncated");
                 }
             }
 

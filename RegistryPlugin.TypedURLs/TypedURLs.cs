@@ -64,7 +64,7 @@ namespace RegistryPlugin.TypedURLs
 
             try
             {
-                var typedTimes = key.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "TypedURLsTime");
+                var typedTimes = key.Parent.SubKeys.FirstOrDefault(t => t.KeyName == "TypedURLsTime");
 
                 foreach (var keyValue in key.Values)
                 {
@@ -72,7 +72,7 @@ namespace RegistryPlugin.TypedURLs
 
                     DateTimeOffset? ts = null;
 
-                    var tsRaw = typedTimes?.Values.SingleOrDefault(t => t.ValueName == keyValue.ValueName);
+                    var tsRaw = typedTimes?.Values.FirstOrDefault(t => t.ValueName == keyValue.ValueName);
 
                     if (tsRaw != null)
                     {

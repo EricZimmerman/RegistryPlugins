@@ -62,7 +62,7 @@ namespace RegistryPlugin.FileExts
 
                     if (registryKey.SubKeys.Count == 0)
                     {
-                        var progId = registryKey.Values.SingleOrDefault(t => t.ValueName == "Progid");
+                        var progId = registryKey.Values.FirstOrDefault(t => t.ValueName == "Progid");
                         if (progId != null)
                         {
                             op.Add(progId.ValueData);
@@ -82,7 +82,7 @@ namespace RegistryPlugin.FileExts
                                 // contains values with name == char and value data of an executable name
                                 //there is an MRUList that contains the order the executables were selected
 
-                                var mruList = subKey.Values.SingleOrDefault(t => t.ValueName == "MRUList");
+                                var mruList = subKey.Values.FirstOrDefault(t => t.ValueName == "MRUList");
 
                                 if (mruList != null)
                                 {
@@ -91,7 +91,7 @@ namespace RegistryPlugin.FileExts
                                     foreach (var mruPos in mruList.ValueData.ToCharArray())
                                     {
                                         var exeName =
-                                            subKey.Values.SingleOrDefault(t => t.ValueName == mruPos.ToString());
+                                            subKey.Values.FirstOrDefault(t => t.ValueName == mruPos.ToString());
 
                                         if (exeName != null)
                                         {
@@ -113,7 +113,7 @@ namespace RegistryPlugin.FileExts
                                 }
                                 break;
                             case "UserChoice":
-                                var progId = subKey.Values.SingleOrDefault(t => t.ValueName == "ProgId");
+                                var progId = subKey.Values.FirstOrDefault(t => t.ValueName == "ProgId");
                                 if (progId != null)
                                 {
                                     uc = progId.ValueData;

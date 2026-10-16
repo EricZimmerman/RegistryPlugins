@@ -86,7 +86,7 @@ namespace RegistryPlugin.OfficeMRU
 
                     //jump up a few levels and check for Reading Locations
                     var readingLocKey =
-                        key.Parent.Parent.Parent.SubKeys.SingleOrDefault(t => t.KeyName == "Reading Locations");
+                        key.Parent.Parent.Parent.SubKeys.FirstOrDefault(t => t.KeyName == "Reading Locations");
 
                     DateTimeOffset? lastOpen = null;
 
@@ -94,7 +94,7 @@ namespace RegistryPlugin.OfficeMRU
                     {
                         foreach (var registryKey in readingLocKey.SubKeys)
                         {
-                            var readingLocVal = registryKey.Values.SingleOrDefault(t => t.ValueName == "File Path");
+                            var readingLocVal = registryKey.Values.FirstOrDefault(t => t.ValueName == "File Path");
 
                             if (readingLocVal != null)
                             {

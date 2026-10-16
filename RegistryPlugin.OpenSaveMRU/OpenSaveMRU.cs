@@ -59,7 +59,7 @@ namespace RegistryPlugin.OpenSaveMRU
             {
                 //this key has folders stored in the root as well
 
-                var mruVal1 = key.Values.SingleOrDefault(t => t.ValueName == "MRUList");
+                var mruVal1 = key.Values.FirstOrDefault(t => t.ValueName == "MRUList");
 
                 var mruListOrder1 = new ArrayList();
 
@@ -99,7 +99,7 @@ namespace RegistryPlugin.OpenSaveMRU
 
                     //get MRU key and read it in
 
-                    var mruVal = registryKey.Values.SingleOrDefault(t => t.ValueName == "MRUList");
+                    var mruVal = registryKey.Values.FirstOrDefault(t => t.ValueName == "MRUList");
 
                     var mruListOrder = new ArrayList();
 

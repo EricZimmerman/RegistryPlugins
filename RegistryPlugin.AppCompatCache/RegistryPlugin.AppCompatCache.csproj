@@ -4,29 +4,26 @@
   </PropertyGroup>
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- so Costura has AppCompatCache.dll to embed (see FodyWeavers.xml) -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AppCompatCache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>Dependencies\AppCompatCache.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dependencies\AppCompatCache.dll" />
     <Content Include="FodyWeavers.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="6.0.0">
+    <PackageReference Include="Costura.Fody" Version="6.2.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Fody" Version="6.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RegistryPluginBase" Version="2026.5.0" />
-    <PackageReference Include="Serilog" Version="4.3.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
+    <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj" />
+    <!-- embedded with Costura: the hosts don't have it (they have its own dependencies) -->
+    <PackageReference Include="AppCompatCache" Version="2026.10.1" />
+    <PackageReference Include="Serilog" Version="4.4.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
   </ItemGroup>
 </Project>

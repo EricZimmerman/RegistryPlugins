@@ -38,26 +38,26 @@ namespace RegistryPlguin.SCSI
 
         public string LongDescription => ShortDescription;
 
-        public double Version => 0.1;
+        public double Version => 0.2;
         public List<string> Errors { get; }
 
         private readonly List<string> GUIDs = new List<string> { "{540b947e-8b40-45bc-a8a2-6a0b894cbda2}", "{83da6326-97a6-4088-9453-a1923f573b29}" };
 
         private byte[] GetData(RegistryKey serialSubKey, string guidValue, string numValue)
         {
-            var properties = serialSubKey.SubKeys.SingleOrDefault(t => t.KeyName == "Properties");
+            var properties = serialSubKey.SubKeys.FirstOrDefault(t => t.KeyName == "Properties");
             if (properties == null)
                 return null;
 
-            var GUID = properties.SubKeys.SingleOrDefault(t => t.KeyName == guidValue);
+            var GUID = properties.SubKeys.FirstOrDefault(t => t.KeyName == guidValue);
             if (GUID == null)
                 return null;
 
-            var subKey = GUID.SubKeys.SingleOrDefault(t => t.KeyName == numValue);
+            var subKey = GUID.SubKeys.FirstOrDefault(t => t.KeyName == numValue);
             if (subKey == null)
                 return null;
 
-            return subKey.Values.SingleOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
+            return subKey.Values.FirstOrDefault(t => t.ValueName == "(default)")?.ValueDataRaw;
         }
 
         private DateTimeOffset? GetUTC(byte[] data)
@@ -105,9 +105,9 @@ namespace RegistryPlguin.SCSI
                     {
                         var serialNumber = serialSubKey.KeyName;
 
-                        var deviceName = Encoding.Unicode?.GetString(
-                            GetData(serialSubKey, GUIDs[0], "0004")
-                        );
+                        //Windows 7 and earlier have no device properties
+                        var deviceNameData = GetData(serialSubKey, GUIDs[0], "0004");
+                        var deviceName = deviceNameData == null ? string.Empty : Encoding.Unicode.GetString(deviceNameData);
                         var installed = GetUTC(
                             GetData(serialSubKey, GUIDs[1], "0064")
                         );
@@ -122,19 +122,19 @@ namespace RegistryPlguin.SCSI
                         );
                         var ts = subKey.LastWriteTime;
 
-                        var deviceParametersKey = subKey.SubKeys.First().SubKeys.SingleOrDefault(t => t.KeyName == "Device Parameters");
+                        var deviceParametersKey = subKey.SubKeys.First().SubKeys.FirstOrDefault(t => t.KeyName == "Device Parameters");
 
                         var diskId = "";
                         DateTimeOffset? initialTimestamp = null;
 
                         if (deviceParametersKey != null)
                         {
-                            var aaaa = deviceParametersKey.SubKeys.SingleOrDefault(t => t.KeyName == "Partmgr");
-                            var storportKey = deviceParametersKey.SubKeys.SingleOrDefault(t => t.KeyName == "Storport");
+                            var aaaa = deviceParametersKey.SubKeys.FirstOrDefault(t => t.KeyName == "Partmgr");
+                            var storportKey = deviceParametersKey.SubKeys.FirstOrDefault(t => t.KeyName == "Storport");
 
                             if (aaaa != null)
                             {
-                                var ddd = aaaa.Values.SingleOrDefault(t => t.ValueName == "DiskId");
+                                var ddd = aaaa.Values.FirstOrDefault(t => t.ValueName == "DiskId");
 
                                 if (ddd != null)
                                 {
@@ -144,7 +144,7 @@ namespace RegistryPlguin.SCSI
 
                             if (storportKey != null)
                             {
-                                var ddd = storportKey.Values.SingleOrDefault(t => t.ValueName == "InitialTimestamp");
+                                var ddd = storportKey.Values.FirstOrDefault(t => t.ValueName == "InitialTimestamp");
 
                                 if (ddd != null)
                                 {

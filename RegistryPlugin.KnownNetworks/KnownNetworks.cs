@@ -49,7 +49,7 @@ namespace RegistryPlugin.KnownNetworks
             _values.Clear();
             Errors.Clear();
 
-            var profiles = key.SubKeys.SingleOrDefault(t => t.KeyName == "Profiles");
+            var profiles = key.SubKeys.FirstOrDefault(t => t.KeyName == "Profiles");
 
             if (profiles == null)
             {
@@ -61,13 +61,13 @@ namespace RegistryPlugin.KnownNetworks
             {
                 try
                 {
-                    var rawCreated = profilesSubKey.Values.Single(t => t.ValueName == "DateCreated").ValueDataRaw;
-                    var rawLast = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueDataRaw;
+                    var rawCreated = profilesSubKey.Values.First(t => t.ValueName == "DateCreated").ValueDataRaw;
+                    var rawLast = profilesSubKey.Values.First(t => t.ValueName == "DateLastConnected").ValueDataRaw;
 
-                    var isManaged = profilesSubKey.Values.Single(t => t.ValueName == "DateLastConnected").ValueData ==
+                    var isManaged = profilesSubKey.Values.First(t => t.ValueName == "DateLastConnected").ValueData ==
                                     "0";
 
-                    var profileName = profilesSubKey.Values.Single(t => t.ValueName == "ProfileName").ValueData;
+                    var profileName = profilesSubKey.Values.First(t => t.ValueName == "ProfileName").ValueData;
 
                     var networkName = string.Empty;
                     if (!isManaged)
@@ -79,7 +79,7 @@ namespace RegistryPlugin.KnownNetworks
                     var dnsSuffix = string.Empty;
                     var macAddress = string.Empty;
 
-                    var typeNum = int.Parse(profilesSubKey.Values.Single(t => t.ValueName == "NameType").ValueData);
+                    var typeNum = int.Parse(profilesSubKey.Values.First(t => t.ValueName == "NameType").ValueData);
 
                     var networkType = KnownNetwork.NameTypes.Unknown;
 
@@ -109,7 +109,7 @@ namespace RegistryPlugin.KnownNetworks
                 }
             }
 
-            var sigsKey = key.SubKeys.SingleOrDefault(t => t.KeyName == "Signatures");
+            var sigsKey = key.SubKeys.FirstOrDefault(t => t.KeyName == "Signatures");
 
             if (sigsKey == null)
             {
@@ -117,7 +117,7 @@ namespace RegistryPlugin.KnownNetworks
                 return;
             }
 
-            var unmanaged = sigsKey.SubKeys.SingleOrDefault(t => t.KeyName == "Unmanaged");
+            var unmanaged = sigsKey.SubKeys.FirstOrDefault(t => t.KeyName == "Unmanaged");
 
             if (unmanaged == null)
             {
@@ -129,12 +129,12 @@ namespace RegistryPlugin.KnownNetworks
             {
                 try
                 {
-                    var gatewayMacRaw = unmanagedKey.Values.Single(t => t.ValueName == "DefaultGatewayMac").ValueData;
-                    var dnsSuffix = unmanagedKey.Values.Single(t => t.ValueName == "DnsSuffix").ValueData;
-                    var profileGuid = unmanagedKey.Values.Single(t => t.ValueName == "ProfileGuid").ValueData;
-                    var firstNetwork = unmanagedKey.Values.Single(t => t.ValueName == "FirstNetwork").ValueData;
+                    var gatewayMacRaw = unmanagedKey.Values.First(t => t.ValueName == "DefaultGatewayMac").ValueData;
+                    var dnsSuffix = unmanagedKey.Values.First(t => t.ValueName == "DnsSuffix").ValueData;
+                    var profileGuid = unmanagedKey.Values.First(t => t.ValueName == "ProfileGuid").ValueData;
+                    var firstNetwork = unmanagedKey.Values.First(t => t.ValueName == "FirstNetwork").ValueData;
 
-                    var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
+                    var kn = _values.FirstOrDefault(t => t.ProfileGUID == profileGuid);
 
                     kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork, false);
                 }
@@ -144,7 +144,7 @@ namespace RegistryPlugin.KnownNetworks
                 }
             }
 
-            var managed = sigsKey.SubKeys.SingleOrDefault(t => t.KeyName == "Managed");
+            var managed = sigsKey.SubKeys.FirstOrDefault(t => t.KeyName == "Managed");
 
             if (managed == null)
             {
@@ -156,12 +156,12 @@ namespace RegistryPlugin.KnownNetworks
             {
                 try
                 {
-                    var gatewayMacRaw = managedKey.Values.Single(t => t.ValueName == "DefaultGatewayMac").ValueData;
-                    var dnsSuffix = managedKey.Values.Single(t => t.ValueName == "DnsSuffix").ValueData;
-                    var profileGuid = managedKey.Values.Single(t => t.ValueName == "ProfileGuid").ValueData;
-                    var firstNetwork = managedKey.Values.Single(t => t.ValueName == "FirstNetwork").ValueData;
+                    var gatewayMacRaw = managedKey.Values.First(t => t.ValueName == "DefaultGatewayMac").ValueData;
+                    var dnsSuffix = managedKey.Values.First(t => t.ValueName == "DnsSuffix").ValueData;
+                    var profileGuid = managedKey.Values.First(t => t.ValueName == "ProfileGuid").ValueData;
+                    var firstNetwork = managedKey.Values.First(t => t.ValueName == "FirstNetwork").ValueData;
 
-                    var kn = _values.SingleOrDefault(t => t.ProfileGUID == profileGuid);
+                    var kn = _values.FirstOrDefault(t => t.ProfileGUID == profileGuid);
 
                     kn?.UpdateInfo(gatewayMacRaw, dnsSuffix, firstNetwork, true);
                 }

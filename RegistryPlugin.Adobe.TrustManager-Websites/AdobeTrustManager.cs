@@ -57,15 +57,15 @@ public class AdobeTrustManager : IRegistryPluginGrid
                     foreach (var versionKey in productKey.SubKeys)
                     {
                       
-                        var trustManager = versionKey.SubKeys.SingleOrDefault(t => t.KeyName == "TrustManager");
+                        var trustManager = versionKey.SubKeys.FirstOrDefault(t => t.KeyName == "TrustManager");
 
-                        var cDefaultLaunchURLPerms = trustManager?.SubKeys.SingleOrDefault(t => t.KeyName == "cDefaultLaunchURLPerms");
+                        var cDefaultLaunchURLPerms = trustManager?.SubKeys.FirstOrDefault(t => t.KeyName == "cDefaultLaunchURLPerms");
 
                         if (cDefaultLaunchURLPerms == null)
                         {
                             continue;
                         }
-                        var tHostPerms = cDefaultLaunchURLPerms.Values.SingleOrDefault(t => t.ValueName == "tHostPerms")?.ValueData;
+                        var tHostPerms = cDefaultLaunchURLPerms.Values.FirstOrDefault(t => t.ValueName == "tHostPerms")?.ValueData;
                         var websites = tHostPerms.Split('|');
                         foreach (var website in websites)
                         {

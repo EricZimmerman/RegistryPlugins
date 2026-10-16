@@ -59,9 +59,9 @@ public class Adobe : IRegistryPluginGrid
                 {
                     foreach (var versionKey in productKey.SubKeys)
                     {
-                        var avGeneral = versionKey.SubKeys.SingleOrDefault(t => t.KeyName == "AVGeneral");
+                        var avGeneral = versionKey.SubKeys.FirstOrDefault(t => t.KeyName == "AVGeneral");
 
-                        var recentFiles = avGeneral?.SubKeys.SingleOrDefault(t => t.KeyName == "cRecentFiles");
+                        var recentFiles = avGeneral?.SubKeys.FirstOrDefault(t => t.KeyName == "cRecentFiles");
 
                         if (recentFiles == null)
                         {
@@ -72,14 +72,14 @@ public class Adobe : IRegistryPluginGrid
                         {
                             try
                             {
-var fullPath = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tDIText")
+var fullPath = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tDIText")
                                 ?.ValueData;
                             var lastOpened = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(recentFilesSubKey.Values
-                                .SingleOrDefault(t => t.ValueName == "sDate")
+                                .FirstOrDefault(t => t.ValueName == "sDate")
                                 ?.ValueDataRaw).Trim('\0');
-                            var fileName = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tFileName")
+                            var fileName = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tFileName")
                                 ?.ValueData;
-                            var fileSizeRaw = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "uFileSize")
+                            var fileSizeRaw = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "uFileSize")
                                 ?.ValueDataRaw;
 
                             var fileSize = 0;
@@ -87,9 +87,9 @@ var fullPath = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tDI
                             {
                                 fileSize = BitConverter.ToInt32(fileSizeRaw,0);
                             }
-                            var fileSource = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "tFileSource")
+                            var fileSource = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tFileSource")
                                 ?.ValueData;
-                            var pageCountRaw = recentFilesSubKey.Values.SingleOrDefault(t => t.ValueName == "uPageCount")
+                            var pageCountRaw = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "uPageCount")
                                 ?.ValueDataRaw;
 
                             var pageCount = 0;

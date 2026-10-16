@@ -70,11 +70,11 @@ namespace RegistryPlugin.ProfileList
                 try
                 {
                     string keyName = subKey.KeyName;
-                    string profileImagePath = subKey.Values.SingleOrDefault(t => t.ValueName == "ProfileImagePath")?.ValueData;
-                    string loadTimeHigh = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileLoadTimeHigh")?.ValueData;
-                    string loadTimeLow = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileLoadTimeLow")?.ValueData;
-                    string unloadTimeHigh = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileUnloadTimeHigh")?.ValueData;
-                    string unloadTimeLow = subKey.Values.SingleOrDefault(t => t.ValueName == "LocalProfileUnloadTimeLow")?.ValueData;
+                    string profileImagePath = subKey.Values.FirstOrDefault(t => t.ValueName == "ProfileImagePath")?.ValueData;
+                    string loadTimeHigh = subKey.Values.FirstOrDefault(t => t.ValueName == "LocalProfileLoadTimeHigh")?.ValueData;
+                    string loadTimeLow = subKey.Values.FirstOrDefault(t => t.ValueName == "LocalProfileLoadTimeLow")?.ValueData;
+                    string unloadTimeHigh = subKey.Values.FirstOrDefault(t => t.ValueName == "LocalProfileUnloadTimeHigh")?.ValueData;
+                    string unloadTimeLow = subKey.Values.FirstOrDefault(t => t.ValueName == "LocalProfileUnloadTimeLow")?.ValueData;
                     DateTimeOffset? ts = subKey.LastWriteTime;
 
                     DateTimeOffset? loadTime = GetDateTime(loadTimeHigh, loadTimeLow);
