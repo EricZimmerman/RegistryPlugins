@@ -9,7 +9,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `Directory.Build.props` makes every project non-packable except RegistryPluginBase.
 - `.skills/registry-plugin-development/SKILL.md` (from PR #73) describes how to write a plugin.
 
-LastVisitedPidlMRU, OpenSavePidlMRU and Taskband have their own copies of the shell item classes (`ShellItems/`), with extension blocks from ExtensionBlocks. Since ExtensionBlocks 2026.10.1 that package has shell item classes of the same names (moved from ShellBags), so a file that uses the plugin's own `ShellBag0X..` must not also have `using ExtensionBlocks;` (qualify the blocks instead, as Taskband does). Moving these plugins to the shared classes is left to do (it changes their output: validate with `PluginDumpTests`).
+LastVisitedPidlMRU, OpenSavePidlMRU and Taskband read their shell items with ExtensionBlocks' `ShellItemFactory.Create` (the classes ShellBags uses, with Lnk's fixes; since RegistryPluginBase 2026.10.2 they no longer have their own copies). An item that can't be read or isn't supported is an error, and the rest of the value is still listed.
 
 Input may be corrupt or hostile: plugins look values up with `FirstOrDefault` (a key can have a value name twice), check sizes, and put problems in `Errors` rather than throwing.
 

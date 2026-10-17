@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -6,10 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Registry.Abstractions;
-using RegistryPlugin.Taskband.ShellItems;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
-using ShellBag = RegistryPlugin.Taskband.ShellItems.ShellBag;
+using ExtensionBlocks;
 
 
 namespace RegistryPlugin.Taskband
@@ -18,7 +17,7 @@ namespace RegistryPlugin.Taskband
     {
         private readonly BindingList<ValuesOut> _values;
 
-        private List<ShellBag> bags;
+        private List<IShellBag> bags;
 
         public Taskband()
         {
@@ -110,106 +109,51 @@ namespace RegistryPlugin.Taskband
 
                 var det = new StringBuilder();
 
-                bags = new List<ShellBag>();
+                bags = new List<IShellBag>();
 
-
-                ShellBag bag = null;
 
                 foreach (var bytese in shellItems)
                 {
+                    //the shared shell item classes (ExtensionBlocks), as ShellBags and Lnk read them
+                    IShellBag bag;
                     try
                     {
-                        switch (bytese[2])
-                        {
-                            case 0x00:
-                                bag = new ShellBag0X00(bytese);
-
-                                break;
-                            case 0x1f:
-                                bag = new ShellBag0X1F(bytese);
-
-                                break;
-                            case 0x2f:
-                                bag = new ShellBag0X2F(bytese);
-
-                                break;
-                            case 0x2e:
-                                bag = new ShellBag0X2E(bytese);
-
-                                break;
-                            case 0xb1:
-                            case 0x31:
-                            case 0x35:
-                            case 0x36:
-                                bag = new ShellItems.ShellBag0X31(bytese);
-
-                                break;
-                            case 0x32:
-                                bag = new ShellBag0X32(bytese);
-
-                                break;
-
-                            case 0x3a:
-                                bag = new ShellBag0X3A(bytese);
-                                break;
-                            case 0x71:
-                                bag = new ShellBag0X71(bytese);
-
-                                break;
-                            case 0x74:
-                                bag = new ShellBag0X74(bytese);
-
-                                break;
-                            case 0x40:
-                                bag = new ShellBag0X40(bytese);
-
-                                break;
-                            case 0x61:
-                                bag = new ShellBag0X61(bytese);
-
-                                break;
-                            case 0xc3:
-                                bag = new ShellBag0Xc3(bytese);
-
-                                break;
-                            default:
-                                det.AppendLine(
-                                    $"Key: {key.KeyName}, Value name: {fav.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****");
-
-                                Errors.Add(
-                                    $"Key: {key.KeyName}, Value name: {fav.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****");
-                                break;
-                        }
+                        bag = ShellItemFactory.Create(bytese);
                     }
                     catch (Exception e)
                     {
+                        //(the item before it was added again)
                         Errors.Add($"Error processing Favorites value '{vn}': {e.Message}");
+                        continue;
                     }
 
-
-                    if (bag != null)
+                    if (bag is ShellBagUnknown)
                     {
-                        det.AppendLine(bag.ToString());
-                        bags.Add(bag);
+                        var message = $"Key: {key.KeyName}, Value name: {fav.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****";
+                        det.AppendLine(message);
+                        Errors.Add(message);
+                        continue;
                     }
-                }
 
+                    det.AppendLine(bag.ToString());
+                    bags.Add(bag);
+                }
                 foreach (var shellBag in bags)
                 {
                     var exe = "(unknown)";
-                    var ed = shellBag.ExtensionBlocks.FirstOrDefault(t => t is ExtensionBlocks.Beef001d);
+                    var ed = shellBag.ExtensionBlocks.FirstOrDefault(t => t is Beef001d);
 
                     if (ed != null)
                     {
-                        exe = ((ExtensionBlocks.Beef001d) ed).Executable;
+                        exe = ((Beef001d) ed).Executable;
                     }
 
-                    var pp = shellBag.ExtensionBlocks.FirstOrDefault(t => t is ExtensionBlocks.Beef001e);
+                    var pp = shellBag.ExtensionBlocks.FirstOrDefault(t => t is Beef001e);
 
                     var pt = "(unknown)";
                     if (pp != null)
                     {
-                        pt = ((ExtensionBlocks.Beef001e) pp).PinType;
+                        pt = ((Beef001e) pp).PinType;
                     }
 
                     if (shellBag.FriendlyName == "Directory")

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using Registry.Abstractions;
-using RegistryPlugin.OpenSavePidlMRU.ShellItems;
+using ExtensionBlocks;
 using RegistryPluginBase.Classes;
 using RegistryPluginBase.Interfaces;
 
@@ -17,7 +17,7 @@ namespace RegistryPlugin.OpenSavePidlMRU
     {
         private readonly BindingList<ValuesOut> _values;
 
-        private List<ShellBag> bags;
+        private List<IShellBag> bags;
 
         public OpenSavePidlMRU()
         {
@@ -105,7 +105,7 @@ namespace RegistryPlugin.OpenSavePidlMRU
 
                         }
 
-                        bags = new List<ShellBag>();
+                        bags = new List<IShellBag>();
 
                         var shellItemsRaw = new List<byte[]>();
 
@@ -139,81 +139,33 @@ namespace RegistryPlugin.OpenSavePidlMRU
                                 index += size;
                             }
 
-                            ShellBag bag = null;
-
                             foreach (var bytese in shellItemsRaw)
                             {
-                                switch (bytese[2])
+                                //the shared shell item classes (ExtensionBlocks), as ShellBags and Lnk read them
+                                IShellBag bag;
+                                try
                                 {
-                                    case 0x00:
-                                        bag = new ShellBag0X00(bytese);
-
-                                        break;
-                                    case 0x1f:
-                                        bag = new ShellBag0X1F(bytese);
-
-                                        break;
-                                    case 0x2f:
-                                        bag = new ShellBag0X2F(bytese);
-
-                                        break;
-                                    case 0x2e:
-                                        bag = new ShellBag0X2E(bytese);
-
-                                        break;
-                                    case 0xb1:
-                                    case 0x31:
-                                    case 0x35:
-                                        bag = new ShellBag0X31(bytese);
-
-                                        break;
-                                    case 0x32: // ascii
-                                    case 0x36: // unicode
-                                        bag = new ShellBag0X32(bytese);
-
-                                        break;
-
-                                    case 0x3a:
-                                        bag = new ShellBag0X3A(bytese);
-
-                                        
-
-
-                                        break;
-                                    case 0x71:
-                                        bag = new ShellBag0X71(bytese);
-
-                                        break;
-                                    case 0x74:
-                                        bag = new ShellBag0X74(bytese);
-
-                                        break;
-                                    case 0x40:
-                                        bag = new ShellBag0X40(bytese);
-
-                                        break;
-                                    case 0x61:
-                                        bag = new ShellBag0X61(bytese);
-
-                                        break;
-                                    case 0xc3:
-                                        bag = new ShellBag0Xc3(bytese);
-
-                                        break;
-                                    default:
-                                        det.AppendLine(
-                                            $"Key: {registryKey.KeyName}, Value name: {keyValue.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****");
-
-                                        Errors.Add(
-                                            $"Key: {registryKey.KeyName}, Value name: {keyValue.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****");
-                                        break;
+                                    bag = ShellItemFactory.Create(bytese);
+                                }
+                                catch (Exception ex)
+                                {
+                                    //the other items (and the value) are still listed, as when the plugin had its own classes
+                                    var message = $"Key: {registryKey.KeyName}, Value name: {keyValue.ValueName}, Message: shell item 0x{bytese[2]:x2} could not be parsed: {ex.Message}";
+                                    det.AppendLine(message);
+                                    Errors.Add(message);
+                                    continue;
                                 }
 
-                                if (bag != null)
+                                if (bag is ShellBagUnknown)
                                 {
-                                    det.AppendLine(bag.ToString());
-                                    bags.Add(bag);
+                                    var message = $"Key: {registryKey.KeyName}, Value name: {keyValue.ValueName}, Message: **** Unsupported ShellID: 0x{bytese[2]:x2}. Send this ID to saericzimmerman@gmail.com so support can be added!! ****";
+                                    det.AppendLine(message);
+                                    Errors.Add(message);
+                                    continue;
                                 }
+
+                                det.AppendLine(bag.ToString());
+                                bags.Add(bag);
                             }
 
                             var v = new ValuesOut(registryKey.KeyName,
@@ -253,7 +205,7 @@ namespace RegistryPlugin.OpenSavePidlMRU
 
         public IBindingList Values => _values;
 
-        private static string GetAbsolutePathFromTargetIDs(List<ShellBag> ids)
+        private static string GetAbsolutePathFromTargetIDs(List<IShellBag> ids)
         {
             var absPath = string.Empty;
 
