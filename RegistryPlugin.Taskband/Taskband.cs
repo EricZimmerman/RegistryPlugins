@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ExtensionBlocks;
 using Registry.Abstractions;
 using RegistryPlugin.Taskband.ShellItems;
 using RegistryPluginBase.Classes;
@@ -202,15 +201,15 @@ namespace RegistryPlugin.Taskband
 
                     if (ed != null)
                     {
-                        exe = ((Beef001d) ed).Executable;
+                        exe = ((ExtensionBlocks.Beef001d) ed).Executable;
                     }
 
-                    var pp = shellBag.ExtensionBlocks.FirstOrDefault(t => t is Beef001e);
+                    var pp = shellBag.ExtensionBlocks.FirstOrDefault(t => t is ExtensionBlocks.Beef001e);
 
                     var pt = "(unknown)";
                     if (pp != null)
                     {
-                        pt = ((Beef001e) pp).PinType;
+                        pt = ((ExtensionBlocks.Beef001e) pp).PinType;
                     }
 
                     if (shellBag.FriendlyName == "Directory")

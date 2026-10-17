@@ -9,6 +9,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `Directory.Build.props` makes every project non-packable except RegistryPluginBase.
 - `.skills/registry-plugin-development/SKILL.md` (from PR #73) describes how to write a plugin.
 
+LastVisitedPidlMRU, OpenSavePidlMRU and Taskband have their own copies of the shell item classes (`ShellItems/`), with extension blocks from ExtensionBlocks. Since ExtensionBlocks 2026.10.1 that package has shell item classes of the same names (moved from ShellBags), so a file that uses the plugin's own `ShellBag0X..` must not also have `using ExtensionBlocks;` (qualify the blocks instead, as Taskband does). Moving these plugins to the shared classes is left to do (it changes their output: validate with `PluginDumpTests`).
+
 Input may be corrupt or hostile: plugins look values up with `FirstOrDefault` (a key can have a value name twice), check sizes, and put problems in `Errors` rather than throwing.
 
 ## Commands
@@ -28,6 +30,7 @@ dotnet pack -c Release                                       # only RegistryPlug
 - `HiveTests`: every plugin on every key it matches (RECmd's matching, in `Plugins.Matches`) in `Hives/` (ntuser1.dat, SAM); no exception may escape `ProcessValues` or the `BatchValueData` properties. `Corpus` does the same for every hive in the local corpus (logs replayed, deleted keys recovered).
 - `PluginTests`: tests for specific plugins on hives in the local corpus (`TestHives.Corpus`, ignored when it's missing). Never copy corpus hives into the repo.
 - `Lznt1Tests`: AppCompatFlags' decompressor on hand-made data.
+- `PluginDumpTests.DumpCorpus` (`[Explicit]`): every value (all public properties, RECmd's batch columns) and `Errors` of the plugins named in `PLUGIN_DUMP_FILTER` (all when unset) for every key they match in the corpus, written to `PLUGIN_DUMP`. Run it on a worktree of the last release and on the change, and compare per plugin run. A package bump (Registry, ExtensionBlocks) is validated this way.
 
 ## Versioning and release
 
