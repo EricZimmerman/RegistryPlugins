@@ -13,6 +13,7 @@
   <Project Path="RegistryPlugin.7-ZipHistory/RegistryPlugin.7-ZipHistory.csproj" />
   <Project Path="RegistryPlugin.7-ZipPathHistory/RegistryPlugin.7-ZipPathHistory.csproj" />
   <Project Path="RegistryPlugin.Adobe/RegistryPlugin.Adobe.csproj" />
+  <Project Path="RegistryPlugin.Adobe.TrustManager-Websites/RegistryPlugin.Adobe.TrustManger-Websites.csproj" />
   <Project Path="RegistryPlugin.Amcache-InventoryApplication/RegistryPlugin.Amcache-InventoryApplication.csproj" />
   <Project Path="RegistryPlugin.Amcache-InventoryApplicationFile/RegistryPlugin.Amcache-InventoryApplicationFile.csproj" />
   <Project Path="RegistryPlugin.Amcache-InventoryApplicationShortcut/RegistryPlugin.Amcache-InventoryApplicationShortcut.csproj" />

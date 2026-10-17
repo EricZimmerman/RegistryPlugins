@@ -29,16 +29,22 @@ if ($Build) {
     if ($LASTEXITCODE -ne 0) { throw "The build failed" }
 }
 
-# one dll per plugin project: the one named after the project (its bin folder has RegistryPluginBase and others too)
-$plugins = foreach ($project in Get-ChildItem -Path $PSScriptRoot -Filter '*.csproj' -Recurse -Depth 1) {
-    $dll = Join-Path $project.DirectoryName "bin/Release/netstandard2.0/$($project.BaseName).dll"
-    if ($project.BaseName -like 'RegistryPlugin.*' -and (Test-Path $dll)) { Get-Item $dll }
+# the plugin projects in the solution (a project left out of it, or an old build of one, is not copied), and for each
+# its own dll from its Release build (the bin folder has RegistryPluginBase and others too)
+[xml]$solution = Get-Content (Join-Path $PSScriptRoot 'RegistryPlugins.slnx') -Raw
+$projects = $solution.SelectNodes('//Project') | ForEach-Object { Join-Path $PSScriptRoot $_.Path } |
+    Where-Object { [IO.Path]::GetFileNameWithoutExtension($_) -like 'RegistryPlugin.*' }
+
+$missing = @()
+$plugins = foreach ($project in $projects) {
+    $name = [IO.Path]::GetFileNameWithoutExtension($project)
+    $dll = Join-Path (Split-Path $project) "bin/Release/netstandard2.0/$name.dll"
+    if (Test-Path $dll) { Get-Item $dll } else { $missing += $name }
 }
 
-if (-not $plugins) {
-    throw "No Release builds found. Build first (dotnet build -c Release), or use -Build"
+if ($missing) {
+    throw "No Release build of $($missing -join ', '). Build first (dotnet build -c Release), or use -Build"
 }
-
 New-Item -ItemType Directory -Path $Out -Force | Out-Null
 
 foreach ($plugin in $plugins) {
