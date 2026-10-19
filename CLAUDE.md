@@ -39,3 +39,4 @@ dotnet pack -c Release                                       # only RegistryPlug
 - To release RegistryPluginBase: push to `master`, then `git tag <ver> && git push origin <ver> && gh release create <ver> --verify-tag --generate-notes`.
 - `.github/workflows/publish.yml` is identical to GuidMapping's. It packs, validates and tests on PRs and on pushes to `master`. When a GitHub Release is published, it pushes to NuGet.org with trusted publishing (`NuGet/login` with the `NUGET_USER` repo variable, `EricRZimmerman`).
 - Dependabot (`.github/dependabot.yml`) opens monthly PRs for GitHub Actions and NuGet updates.
+- `Build-ZimmermanTools.ps1` (get-zimmermantools) runs `CopyPlugins.ps1 -Build` and stages the DLLs in RECmd's and Registry Explorer's `Plugins`: every plugin project in the solution ships (remove a project from the solution to keep it out of a release).
