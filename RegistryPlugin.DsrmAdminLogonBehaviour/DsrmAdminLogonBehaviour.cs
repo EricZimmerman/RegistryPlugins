@@ -26,10 +26,11 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
         public string InternalGuid => "882FB24E-148D-4FB0-8DF7-735ECCF452A4";
 
 
-        public List<string> KeyPaths => new List<string> { @"System\CurrentControlSet\Control\Lsa" };
+        // a hive has ControlSet001 (CurrentControlSet exists only on a live system), and the value is spelled Behavior
+        public List<string> KeyPaths => new List<string> { @"ControlSet00*\Control\Lsa" };
 
- 
-        public string ValueName => "DsrmAdminLogonBehaviour";
+
+        public string ValueName => "DsrmAdminLogonBehavior";
 
         public string AlertMessage { get; private set; }
 
@@ -45,12 +46,12 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
         public string PluginName => "DsrmAdminLogonBehaviour Value";
 
     
-        public string ShortDescription => "Detects DsrmAdminLogonBehaviour subkey as it is non existent or without an entry by default. It's a break glass account and thus if it's a value of 1 or 2, then that indicates persistence";
+        public string ShortDescription => "Detects the DsrmAdminLogonBehavior value as it is non existent or without an entry by default. It's a break glass account and thus if it's a value of 1 or 2, then that indicates persistence";
 
         public string LongDescription => ShortDescription;
 
 
-        public double Version => 1.0;
+        public double Version => 1.1;
 
       
         public List<string> Errors { get; }
@@ -66,8 +67,9 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
             // Iterate through all values in the current registry key.
             foreach (var value in key.Values)
             {
-                // Check if the current value's name matches "DsrmAdminLogonBehaviour" (case-insensitive).
-                if (value.ValueName.Equals("DsrmAdminLogonBehaviour", StringComparison.OrdinalIgnoreCase))
+                // Check if the current value's name matches "DsrmAdminLogonBehavior" (case-insensitive; also the British spelling).
+                if (value.ValueName.Equals(ValueName, StringComparison.OrdinalIgnoreCase) ||
+                    value.ValueName.Equals("DsrmAdminLogonBehaviour", StringComparison.OrdinalIgnoreCase))
                 {
                     bool isPersistenceDetected = false;
                     int intValue;
@@ -80,13 +82,13 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
                         {
                             isPersistenceDetected = true;
                             // Set the alert message to inform the user about the detection.
-                            AlertMessage = $"Potential persistence detected: 'DsrmAdminLogonBehaviour' value is '{intValue}' in key '{key.KeyPath}'.";
+                            AlertMessage = $"Potential persistence detected: '{value.ValueName}' value is '{intValue}' in key '{key.KeyPath}'.";
                         }
                     }
                     else
                     {
                         // Add an error if the value data could not be parsed as an integer.
-                        Errors.Add($"Error: Could not parse 'DsrmAdminLogonBehaviour' value data '{value.ValueData}' to an integer in key '{key.KeyPath}'.");
+                        Errors.Add($"Error: Could not parse '{value.ValueName}' value data '{value.ValueData}' to an integer in key '{key.KeyPath}'.");
                     }
 
                     // Create a new ValuesOut object with the extracted information.

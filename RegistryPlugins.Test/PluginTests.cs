@@ -42,6 +42,35 @@ namespace RegistryPlugins.Test;
 [TestFixture]
 public class PluginTests
 {
+    /// <summary>
+    ///     A SYSTEM hive made with offreg.dll with only ControlSet001\Control\Lsa, DsrmAdminLogonBehavior = 2 (REG_DWORD)
+    ///     and LimitBlankPasswordUse = 1. The plugin's key path was System\CurrentControlSet\Control\Lsa and its value
+    ///     DsrmAdminLogonBehaviour, so it never ran on a hive
+    /// </summary>
+    [Test]
+    public void DsrmAdminLogonBehavior()
+    {
+        var reg = TestHives.Repo("SYSTEM_DsrmAdminLogonBehavior");
+        reg.ParseHive();
+
+        var key = reg.GetKey(@"ControlSet001\Control\Lsa");
+        key.Should().NotBeNull();
+
+        var r = new RegistryPlugin.DsrmAdminLogonBehaviour.DsrmAdminLogonBehaviour();
+        Plugins.Matches(r, Registry.Other.Helpers.StripRootKeyNameFromKeyPath(key.KeyPath)).Should().BeTrue();
+        r.ValueName.Should().Be("DsrmAdminLogonBehavior");
+
+        r.ProcessValues(key);
+
+        r.Errors.Should().BeEmpty();
+        r.Values.Count.Should().Be(1);
+        var v = (RegistryPlugin.DsrmAdminLogonBehaviour.ValuesOut)r.Values[0];
+        v.ValueName.Should().Be("DsrmAdminLogonBehavior");
+        v.ValueData.Should().Be("2");
+        v.PersistenceDetection.Should().BeTrue();
+        r.AlertMessage.Should().Contain("'2'");
+    }
+
     [Test]
     public void TaskCache()
     {

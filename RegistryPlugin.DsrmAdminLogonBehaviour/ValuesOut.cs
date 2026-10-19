@@ -31,7 +31,7 @@ namespace RegistryPlugin.DsrmAdminLogonBehaviour
         public string BatchValueData2 => $"Last write: {LastWriteTime?.ToUniversalTime():yyyy-MM-dd HH:mm:ss}";
 
         public string BatchValueData3 => PersistenceDetection
-            ? "Potential Persistence: DsrmAdminLogonBehaviour value found (1 or 2)"
-            : "DsrmAdminLogonBehaviour value found";
+            ? "Potential Persistence: DsrmAdminLogonBehavior value found (1 or 2)"
+            : "DsrmAdminLogonBehavior value found";
     }
 }
