@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("RegistryPlugin.7-ZipCopyHistory")]
-[assembly: AssemblyCopyright("Copyright (c) 2026")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Eric R. Zimmerman 2027")]
+[assembly: AssemblyTrademark("Eric R. Zimmerman 2027")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
