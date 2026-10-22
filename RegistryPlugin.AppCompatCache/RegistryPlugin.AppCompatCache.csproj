@@ -22,7 +22,7 @@
     </PackageReference>
     <ProjectReference Include="..\RegistryPluginBase\RegistryPluginBase.csproj" />
     <!-- embedded with Costura: the hosts don't have it (they have its own dependencies) -->
-    <PackageReference Include="AppCompatCache" Version="2026.10.2" />
+    <PackageReference Include="AppCompatCache" Version="2026.10.3" />
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
   </ItemGroup>
