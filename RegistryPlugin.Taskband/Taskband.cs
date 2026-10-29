@@ -47,7 +47,7 @@ namespace RegistryPlugin.Taskband
         public string LongDescription =>
             ShortDescription;
 
-        public double Version => 0.5;
+        public double Version => 0.6;
 
         public List<string> Errors { get; }
 
@@ -94,12 +94,20 @@ namespace RegistryPlugin.Taskband
 
                     var chunksize = chunkstream.ReadInt32();
 
-                    while (chunkstream.BaseStream.Position < chunkstream.BaseStream.Length)
+                    while (chunkstream.BaseStream.Length - chunkstream.BaseStream.Position >= 2)
                     {
-                        var siSize = chunkstream.ReadInt16();
+                        var siSize = chunkstream.ReadUInt16();
+
+                        //0 ends the items (a size that small never moved on: the loop didn't end)
+                        if (siSize < 3)
+                        {
+                            break;
+                        }
 
                         chunkstream.BaseStream.Seek(-2, SeekOrigin.Current);
 
+                        //(the last item's size runs a couple of bytes past its chunk, into the marker after it: what is in the
+                        //chunk is the item)
                         var siBytes = chunkstream.ReadBytes(siSize);
 
                         shellItems.Add(siBytes);

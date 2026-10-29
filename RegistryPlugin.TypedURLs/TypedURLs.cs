@@ -41,7 +41,7 @@ namespace RegistryPlugin.TypedURLs
             =>
                 "";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -64,7 +64,7 @@ namespace RegistryPlugin.TypedURLs
 
             try
             {
-                var typedTimes = key.Parent.SubKeys.FirstOrDefault(t => t.KeyName == "TypedURLsTime");
+                var typedTimes = key.Parent?.SubKeys.FirstOrDefault(t => t.KeyName == "TypedURLsTime"); //(a recovered deleted key can have no parent)
 
                 foreach (var keyValue in key.Values)
                 {
@@ -74,9 +74,10 @@ namespace RegistryPlugin.TypedURLs
 
                     var tsRaw = typedTimes?.Values.FirstOrDefault(t => t.ValueName == keyValue.ValueName);
 
-                    if (tsRaw != null)
+                    var fileTime = tsRaw?.ValueDataRaw?.Length >= 8 ? BitConverter.ToInt64(tsRaw.ValueDataRaw, 0) : 0;
+                    if (fileTime > 0 && fileTime <= DateTimeOffset.MaxValue.ToFileTime())
                     {
-                        ts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(tsRaw.ValueDataRaw, 0)).ToUniversalTime();
+                        ts = DateTimeOffset.FromFileTime(fileTime).ToUniversalTime();
 
                         if (ts.Value.Year == 1601)
                         {
@@ -84,7 +85,7 @@ namespace RegistryPlugin.TypedURLs
                         }
                     }
 
-                    var slack = Encoding.Unicode.GetString(keyValue.ValueSlackRaw).Replace('\0', ' ').Trim();
+                    var slack = Encoding.Unicode.GetString(keyValue.ValueSlackRaw ?? Array.Empty<byte>()).Replace('\0', ' ').Trim();
 
                     var ff = new TypedURL(url, ts, slack);
                     ff.BatchValueName = keyValue.ValueName;

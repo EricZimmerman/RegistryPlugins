@@ -41,7 +41,7 @@ namespace RegistryPlugin.CIDSizeMRU
             =>
                 "";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -65,7 +65,7 @@ namespace RegistryPlugin.CIDSizeMRU
 
             try
             {
-                var mruList = key.Values.First(t => t.ValueName == "MRUListEx");
+                var mruList = key.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
 
                 var mruPositions = new Dictionary<uint, int>();
 
@@ -73,15 +73,23 @@ namespace RegistryPlugin.CIDSizeMRU
 
                 var index = 0;
 
-                var mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
-                index += 4;
-
-                while (mruPos != 0xFFFFFFFF)
+                //up to 0xFFFFFFFF or the end of the value; a position seen before keeps its first place
+                while (mruList != null && index + 4 <= mruList.ValueDataRaw.Length)
                 {
-                    mruPositions.Add(mruPos, i);
-                    i++;
-                    mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
+                    var mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
                     index += 4;
+
+                    if (mruPos == 0xFFFFFFFF)
+                    {
+                        break;
+                    }
+
+                    if (mruPositions.ContainsKey(mruPos) == false)
+                    {
+                        mruPositions.Add(mruPos, i);
+                    }
+
+                    i++;
                 }
 
                 //mruPositions now contains a map of positions (the key) to the order it was opened (the value)
@@ -93,7 +101,13 @@ namespace RegistryPlugin.CIDSizeMRU
                         continue;
                     }
 
-                    var mru = mruPositions[uint.Parse(keyValue.ValueName)];
+                    if (uint.TryParse(keyValue.ValueName, out var valueNumber) == false)
+                    {
+                        continue;
+                    }
+
+                    //a value that isn't in MRUListEx has no position (it ended the key with an error)
+                    var mru = mruPositions.TryGetValue(valueNumber, out var position) ? position : -1;
 
                     var chunks = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Split('\0');
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace RegistryPlugin.OfficeMRU
 
         public string LongDescription => ShortDescription;
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
 
@@ -66,16 +67,26 @@ namespace RegistryPlugin.OfficeMRU
                         continue;
                     }
 
+                    //settings and the XML that goes with an item, not entries (Max Display ended the key with an error)
+                    if (keyValue.ValueName == "Max Display" || keyValue.ValueName.StartsWith("Item Metadata"))
+                    {
+                        continue;
+                    }
+
                     var segs = keyValue.ValueData.Split('*');
                     var fName = segs.Last();
 
                     var segs2 = segs.First().Split('[');
                     //"T01D005C5B44B6300]"
 
-                    var rawTime = segs2[2];
-                    rawTime = rawTime.Substring(1);
-                    rawTime = rawTime.Substring(0, rawTime.Length - 1);
-                    var time = Convert.ToInt64(rawTime, 16);
+                    var rawTime = segs2.FirstOrDefault(t => t.StartsWith("T") && t.EndsWith("]"));
+                    long time;
+                    if (segs.Length < 2 || rawTime == null || long.TryParse(rawTime.Substring(1, rawTime.Length - 2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out time) == false)
+                    {
+                        //one value that isn't an entry: the others are still listed
+                        Errors.Add($"Value '{keyValue.ValueName}' is not an MRU entry: {keyValue.ValueData}");
+                        continue;
+                    }
 
                     var firstOpen = DateTimeOffset.FromFileTime(time).ToUniversalTime();
 
@@ -86,7 +97,7 @@ namespace RegistryPlugin.OfficeMRU
 
                     //jump up a few levels and check for Reading Locations
                     var readingLocKey =
-                        key.Parent.Parent.Parent.SubKeys.FirstOrDefault(t => t.KeyName == "Reading Locations");
+                        key.Parent?.Parent?.Parent?.SubKeys.FirstOrDefault(t => t.KeyName == "Reading Locations");
 
                     DateTimeOffset? lastOpen = null;
 

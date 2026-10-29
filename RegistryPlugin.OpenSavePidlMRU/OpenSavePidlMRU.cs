@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -47,7 +46,7 @@ namespace RegistryPlugin.OpenSavePidlMRU
         public string LongDescription =>
             "OpenSavePidlMRU subkeys contain a wealth of information including timestamps, MFT information, GUIDs, and more";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -99,17 +98,11 @@ namespace RegistryPlugin.OpenSavePidlMRU
                             continue;
                         }
 
-                        if (registryKey.KeyName == "lnk" && keyValue.ValueName == "0")
-                        {
-                            Debug.WriteLine(1);
-
-                        }
-
                         bags = new List<IShellBag>();
 
                         var shellItemsRaw = new List<byte[]>();
 
-                        var mru = mruListOrder.IndexOf(int.Parse(keyValue.ValueName));  //(int) mruListOrder[int.Parse(keyValue.BatchValueName)];
+                        var mru = int.TryParse(keyValue.ValueName, out var valueNumber) ? mruListOrder.IndexOf(valueNumber) : -1;
                         DateTimeOffset? openedOn = null;
 
                         if (mru == 0)
@@ -122,12 +115,21 @@ namespace RegistryPlugin.OpenSavePidlMRU
                             var det = new StringBuilder();
 
                             var index = 0;
-                            while (index < keyValue.ValueDataRaw.Length)
+                            while (index + 2 <= keyValue.ValueDataRaw.Length)
                             {
-                                var size = BitConverter.ToInt16(keyValue.ValueDataRaw, index);
+                                var size = BitConverter.ToUInt16(keyValue.ValueDataRaw, index);
 
                                 if (size == 0)
                                 {
+                                    break;
+                                }
+
+                                //a size past the end of the value (or too small for an item): the items before it are still listed
+                                if (size < 3 || index + size > keyValue.ValueDataRaw.Length)
+                                {
+                                    var message = $"Key: {registryKey.KeyName}, Value name: {keyValue.ValueName}, Message: shell item at offset 0x{index:X} has size {size}, past the end of the value ({keyValue.ValueDataRaw.Length} bytes)";
+                                    det.AppendLine(message);
+                                    Errors.Add(message);
                                     break;
                                 }
 
@@ -208,6 +210,11 @@ namespace RegistryPlugin.OpenSavePidlMRU
         private static string GetAbsolutePathFromTargetIDs(List<IShellBag> ids)
         {
             var absPath = string.Empty;
+
+            if (ids.Count == 0)
+            {
+                return string.Empty;
+            }
 
             foreach (var shellBag in ids)
             {

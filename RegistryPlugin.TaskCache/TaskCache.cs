@@ -42,7 +42,7 @@ namespace RegistryPlugin.TaskCache
         public string LongDescription =>
             ShortDescription;
 
-        public double Version => 0.5;
+        public double Version => 0.6;
 
         public List<string> Errors { get; }
 
@@ -61,97 +61,119 @@ namespace RegistryPlugin.TaskCache
                 {
                     gkn = guidKey.KeyName;
 
-                    var source = guidKey.Values.FirstOrDefault(t => t.ValueName == "Source");
-                    var author = guidKey.Values.FirstOrDefault(t => t.ValueName == "Author");
-                    var desc = guidKey.Values.FirstOrDefault(t => t.ValueName == "Description");
-                    var secdesc = guidKey.Values.FirstOrDefault(t => t.ValueName == "SecurityDescriptor");
-                    var path = guidKey.Values.FirstOrDefault(t => t.ValueName == "Path");
-
-                    var blobA = guidKey.Values.FirstOrDefault(t => t.ValueName == "Actions");
-                    var blobDI = guidKey.Values.FirstOrDefault(t => t.ValueName == "DynamicInfo");
-                    // adding this for possible future use, but not parsing it at this time
-                    // var blobT = guidKey.Values.FirstOrDefault(t => t.ValueName == "Triggers");
-
-                    var ver = -1;
-                    DateTimeOffset created;
-                    DateTimeOffset? lastStart = null;
-                    DateTimeOffset? lastStop = null;
-                    var taskState = -1;
-                    var lastActionResult = -1;
-
-                    if (blobDI == null)
+                    try
                     {
-                        continue;
-                    }
+                        var source = guidKey.Values.FirstOrDefault(t => t.ValueName == "Source");
+                        var author = guidKey.Values.FirstOrDefault(t => t.ValueName == "Author");
+                        var desc = guidKey.Values.FirstOrDefault(t => t.ValueName == "Description");
+                        var secdesc = guidKey.Values.FirstOrDefault(t => t.ValueName == "SecurityDescriptor");
+                        var path = guidKey.Values.FirstOrDefault(t => t.ValueName == "Path");
 
-                    // Parse DynamicInfo
-                    ver = BitConverter.ToInt32(blobDI.ValueDataRaw, 0);
-                    var createdRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 4);
-                    created = DateTimeOffset.FromFileTime(createdRaw).ToUniversalTime();
+                        var blobA = guidKey.Values.FirstOrDefault(t => t.ValueName == "Actions");
+                        var blobDI = guidKey.Values.FirstOrDefault(t => t.ValueName == "DynamicInfo");
+                        // adding this for possible future use, but not parsing it at this time
+                        // var blobT = guidKey.Values.FirstOrDefault(t => t.ValueName == "Triggers");
 
-                    var lastStartRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 0xc);
-                    if (lastStartRaw > 0)
-                    {
-                        lastStart = DateTimeOffset.FromFileTime(lastStartRaw).ToUniversalTime();
-                    }
+                        var ver = -1;
+                        DateTimeOffset created;
+                        DateTimeOffset? lastStart = null;
+                        DateTimeOffset? lastStop = null;
+                        var taskState = -1;
+                        var lastActionResult = -1;
 
-                    var lastStopRaw = BitConverter.ToInt64(blobDI.ValueDataRaw, 0x1c);
-                    if (lastStopRaw > 0)
-                    {
-                        lastStop = DateTimeOffset.FromFileTime(lastStopRaw).ToUniversalTime();
-                    }
-
-                    lastActionResult = BitConverter.ToInt32(blobDI.ValueDataRaw, 0x18);
-                    taskState = BitConverter.ToInt32(blobDI.ValueDataRaw, 0x14);
-
-                    // Parse Actions
-                    var command = string.Empty;
-                    var arguments = string.Empty;
-
-                    if (blobA != null && blobA.ValueDataRaw != null && blobA.ValueDataRaw.Length >= 4)
-                    {
-                        try
+                        //0x1C bytes (Windows 7: no last stop time) or 0x24; a shorter one is an error for this task, not the key
+                        if (blobDI == null)
                         {
-                            var rawA = blobA.ValueDataRaw;
-                            var contextLen = BitConverter.ToInt32(rawA, 2);
-                            var magicOffset = 6 + contextLen;
+                            continue;
+                        }
 
-                            if (magicOffset + 2 <= rawA.Length)
+                        var dynamicInfo = blobDI.ValueDataRaw;
+                        if (dynamicInfo.Length < 0x1C)
+                        {
+                            Errors.Add($"Error processing TaskCache key '{gkn}': DynamicInfo has {dynamicInfo.Length} bytes, not at least 28");
+                            continue;
+                        }
+
+                        // Parse DynamicInfo
+                        ver = BitConverter.ToInt32(dynamicInfo, 0);
+                        var createdRaw = BitConverter.ToInt64(dynamicInfo, 4);
+                        created = DateTimeOffset.FromFileTime(createdRaw).ToUniversalTime();
+
+                        var lastStartRaw = BitConverter.ToInt64(dynamicInfo, 0xc);
+                        if (lastStartRaw > 0)
+                        {
+                            lastStart = DateTimeOffset.FromFileTime(lastStartRaw).ToUniversalTime();
+                        }
+
+                        if (dynamicInfo.Length >= 0x24)
+                        {
+                            var lastStopRaw = BitConverter.ToInt64(dynamicInfo, 0x1c);
+                            if (lastStopRaw > 0)
                             {
-                                var magic = BitConverter.ToInt16(rawA, magicOffset);
+                                lastStop = DateTimeOffset.FromFileTime(lastStopRaw).ToUniversalTime();
+                            }
+                        }
 
-                                // 0x6666 indicates an Execution Action
-                                if (magic == 0x6666)
+                        lastActionResult = BitConverter.ToInt32(dynamicInfo, 0x18);
+                        taskState = BitConverter.ToInt32(dynamicInfo, 0x14);
+
+                        // Parse Actions
+                        var command = string.Empty;
+                        var arguments = string.Empty;
+
+                        if (blobA != null && blobA.ValueDataRaw != null && blobA.ValueDataRaw.Length >= 4)
+                        {
+                            try
+                            {
+                                var rawA = blobA.ValueDataRaw;
+                                var contextLen = BitConverter.ToInt32(rawA, 2);
+                                var magicOffset = 6 + contextLen;
+
+                                if (magicOffset + 2 <= rawA.Length)
                                 {
-                                    var cmdLenOffset = magicOffset + 6;
-                                    var cmdLen = BitConverter.ToInt32(rawA, cmdLenOffset);
-                                    var cmdOffset = cmdLenOffset + 4;
+                                    var magic = BitConverter.ToInt16(rawA, magicOffset);
 
-                                    if (cmdLen > 0 && cmdOffset + cmdLen <= rawA.Length)
+                                    // 0x6666 indicates an Execution Action
+                                    if (magic == 0x6666)
                                     {
-                                        command = System.Text.Encoding.Unicode.GetString(rawA, cmdOffset, cmdLen).TrimEnd('\0');
-                                    }
+                                        var cmdLenOffset = magicOffset + 6;
+                                        var cmdLen = BitConverter.ToInt32(rawA, cmdLenOffset);
+                                        var cmdOffset = cmdLenOffset + 4;
 
-                                    var argLenOffset = cmdOffset + cmdLen;
-                                    var argLen = BitConverter.ToInt32(rawA, argLenOffset);
-                                    var argOffset = argLenOffset + 4;
+                                        if (cmdLen > 0 && cmdOffset + cmdLen <= rawA.Length)
+                                        {
+                                            command = System.Text.Encoding.Unicode.GetString(rawA, cmdOffset, cmdLen).TrimEnd('\0');
+                                        }
 
-                                    if (argLen > 0 && argOffset + argLen <= rawA.Length)
-                                    {
-                                        arguments = System.Text.Encoding.Unicode.GetString(rawA, argOffset, argLen).TrimEnd('\0');
+                                        var argLenOffset = cmdOffset + cmdLen;
+                                        var argLen = BitConverter.ToInt32(rawA, argLenOffset);
+                                        var argOffset = argLenOffset + 4;
+
+                                        if (argLen > 0 && argOffset + argLen <= rawA.Length)
+                                        {
+                                            arguments = System.Text.Encoding.Unicode.GetString(rawA, argOffset, argLen).TrimEnd('\0');
+                                        }
                                     }
                                 }
                             }
+                            catch (Exception)
+                            {
+                                command = "Error parsing Actions binary";
+                            }
                         }
-                        catch (Exception)
-                        {
-                            command = "Error parsing Actions binary";
-                        }
+
+                        var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, secdesc?.ValueData, author?.ValueData, path?.ValueData, command, arguments);
+
+                        v.BatchKeyPath = guidKey.KeyPath;
+                        v.BatchValueName = blobDI.ValueName;
+
+                        _values.Add(v);
                     }
-
-                    var v = new ValuesOut(ver, gkn, created, lastStart, lastStop, taskState, lastActionResult, source?.ValueData, desc?.ValueData, secdesc?.ValueData, author?.ValueData, path?.ValueData, command, arguments);
-
-                    _values.Add(v);
+                    catch (Exception ex)
+                    {
+                        //one task: the others are still listed
+                        Errors.Add($"Error processing TaskCache key '{gkn}': {ex.Message}");
+                    }
                 }
             }
             catch (Exception ex)

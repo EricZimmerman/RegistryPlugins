@@ -44,7 +44,7 @@ public class Adobe : IRegistryPluginGrid
         public string LongDescription =>
             "Includes full path, last time file was opened, file name, file size, and page count";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -72,28 +72,24 @@ public class Adobe : IRegistryPluginGrid
                         {
                             try
                             {
-var fullPath = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tDIText")
-                                ?.ValueData;
-                            var lastOpened = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(recentFilesSubKey.Values
-                                .FirstOrDefault(t => t.ValueName == "sDate")
-                                ?.ValueDataRaw).Trim('\0');
-                            var fileName = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tFileName")
-                                ?.ValueData;
+                            //Reader 5.0 to 11.0 keep the strings as REG_BINARY ANSI text and have no sDate (the entry was lost)
+                            var fullPath = Text(recentFilesSubKey, "tDIText");
+                            var lastOpened = Text(recentFilesSubKey, "sDate");
+                            var fileName = Text(recentFilesSubKey, "tFileName");
                             var fileSizeRaw = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "uFileSize")
                                 ?.ValueDataRaw;
 
                             var fileSize = 0;
-                            if (fileSizeRaw != null)
+                            if (fileSizeRaw?.Length >= 4)
                             {
                                 fileSize = BitConverter.ToInt32(fileSizeRaw,0);
                             }
-                            var fileSource = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tFileSource")
-                                ?.ValueData;
+                            var fileSource = Text(recentFilesSubKey, "tFileSource");
                             var pageCountRaw = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "uPageCount")
                                 ?.ValueDataRaw;
 
                             var pageCount = 0;
-                            if (pageCountRaw != null)
+                            if (pageCountRaw?.Length >= 4)
                             {
                                 pageCount = BitConverter.ToInt32(pageCountRaw, 0);
                             }
@@ -128,7 +124,42 @@ var fullPath = recentFilesSubKey.Values.FirstOrDefault(t => t.ValueName == "tDIT
             }
         }
 
-        private DateTimeOffset ConvertToDTO(string input)
+        /// <summary>A string value, REG_SZ or REG_BINARY ANSI text; null when it isn't there</summary>
+        private static string Text(RegistryKey key, string valueName)
+        {
+            var value = key.Values.FirstOrDefault(t => t.ValueName == valueName);
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value.ValueType == "RegBinary")
+            {
+                return CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(value.ValueDataRaw).Trim('\0');
+            }
+
+            return value.ValueData;
+        }
+
+        /// <summary>sDate (D:yyyyMMddHHmmss and a time zone); null when there is none or it can't be read</summary>
+        private static DateTimeOffset? ConvertToDTO(string input)
+        {
+            if (string.IsNullOrEmpty(input) || input.Length < 16)
+            {
+                return null;
+            }
+
+            try
+            {
+                return ConvertDate(input);
+            }
+            catch (Exception e) when (e is FormatException || e is ArgumentException)
+            {
+                return null;
+            }
+        }
+
+        private static DateTimeOffset ConvertDate(string input)
         {
             var start = input.Substring(2);
 

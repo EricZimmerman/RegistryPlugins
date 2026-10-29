@@ -44,7 +44,7 @@ namespace RegistryPlugin.RecentDocs
             =>
                 "A list of all recent documents will be generated when clicking on the root RecentDocs key. A list for a certain extension will be generated when clicking on a subkey of RecentDocs";
 
-        public double Version => 0.5;
+        public double Version => 0.6;
         public List<string> Errors { get; }
 
         public void ProcessValues(RegistryKey key)
@@ -78,15 +78,24 @@ namespace RegistryPlugin.RecentDocs
                     var i = 0;
 
 
-                    var mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
-                    index += 4;
-
-                    while (mruPos != 0xFFFFFFFF)
+                    //up to 0xFFFFFFFF or the end of the value (one without it threw, and the key was lost); a position seen
+                    //before keeps its first place
+                    while (index + 4 <= mruList.ValueDataRaw.Length)
                     {
-                        mruPositions.Add(mruPos, i);
-                        i++;
-                        mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
+                        var mruPos = BitConverter.ToUInt32(mruList.ValueDataRaw, index);
                         index += 4;
+
+                        if (mruPos == 0xFFFFFFFF)
+                        {
+                            break;
+                        }
+
+                        if (mruPositions.ContainsKey(mruPos) == false)
+                        {
+                            mruPositions.Add(mruPos, i);
+                        }
+
+                        i++;
                     }
 
                     //mruPositions now contains a map of positions (the key) to the order it was opened (the value)    
@@ -100,135 +109,157 @@ namespace RegistryPlugin.RecentDocs
                         continue;
                     }
 
-                    var mru = mruPositions[uint.Parse(keyValue.ValueName)];
-
-                    var targetName = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Split('\0')[0];
-
-                    var offsetToRemainingData = targetName.Length * 2 + 2;
-
-                    //TODO do not use Skip. use Buffer.BlockCopy as its faster
-
-                    var remainingData = keyValue.ValueDataRaw.Skip(offsetToRemainingData).ToArray();
-
-                    index = 0;
-
-                    var chunkLen = BitConverter.ToUInt16(remainingData, index);
-
-                    var chunks = new List<byte[]>();
-
-                    while (remainingData.Length > index)
+                    //settings such as CachePrefix are not entries (one ended the key with an error)
+                    if (uint.TryParse(keyValue.ValueName, out var valueNumber) == false)
                     {
-                        var chunk = remainingData.Skip(index).Take(chunkLen).ToArray();
+                        continue;
+                    }
 
-                        chunks.Add(chunk);
+                    try
+                    {
+                        var mru = mruPositions.TryGetValue(valueNumber, out var position) ? position : -1;
 
-                        index += chunkLen;
+                        var targetName = Encoding.Unicode.GetString(keyValue.ValueDataRaw).Split('\0')[0];
 
-                        chunkLen = BitConverter.ToUInt16(remainingData, index);
+                        var offsetToRemainingData = targetName.Length * 2 + 2;
 
-                        if (chunkLen == 0)
+                        //TODO do not use Skip. use Buffer.BlockCopy as its faster
+
+                        var remainingData = keyValue.ValueDataRaw.Skip(offsetToRemainingData).ToArray();
+
+                        index = 0;
+
+                        var chunkLen = remainingData.Length >= 2 ? BitConverter.ToUInt16(remainingData, index) : (ushort) 0;
+
+                        var chunks = new List<byte[]>();
+
+                        while (remainingData.Length > index)
                         {
-                            break;
-                        }
-                    }
+                            var chunk = remainingData.Skip(index).Take(chunkLen).ToArray();
 
-                    index = 2; //skip chunk length
-                    var lnkNameType = chunks[0][index]; // if 32, its unicode, if 36, ascii
-                    index += 12; //skip type that always seems to be [32|36]-00-00-00-00-00-00-00-00-00-00-00-
+                            chunks.Add(chunk);
 
-                    var lnkName = "";
+                            index += chunkLen;
 
-                    if (lnkNameType == 36)
-                    {
-                        lnkName = Encoding.Unicode.GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
-                        index += lnkName.Length * 2;
-                    }
-                    else
-                    {
-                        lnkName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
-                        index += lnkName.Length;
-                    }
+                            //a value can end with its last chunk, without the 0 after it (reading one threw)
+                            chunkLen = index + 2 <= remainingData.Length ? BitConverter.ToUInt16(remainingData, index) : (ushort) 0;
 
-                    while (index <= chunks[0].Length - 4)
-                    {
-                        if (BitConverter.ToUInt32(chunks[0], index) == 0xbeef0004)
-                        {
-                            break;
-                        }
-                        index += 1; //move until our signature
-                    }
-
-                    index -= 4; //jump back to start of extension block
-
-                    var beefBytes = chunks[0].Skip(index).ToArray();
-
-                    var sig = BitConverter.ToUInt32(beefBytes, 4);
-                    var beef = (Beef0004) Utils.GetExtensionBlockFromBytes(sig, beefBytes);
-
-                    DateTimeOffset? openedOn = null;
-
-                    if (mru == 0)
-                    {
-                        openedOn = key.LastWriteTime;
-                    }
-
-                    DateTimeOffset? extLastOpened = null;
-
-                    var ext = Path.GetExtension(targetName).ToLowerInvariant();
-
-                    var targetName1 = string.Empty;
-
-                    if (ext.Length == 0)
-                    {
-                        //folder
-                        var sk1 = key.SubKeys.FirstOrDefault(t => t.KeyName == "Folder");
-                        var skmru = sk1?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
-
-                        if (skmru != null)
-                        {
-                            //get last accessed folder value name
-                            var mruPosf = BitConverter.ToInt32(skmru.ValueDataRaw, 0);
-
-                            //pull folder name from the value
-                            var val1 = sk1.Values.FirstOrDefault(t => t.ValueName == mruPosf.ToString());
-
-                            targetName1 = Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
+                            if (chunkLen == 0)
+                            {
+                                break;
+                            }
                         }
 
-                        if (sk1 != null && targetName1 == targetName)
+                        index = 2; //skip chunk length
+                        var lnkNameType = chunks[0][index]; // if 32, its unicode, if 36, ascii
+                        index += 12; //skip type that always seems to be [32|36]-00-00-00-00-00-00-00-00-00-00-00-
+
+                        var lnkName = "";
+
+                        if (lnkNameType == 36)
                         {
-                            extLastOpened = sk1.LastWriteTime;
+                            lnkName = Encoding.Unicode.GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
+                            index += lnkName.Length * 2;
                         }
+                        else
+                        {
+                            lnkName = CodePagesEncodingProvider.Instance.GetEncoding(1252).GetString(chunks[0].Skip(index).ToArray()).Split('\0')[0];
+                            index += lnkName.Length;
+                        }
+
+                        var found = false;
+                        while (index <= chunks[0].Length - 4)
+                        {
+                            if (BitConverter.ToUInt32(chunks[0], index) == 0xbeef0004)
+                            {
+                                found = true;
+                                break;
+                            }
+                            index += 1; //move until our signature
+                        }
+
+                        //no 0xbeef0004 block (or a damaged one): the name from the item instead of its long name
+                        Beef0004 beef = null;
+                        if (found && index >= 4)
+                        {
+                            index -= 4; //jump back to start of extension block
+
+                            var beefBytes = chunks[0].Skip(index).ToArray();
+
+                            var sig = BitConverter.ToUInt32(beefBytes, 4);
+                            beef = Utils.GetExtensionBlockFromBytes(sig, beefBytes) as Beef0004;
+                        }
+
+                        DateTimeOffset? openedOn = null;
+
+                        if (mru == 0)
+                        {
+                            openedOn = key.LastWriteTime;
+                        }
+
+                        DateTimeOffset? extLastOpened = null;
+
+                        var ext = Path.GetExtension(targetName).ToLowerInvariant();
+
+                        var targetName1 = string.Empty;
+
+                        if (ext.Length == 0)
+                        {
+                            //folder
+                            var sk1 = key.SubKeys.FirstOrDefault(t => t.KeyName == "Folder");
+                            var skmru = sk1?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
+
+                            if (skmru?.ValueDataRaw.Length >= 4)
+                            {
+                                //get last accessed folder value name
+                                var mruPosf = BitConverter.ToInt32(skmru.ValueDataRaw, 0);
+
+                                //pull folder name from the value
+                                var val1 = sk1.Values.FirstOrDefault(t => t.ValueName == mruPosf.ToString());
+
+                                targetName1 = val1 == null ? string.Empty : Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
+                            }
+
+                            if (sk1 != null && targetName1 == targetName)
+                            {
+                                extLastOpened = sk1.LastWriteTime;
+                            }
+                        }
+                        else
+                        {
+                            var sk2 = key.SubKeys.FirstOrDefault(t => t.KeyName.ToLowerInvariant() == ext);
+                            var skmruf = sk2?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
+
+                            if (skmruf?.ValueDataRaw.Length >= 4)
+                            {
+                                //get last accessed folder value name
+                                var mruPosff = BitConverter.ToInt32(skmruf.ValueDataRaw, 0);
+
+                                //pull folder name from the value
+                                var val1 = sk2.Values.FirstOrDefault(t => t.ValueName == mruPosff.ToString());
+
+                                targetName1 = val1 == null ? string.Empty : Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
+                            }
+
+                            if (sk2 != null && targetName1 == targetName)
+                            {
+                                extLastOpened = sk2.LastWriteTime;
+                            }
+                        }
+
+
+                        var rd = new RecentDoc(mru, keyValue.ValueName, targetName,  beef?.LongName ?? lnkName, key.KeyName, openedOn, extLastOpened);
+
+                        rd.BatchKeyPath = key.KeyPath;
+                        rd.BatchValueName = keyValue.ValueName;
+
+                        l.Add(rd);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        var sk2 = key.SubKeys.FirstOrDefault(t => t.KeyName.ToLowerInvariant() == ext);
-                        var skmruf = sk2?.Values.FirstOrDefault(t => t.ValueName == "MRUListEx");
-
-                        if (skmruf != null)
-                        {
-                            //get last accessed folder value name
-                            var mruPosff = BitConverter.ToInt32(skmruf.ValueDataRaw, 0);
-
-                            //pull folder name from the value
-                            var val1 = sk2.Values.FirstOrDefault(t => t.ValueName == mruPosff.ToString());
-
-                            targetName1 = Encoding.Unicode.GetString(val1.ValueDataRaw).Split('\0')[0];
-                        }
-
-                        if (sk2 != null && targetName1 == targetName)
-                        {
-                            extLastOpened = sk2.LastWriteTime;
-                        }
+                        //one value: the others are still listed
+                        Errors.Add($"Error processing recent key ({key.KeyPath}), value {keyValue.ValueName}: {ex.Message}");
                     }
-
-
-                    var rd = new RecentDoc(mru, keyValue.ValueName, targetName,  beef.LongName, key.KeyName, openedOn, extLastOpened);
-
-                    rd.BatchKeyPath = key.KeyPath;
-                    rd.BatchValueName = keyValue.ValueName;
-
-                    l.Add(rd);
                 }
             }
             catch (Exception ex)

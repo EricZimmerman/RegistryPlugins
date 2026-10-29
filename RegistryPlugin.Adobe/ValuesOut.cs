@@ -9,7 +9,7 @@ namespace RegistryPlugin.Adobe
 {
     public class ValuesOut:IValueOut
     {
-        public ValuesOut(string productName, string productVersion, string fullPath, DateTimeOffset lastOpened, string fileName, int fileSize, string fileSource, int pageCount)
+        public ValuesOut(string productName, string productVersion, string fullPath, DateTimeOffset? lastOpened, string fileName, int fileSize, string fileSource, int pageCount)
         {
             ProductName = productName;
             ProductVersion = productVersion;
@@ -24,7 +24,7 @@ namespace RegistryPlugin.Adobe
         public string ProductName { get; }
         public string ProductVersion { get; }
         public string FullPath { get; }
-        public DateTimeOffset LastOpened { get; }
+        public DateTimeOffset? LastOpened { get; }
         public string FileName { get; }
         public int FileSize { get; }
         public string FileSource { get; }
@@ -34,6 +34,6 @@ namespace RegistryPlugin.Adobe
         public string BatchValueName { get; set; }
         public string BatchValueData1 => $"Product: {ProductName} {ProductVersion}";
         public string BatchValueData2 => $"FullPath: {FullPath}";
-        public string BatchValueData3 => $"LastOpened: {LastOpened.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
+        public string BatchValueData3 => $"LastOpened: {LastOpened?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}";
     }
 }

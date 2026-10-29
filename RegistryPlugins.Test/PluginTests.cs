@@ -71,6 +71,99 @@ public class PluginTests
         r.AlertMessage.Should().Contain("'2'");
     }
 
+    /// <summary>
+    ///     Issues #261 (RegistryPlugins #66 again after the move to ExtensionBlocks): an FTP share opened in WordPad's file
+    ///     dialog. The 0x61 URI item threw (a size read after its end) and the FTP file item after it was read as a server name
+    /// </summary>
+    [Test]
+    public void FtpShellItemsInComDlg32()
+    {
+        var reg = TestHives.Corpus(@"Issues261\User.dat");
+        reg.ParseHive();
+
+        var lastVisited = new LastVisitedPidlMRU();
+        lastVisited.ProcessValues(reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU"));
+
+        lastVisited.Errors.Should().BeEmpty();
+        lastVisited.Values.Cast<RegistryPlugin.LastVisitedPidlMRU.ValuesOut>().Select(t => t.AbsolutePath)
+            .Should().Contain(@"Internet Folder\cygwin.mirror.rafal.ca");
+
+        var openSave = new OpenSavePidlMRU();
+        openSave.ProcessValues(reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU"));
+
+        openSave.Errors.Should().BeEmpty();
+        var txt = openSave.Values.Cast<RegistryPlugin.OpenSavePidlMRU.ValuesOut>().Single(t => t.Extension == "txt");
+        txt.AbsolutePath.Should().Be(@"Internet Folder\cygwin.mirror.rafal.ca\robots.txt");
+        txt.Details.Should().Contain("FTP file time: ").And.Contain("File size: 26");
+    }
+
+    /// <summary>
+    ///     A CachePrefix value in RecentDocs (a setting, not an entry; here a recovered deleted value) was an error (after the
+    ///     entries, which were listed)
+    /// </summary>
+    [Test]
+    public void RecentDocsWithCachePrefix()
+    {
+        var reg = TestHives.Corpus(@"ntuser1.dat");
+        reg.RecoverDeleted = true;
+        reg.ParseHive();
+
+        var key = reg.GetKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs");
+        key.Values.Should().Contain(t => t.ValueName == "CachePrefix");
+
+        var r = new RecentDocs();
+        r.ProcessValues(key);
+
+        r.Errors.Should().BeEmpty();
+        r.Values.Cast<RecentDoc>().Where(t => t.Extension == "RecentDocs").Should().NotBeEmpty();
+    }
+
+    /// <summary>Windows 7's DynamicInfo has 28 bytes (no last stop time): reading one at 0x1C ended the key with an error</summary>
+    [Test]
+    public void TaskCacheWindows7()
+    {
+        var reg = TestHives.Corpus(@"ALL\SOFTWARE_harlan");
+        reg.ParseHive();
+
+        var r = new TaskCache();
+        r.ProcessValues(reg.GetKey(@"Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks"));
+
+        r.Errors.Should().BeEmpty();
+        var values = r.Values.Cast<RegistryPlugin.TaskCache.ValuesOut>().ToList();
+        values.Should().HaveCount(86);
+        values.Should().OnlyContain(t => t.LastStop == null && t.BatchKeyPath != null);
+    }
+
+    /// <summary>Office 2010's Max Display value (a REG_DWORD) ended File MRU and Place MRU with an error</summary>
+    [Test]
+    public void OfficeMruMaxDisplay()
+    {
+        var reg = TestHives.Corpus(@"usrclass and hive examples\HivesforSB\AdminLaptop\NTUSER.DAT");
+        reg.ParseHive();
+
+        var r = new OfficeMRU();
+        r.ProcessValues(reg.GetKey(@"Software\Microsoft\Office\14.0\Excel\File MRU"));
+
+        r.Errors.Should().BeEmpty();
+        r.Values.Count.Should().Be(50);
+    }
+
+    /// <summary>Acrobat Reader 7.0 keeps the recent files' strings as REG_BINARY and has no sDate: every entry was an error</summary>
+    [Test]
+    public void AdobeReader7()
+    {
+        var reg = TestHives.Corpus(@"ntuserNokiaShellBags.dat");
+        reg.ParseHive();
+
+        var r = new Adobe();
+        r.ProcessValues(reg.GetKey(@"Software\Adobe"));
+
+        r.Errors.Should().BeEmpty();
+        var values = r.Values.Cast<RegistryPlugin.Adobe.ValuesOut>().Where(t => t.ProductVersion == "7.0").ToList();
+        values.Should().NotBeEmpty();
+        values.Should().OnlyContain(t => t.FullPath.StartsWith("/") && t.LastOpened == null);
+    }
+
     [Test]
     public void TaskCache()
     {
