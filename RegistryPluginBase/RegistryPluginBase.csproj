@@ -18,7 +18,7 @@
     <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.14" />
     <PackageReference Include="ExtensionBlocks" Version="2026.10.9" />
     <PackageReference Include="GuidMapping" Version="2026.10.2" />
     <PackageReference Include="Registry" Version="2026.10.1" />
